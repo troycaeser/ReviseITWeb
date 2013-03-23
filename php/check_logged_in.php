@@ -3,7 +3,7 @@
 	include 'init.php';
 	include 'role.php';
 
-	if (isset($_SESSION['UserID']) && $_SESSION['UserID'] != false) {
+	if (isset($_SESSION['UserID'])) {
 
 	} else {
 		session_destroy();
