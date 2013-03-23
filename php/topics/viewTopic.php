@@ -44,7 +44,7 @@
 				?>
 
 				<div class="page-header">
-					<h1>Topics List</h1>
+					<h1>Topics Lists</h1>
 				</div>
 				
 				<div class="row-fluid">
