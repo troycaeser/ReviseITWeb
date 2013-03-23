@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Create Topic</title>
+<link rel="stylesheet" href="../../assets/css/version1.css">
+<link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
+</head>
+
+<body>
+<!-- Form created to add a new Topic -->
+<form action="newTopic.php" method="post">
+<table border="1" align="center">
+   	<input type="hidden" id="topicID" name="topID" />
+    
+    <tr>
+        <td><label for="topicN">Topic Name</label></td>
+        <td><input type="text" id="topicName" name="strtopicName" /></td>
+	</tr>
+    
+	<input type="hidden" id="SubjectID" name="subID" />
+    
+    <tr>
+    	<td><label for="subCode">Subject Code</label></td>
+        <td><input type="text" id="subjectCode" name="strsubjectCode" /></td>
+    </tr>
+    
+    <tr>
+    	<td><label for="subTopic">Send Subject Topic</label></td>
+        <td><input type="submit" value="Submit" name="Submit"/> <input type="reset" value="Clear" /></td>
+</table>
+</form>
+</body>
+</html>
