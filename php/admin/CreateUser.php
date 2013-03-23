@@ -1,38 +1,24 @@
+<?php
+  include '../init.php';
+  require '../check_logged_in.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width-device-width, initial-scale=1.0">
-<title>ReviseIT - Admin - Create Account</title>
-<link rel="stylesheet" href="../../assets/css/version1.css">
-<link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
 <?php 
-require_once("../../DAL/Verification.php"); require_once("../../DAL/DataAccessLayer.php"); ?>
+  require_once("../../DAL/Verification.php"); require_once("../../DAL/DataAccessLayer.php");
+  include '../header_container.php';
+?>
 </head>
 <body>
 </head>
 <body>
-<div class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container"> <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-th-list"></span> </a> <a href="#" class="brand">reviseIT</a>
-      <p class="nav navbar-text">user type: <strong>Admin</strong></p>
-      <div class="nav-collapse collapse">
-        <ul class="nav pull-right">
-          <li class="active"><a href="admin_Home.php">Home</a></li>
-          <li><a href="../php/subjects/all_Subjects.php">Subjects</a></li>
-          <li><a href="#">Enrol</a></li>
-          <li><a href="#">Account</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<br />
-<br />
+  <?php
+    include 'admin_menu_bar.php';
+  ?>
+<br /><br />
 <div class="container">
-  <div class="welcome">
-    <h5>Welcome, Admin</h5>
-  </div>
   <div class="page-header">
     <h1>Revise IT - Create New User Account</h1>
   </div>

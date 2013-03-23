@@ -1,6 +1,7 @@
 <?php
 
 	include '../init.php';
+	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
 
