@@ -22,10 +22,9 @@
 				$errors[] = 'username and password do not match.';
 			}
 			else{
-				echo("Logged in");
 				//set the user session as the user ID, it is unique. $login returns user ID.
 				$_SESSION['UserID'] = $login;
-
+				
 				//gets the role of the username
 				include 'role.php';
  			    $role = user_type_from_username($username);

@@ -1,3 +1,8 @@
+<?php
+	include '../init.php';
+	include '../check_logged_in.php';
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -58,4 +63,5 @@
 
 <?php
 	echo $_SESSION['UserID'];
+	echo $_SESSION['loggedin'];
 ?>
