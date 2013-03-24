@@ -57,31 +57,29 @@
 						$SQL = mysql_query($query)
 							or die("Problem loading query ".mysql_error());
 						
-						echo "<div class='span8'";
+						echo "<div class='span8'>";
 							echo"<div class='row-fluid'>";
 								echo "<div class='span2'><h4>Topic ID</h4></div>";
-								echo "<div class='span6'><h4>Topic Name</h4></div>";
+								echo "<div class='span4'><h4>Topic Name</h4></div>";
 								echo "<div class='span2'><h4>Edit Topic</h4></div>";
-								echo "<div class='span2'><h4>Delete Topic</h4></div>";
+								echo "<div class='span4'><h4>Delete Topic</h4></div>";
 							echo "</div>";
 
 						while($row = mysql_fetch_array($SQL))
 						{
 							$id=$row['TopicID'];
+							
 							echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";
 								echo "<div name='topic_ID".$row['TopicID']."' id='".$row['TopicID']."' class='row-fluid'>";
 									echo "<div class='span2'>".$row['TopicID']."</div>";
-									echo "<div class='span6'>".$row['TopicName']."</div>";
+									echo "<div class='span4'>".$row['TopicName']."</div>";
 									echo "<div class='span2'><a href='editTopic.php?ID=".$row['TopicID']."'>".Edit."</a></div>";
-									echo "<div class='span2'><a href='deleteTopic.php?ID=".$row['TopicID']."' onclick='confirm_delete();'>".Delete."</a></div>";
+									echo "<div class='span4'><a href='deleteTopic.php?ID=".$row['TopicID']."' onclick='confirm_delete();'>".Delete."</a></div>";
 								echo "</div>";
 							echo "</a>";
 
 						}
-						/*
-						echo '</table>';
-						echo '<br />';
-						echo '<a href="../newtopic.html">Add New Topic</a>';*/
+						//echo '<a href="../newtopic.html">Add New Topic</a>';
 
 
 						echo "</div>";
@@ -107,12 +105,17 @@
 			?>
 
 		<script>	
-			function confirm_delete(){
+			function confirm_delete()
+			{
 				var deleteIt = confirm('Do you wish to delete this record?');
 				
-				if(deleteIT){
-				}else{
-					location.reload(true);
+				if(deleteIT)
+				{
+					
+				}
+				else
+				{
+					window.location.reload(true);
 				}
 			}
 		</script>
