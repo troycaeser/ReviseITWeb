@@ -1,14 +1,13 @@
 <?php
 
 	include 'init.php';
+	include 'role.php';
 
-	echo $_SESSION['loggedin'];
+	if (isset($_SESSION['UserID'])) {
 
-	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-		echo "yup";
 	} else {
-	    echo "You are not logged in, Access denied";
-	    //header("Location: ../../index.php");
+		session_destroy();
+		header("Location: ../access_denied_login.php");
 	}
 
 ?>

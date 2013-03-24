@@ -8,7 +8,7 @@
 	<div class="span4">
 		<h3>Manage All Users!</h3>
 		<p>Create, Edit and Delete all the users!</p>
-		<a>All Users</a>
+		<a href='all_Accounts.php'>All Users</a>
 	</div>
 	<div class="span4">
 		<h3>See All Subjects!</h3>

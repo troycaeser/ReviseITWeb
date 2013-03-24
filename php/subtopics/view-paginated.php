@@ -1,32 +1,22 @@
+<?php
+    include '../init.php';
+    require '../check_logged_in.php';
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 </head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" href="version1.css">
-        <link rel="stylesheet" href="bootstrap-responsive.css">
+	<?php
+        include '../header_container.php';
+    ?>
+    <title>ReviseIT - Add Topic</title>
 <body>
+    <?php
+        include 'subtopics_menu_bar.php';
+    ?>
 
-<div class="navbar navbar-fixed-top navbar-inverse">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-th-list"></span>
-					</a>
-					<a href="#" class="brand">reviseIT</a>
-					<p class="nav navbar-text">user type: <strong>administrator</strong></p>
-					<div class="nav-collapse collapse">
-						<ul class="nav pull-right">
-							<li class="active"><a href="#">Home</a></li>
-							<li><a href="#">Accounts</a></li>
-							<li><a href="#">Subjects</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<br /><br />
+	<br /><br />
 
 <div class="container">
 
@@ -163,7 +153,7 @@
 		
     <!-- Footer -->
 		<?php
-			include 'footer.php';
+			include '../footer.php';
 		?>
     		
                 
