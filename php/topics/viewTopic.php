@@ -80,8 +80,6 @@
 
 						}
 						//echo '<a href="../newtopic.html">Add New Topic</a>';
-
-
 						echo "</div>";
 					?>
 					<div class="span4">
@@ -94,9 +92,7 @@
 							<li><a href="#">About Us</a></li>
 						</ul>
 					</div>
-
 				</div>
-
 			</div>
 
 			<!-- Footer -->
@@ -115,7 +111,7 @@
 				}
 				else
 				{
-					window.location.reload(true);
+					location.reload(true);
 				}
 			}
 		</script>
