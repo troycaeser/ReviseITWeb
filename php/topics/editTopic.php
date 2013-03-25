@@ -4,7 +4,6 @@
 
 	$topic_ID = $_GET['ID'];
 
-	//$path_parts['filename'] echoes out the last part of the url.
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
