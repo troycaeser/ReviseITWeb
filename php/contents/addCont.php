@@ -19,9 +19,6 @@
 		<br /><br />
 
 		<div class="container">
-			<?php
-				include '../welcome.php';
-			?>
 
 			<div class="page-header">
 				<h1>Add Content to subtopic</h1>

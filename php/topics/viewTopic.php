@@ -17,7 +17,6 @@
 	</head>
 
 	<body>
-
 			<?php
 				include 'topics_menu_bar.php';
 			?>
@@ -60,11 +59,13 @@
 									echo "<div class='span4'>".$row['TopicName']."</div>";
 									echo "<div class='span2'><a href='editTopic.php?ID=".$row['TopicID']."'>".Edit."</a></div>";
 									echo "<div class='span4'><input type='button' value='Delete' onclick='confirm_delete()'></div>";
+									echo "<div class='span4'><a href='deleteTopic.php?ID=".$row['TopicID']."' onclick='confirm_delete();'>".Delete."</a></div>";
 								echo "</div>";
 							echo "</a>";
 
 						}
 						echo '<br><a href="newtopic.html">Add New Topic</a>';
+						//echo '<a href="../newtopic.html">Add New Topic</a>';
 						echo "</div>";
 					?>
                     
@@ -96,6 +97,13 @@
 					<?php
 						echo "window.location.href = 'deleteTopic.php?ID=".$row['TopicID']."'";
 					?>
+			function confirm_delete()
+			{
+				var deleteIt = confirm('Do you wish to delete this record?');
+				
+				if(deleteIT)
+				{
+					
 				}
 				else
 				{
