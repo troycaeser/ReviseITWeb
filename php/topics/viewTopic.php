@@ -37,7 +37,6 @@
 					<?php
 
 						//select topic accoding to subject id.
-						//$query = "SELECT * FROM topic WHERE SubjectID = '".$path_parts['filename']."'";
 						$query = "SELECT * FROM topic WHERE SubjectID = '".$subject_ID."'";
 
 						$SQL = mysql_query($query)
@@ -60,18 +59,19 @@
 									echo "<div class='span2'>".$row['TopicID']."</div>";
 									echo "<div class='span4'>".$row['TopicName']."</div>";
 									echo "<div class='span2'><a href='editTopic.php?ID=".$row['TopicID']."'>".Edit."</a></div>";
-									echo "<div class='span4'><a href='deleteTopic.php?ID=".$row['TopicID']."' onclick='confirm_delete();'>".Delete."</a></div>";
+									echo "<div class='span4'><input type='button' value='Delete' onclick='confirm_delete()'></div>";
 								echo "</div>";
 							echo "</a>";
 
 						}
-						//echo '<a href="../newtopic.html">Add New Topic</a>';
+						echo '<br><a href="newtopic.html">Add New Topic</a>';
 						echo "</div>";
 					?>
+                    
 					<div class="span4">
 						<ul class="nav nav-list">
 							<li class="nav-header">Quick Access</li>
-							<li class="active"><a href="create_subject.php">Create Subjects</a></li>
+							<li class="active"><a href="../subjects/create_subject.php">Create Subjects</a></li>
 							<li><a href="#">Account details</a></li>
 							<li><a href="#">My account</a></li>
 							<li class="divider"></li>
@@ -87,13 +87,15 @@
 			?>
 
 		<script>	
-			function confirm_delete()
+			function confirm_delete(id)
 			{
-				var deleteIt = confirm('Do you wish to delete this record?');
+				var deleteIT = confirm('Do you wish to delete this record?');
 				
 				if(deleteIT)
 				{
-					
+					<?php
+						echo "window.location.href = 'deleteTopic.php?ID=".$row['TopicID']."'";
+					?>
 				}
 				else
 				{
