@@ -23,7 +23,7 @@
 <div class="container">
 
 	<div class="page-header">
-        <h1>Subtopics</h1>
+        <h1>Subtopic</h1>
     </div>
 
 <?php
