@@ -5,33 +5,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-			<meta charset="utf-8">
-			<meta name="viewport" content="width-device-width, initial-scale=1.0">
-			<title>ReviseIT - Teacher</title>
-			<link rel="stylesheet" href="../../assets/css/version1.css">
-			<link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
+		<?php
+			include '../header_container.php';
+		?>
+		<title></title>
 	</head>
 	<body>
 
-		<div class="navbar navbar-fixed-top navbar-inverse">
-			<div class="navbar-inner">
-				<div class="container">
-					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						<span class="icon-th-list"></span>
-					</a>
-					<a href="#" class="brand">reviseIT</a>
-					<p class="nav navbar-text">user type: <strong>teachers</strong></p>
-					<div class="nav-collapse collapse">
-						<ul class="nav pull-right">
-							<li class="active"><a href="#">Home</a></li>
-							<li><a href="#">Subjects</a></li>
-							<li><a href="#">Enrol</a></li>
-							<li><a href="#">Account</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
+		<?php
+			include 'teacher_menu_bar.php';
+		?>
 
 		<br /><br />
 
