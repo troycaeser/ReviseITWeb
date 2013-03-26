@@ -34,7 +34,7 @@
 				provideAccess($role);
 			}
 		}
-		print_r($errors);
+		//print_r($errors);
 
 	}
 
