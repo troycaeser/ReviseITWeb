@@ -2,8 +2,6 @@
 	require('../init.php');
 
 	$topic_ID = $_GET['ID'];
-
-	//$path_parts['filename'] echoes out the last part of the url.
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -17,14 +15,20 @@
 <body>
 
 	<?php
-		$query = 'SELECT * FROM topic WHERE TopicID="'.$topic_ID.'"';
+		$query = 'UPDATE topic SET deletionStatus = 1 WHERE SubjectID="'.$topic_ID.'"';
+		
+		$SQL = mysql_query($query)
+			or die("Problem executing query ".mysql_error());
+			
+		$query2 = "SELECT * FROM topic WHERE TopicID = '".$topic_ID."'";
+		$SQL2 = mysql_query($query2)
+			or die("Problem loading query ".mysql_error());
 
 		echo "<table border='1'>";
 		echo "<th>TopicID</th><th>Topic Name</th>";
 		
-		while($row = mysql_fetch_array($query))
+		while($row = mysql_fetch_array($SQL2))
 		{
-			$id = $row['TopicID'];
 			echo "<tr>";
 			echo "<td>".$row['TopicID']."</td>";
 			echo "<td>".$row['TopicName']."</td>";
