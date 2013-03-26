@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width-device-width, initial-scale=1.0">
-		<title>Login</title>
+		<title>Login Page</title>
 		<link rel="stylesheet" href="assets/css/version1.css">
 		<link rel="stylesheet" href="assets/css/bootstrap-responsive.css">
 	</head>
@@ -21,7 +21,7 @@
 					<a href="#" class="brand">reviseIT</a>
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
-							<li class="active"><a href="student/EnterToken.php">Sign up</a></li>
+							<li class="active"><a href="php/student/EnterToken.php">Sign up</a></li>
 						</ul>
 					</div>
 				</div>

@@ -67,22 +67,11 @@
             <?php
 				while($row = mysql_fetch_array( $result )) {
 						
-						// Echo out the contents of each row into a table
-						//echo "<tr>";
-						
 						$id=$row['SubtopicID'];
-						
-						//echo '<td>' . $row['id'] . '</td>';
-						/*echo '<td><a href="content.php?id= $id "> ' . $row["SubtopicName"]. '</a></td>';
-						echo '<td>' . $row['Content'] . '</td>';
-						echo '<td>' . $row['DateUpdated'] . '</td>';
-						echo '<td><a href="edit.php?id=' . $row['SubtopicID'] . '">Edit</a></td>';
-						echo '<td><a href="delete.php?id=' . $row['SubtopicID'] . '">Delete</a></td>';
-						echo "</tr>"; */
 						
 						//echo contents in divs
 						echo "<a href='../contents/content.php?ID=".$row['SubtopicID']."'>";
-							echo "<div id='".$row['SubtopicName']."' class='row-fluid'>";
+							echo "<div id='".$row['SubtopicID']."' class='row-fluid'>";
 								echo "<div class='span3'>".$row['SubtopicName']."</div>";
 								echo "<div class='span4'>".$row['Content']."</div>";
 								echo "<div class='span2'>".$row['DateUpdated']."</div>";

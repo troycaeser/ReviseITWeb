@@ -59,11 +59,9 @@
 		 // If there are any errors, display them
 		 if ($error != '')
 		 {
-			echo '<div style="padding:4px; border:1px solid red; color:red;">'.$error.'</div>';
+			echo '<div>'.$error.'</div>';
 		 }
 	 } 
-	 // Connect to the database
-	 include('connect-db.php');
 	 
 	 // Check if the form has been submitted. If it has, start to process the form and save it to the database
 	 if (isset($_POST['submit']))
@@ -73,12 +71,13 @@
 		 //$Content = $_POST['Content'];
 		 $DateUpdated = $_POST['DateUpdated'];
 		 
-		 $ID = $row['SubtopicName'];
+		 //subtopic records
+		 //SubtopicID, SubtopicName, TopicID, Content, Downloads, DateUpdated
+		 //you need to have a way to get:
+		 //TopicID, Contents, DateUpdated (preferrably today).
 
-		 
-		 //selects subtopic id according to subtopicName.
-		 $data = mysql_query("SELECT TopicID FROM subtopic WHERE TopicID = TopicID AND subtopic.SubtopicName = '$SubtopicName'");
-		 
+		 //Topic -> Subtopic.
+
 		 // Save the data to the database
 		 $SQL = mysql_query("INSERT INTO subtopic VALUES(NULL, '".$SubtopicName."', '".$DateUpdated."', 0")
 			 		or die(mysql_error()); 
