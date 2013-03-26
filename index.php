@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width-device-width, initial-scale=1.0">
-		<title>Login</title>
+		<title>Login Page</title>
 		<link rel="stylesheet" href="assets/css/version1.css">
 		<link rel="stylesheet" href="assets/css/bootstrap-responsive.css">
 	</head>
