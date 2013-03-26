@@ -41,32 +41,54 @@
 						$SQL = mysql_query($query)
 							or die("Problem loading query ".mysql_error());
 						
-						echo "<div class='span8'>";
-							echo"<div class='row-fluid'>";
-								echo "<div class='span2'><h4>Topic ID</h4></div>";
-								echo "<div class='span4'><h4>Topic Name</h4></div>";
-								echo "<div class='span2'><h4>Edit Topic</h4></div>";
-								echo "<div class='span4'><h4>Delete Topic</h4></div>";
-							echo "</div>";
-
-						while($row = mysql_fetch_array($SQL))
+						$roleQuery = "SELECT * FROM users WHERE role = 4";
+						$roleSQL = mysql_query($roleQuery)
+							or die("Problem: cannot loading query ".mysql_error());
+						if($roleSQL)
 						{
-							$id=$row['TopicID'];
-							
-							echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";
-								echo "<div name='topic_ID".$row['TopicID']."' id='".$row['TopicID']."' class='row-fluid'>";
-									echo "<div class='span2'>".$row['TopicID']."</div>";
-									echo "<div class='span4'>".$row['TopicName']."</div>";
-									echo "<div class='span2'><a href='editTopic.php?ID=".$row['TopicID']."'>".Edit."</a></div>";
-									echo "<div class='span4'><input type='button' value='Delete' onclick='confirm_delete()'></div>";
-									echo "<div class='span4'><a href='deleteTopic.php?ID=".$row['TopicID']."' onclick='confirm_delete();'>".Delete."</a></div>";
+							echo "<div class='span8'>";
+								echo"<div class='row-fluid'>";
+									echo "<div><h4>Topic Name</h4></div>";
 								echo "</div>";
-							echo "</a>";
-
+								
+								while($row = mysql_fetch_array($SQL))
+								{
+								$id=$row['TopicID'];
+								
+								echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
+										echo "<div>".$row['TopicName']."</div>";
+									
+								echo "</a>";
+	
+								}
+								echo '<br><a href="newtopic.html">Add New Topic</a>';
+								echo "</div>";
 						}
-						echo '<br><a href="newtopic.html">Add New Topic</a>';
-						//echo '<a href="../newtopic.html">Add New Topic</a>';
-						echo "</div>";
+						
+						if($SQL)
+						{
+							echo "<div class='span8'>";
+								echo"<div class='row-fluid'>";
+									echo "<div class='span3'><h4>Topic Name</h4></div>";
+									echo "<div class='span6'><h4>Edit Topic</h4></div>";
+									echo "<div class='span3'><h4>Delete Topic</h4></div>";
+								echo "</div>";
+	
+							while($row = mysql_fetch_array($SQL))
+							{
+								$id=$row['TopicID'];
+								
+								echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
+										echo "<div class='span3'>".$row['TopicName']."</div>";
+										echo "<div class='span6'><a href='editTopic.php?ID=".$row['TopicID']."'>".Edit."</a></div>";
+										echo "<div class='span3'><input type='button' value='Delete' onclick='confirm_delete()'></div>";
+									
+								echo "</a>";
+	
+							}
+							echo '<br><a href="newtopic.html">Add New Topic</a>';
+							echo "</div>";
+						}
 					?>
                     
 					<div class="span4">
@@ -90,20 +112,15 @@
 		<script>	
 			function confirm_delete(id)
 			{
-				var deleteIT = confirm('Do you wish to delete this record?');
+				var deleteIT = confirm('Do you wish to mark this record for deletion?');
 				
 				if(deleteIT)
 				{
 					<?php
+						$id=$row['TopicID'];
+						
 						echo "window.location.href = 'deleteTopic.php?ID=".$row['TopicID']."'";
 					?>
-			function confirm_delete()
-			{
-				var deleteIt = confirm('Do you wish to delete this record?');
-				
-				if(deleteIT)
-				{
-					
 				}
 				else
 				{
