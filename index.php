@@ -21,7 +21,7 @@
 					<a href="#" class="brand">reviseIT</a>
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
-							<li class="active"><a href="student/EnterToken.php">Sign up</a></li>
+							<li class="active"><a href="php/student/EnterToken.php">Sign up</a></li>
 						</ul>
 					</div>
 				</div>

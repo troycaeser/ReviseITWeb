@@ -3,22 +3,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Enter Login Token</title>
-<?php require_once("../DAL/DataAccessLayer.php");
+<?php require_once("../../DAL/DataAccessLayer.php");
 $settoken = 0;
 $token = "";
 ?>
 </head>
 <body>
-<?php
-if (isset($_POST["submitNToken"])){
-	if ($_POST["token"] == NULL)
-            $settoken = 1;
-    else { $token = $_POST["token"];
-		if (enterToken($token))
-		header("Location: CreateAccount.php");
-	}
-}
-?>
+	<?php
+		if (isset($_POST["submitNToken"])){
+			if ($_POST["token"] == NULL)
+		            $settoken = 1;
+		    else { $token = $_POST["token"];
+				if (enterToken($token))
+				header("Location: CreateAccount.php");
+			}
+		}
+	?>
 <form method="post" action='<?php echo($_SERVER["PHP_SELF"]); ?>'>
 <table border="0"><tr><td><label for="token">Enter Token</label></td>
 <td><input type="text" name="token" id="token"  value="<?php echo($token); ?>" /></td></tr>
@@ -26,11 +26,12 @@ if (isset($_POST["submitNToken"])){
 <tr><td><input type="submit" name="reset" value="RESET" /></td>
 <td><input type="submit" name="submitNToken" value="SUBMIT" /></td></tr></table>
 </form>
-<?php if (isset($POST["reset"])){
-	$settoken = 0;
-	$token = "";
-}
-?>
+	<?php
+		if (isset($POST["reset"])){
+			$settoken = 0;
+			$token = "";
+		}
+	?>
 
 </body>
 </html>
