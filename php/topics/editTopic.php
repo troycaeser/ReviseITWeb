@@ -48,11 +48,11 @@
 	
 	if(isset($_POST['submit']))
 	{
-		header("Location:../viewTopic.php/".$row['SubjectID']);
+		//header("Location:../viewTopic.php/".$row['SubjectID']);
 		$topicName = $_POST['topicName'];
 		$subCode = $_POST['SubjCode'];
 					
-		$SQL = "UPDATE topic SET TopicName = '$topicName', SubjectCode = '$subCode' WHERE TopicID = '".$path_parts['filename']."'";
+		$SQL = "UPDATE topic SET TopicName = '$topicName', SubjectCode = '$subCode' WHERE TopicID = '".$topic_ID."'";
 		
 		$query = mysql_query($SQL)
 			or die("Problem updating table ".mysql_error());

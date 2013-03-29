@@ -2,8 +2,6 @@
 	require('../init.php');
 
 	$topic_ID = $_GET['ID'];
-
-	//$path_parts['filename'] echoes out the last part of the url.
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -17,21 +15,29 @@
 <body>
 
 	<?php
-		$query = 'SELECT * FROM topic WHERE TopicID="'.$topic_ID.'"';
-
-		echo "<table border='1'>";
-		echo "<th>TopicID</th><th>Topic Name</th>";
 		
-		while($row = mysql_fetch_array($query))
-		{
-			$id = $row['TopicID'];
-			echo "<tr>";
-			echo "<td>".$row['TopicID']."</td>";
-			echo "<td>".$row['TopicName']."</td>";
-			echo "</tr>";
-		}
-		echo "</table>";
+		$query = 'UPDATE topic SET deletionStatus = 1 WHERE TopicID="'.$topic_ID.'"';
+		
+		$SQL = mysql_query($query)
+			or die("Problem executing query ".mysql_error());
 	?>
+    
+    <script type="text/javascript">
+		alert("Topic has been marked for deletion");
+		
+		var delete_IT = confirm("do you wish to view Topics?");
+		
+		if(delete_IT)
+		{
+			<?php
+				$id=$row['TopicID'];
+					
+				echo "window.location.href = 'viewTopic.php?ID=".$topic_ID."'";
+			?>
+		}
+		
+		
+	</script>
 	
 	<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 	<script src="../../assets/js/bootstrap.js"></script>
