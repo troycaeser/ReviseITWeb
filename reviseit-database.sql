@@ -1,12 +1,12 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.5
+-- version 3.4.8
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1:3306
+-- Host: localhost:3306
 
--- Generation Time: Mar 08, 2013 at 05:06 AM
--- Server version: 5.5.29
--- PHP Version: 5.4.11
+-- Generation Time: Mar 26, 2013 at 04:16 AM
+-- Server version: 5.5.18
+-- PHP Version: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -93,14 +93,23 @@ CREATE TABLE `multichoice` (
 --
 
 CREATE TABLE `subject` (
-  `SubjectID` int(11) NOT NULL,
+  `SubjectID` int(11) NOT NULL AUTO_INCREMENT,
   `SubjectCode` varchar(50) NOT NULL,
   `SubjectName` varchar(50) NOT NULL,
   `UserID` int(11) NOT NULL,
   `Dateupdated` date NOT NULL,
   PRIMARY KEY (`SubjectID`),
   KEY `FK_subject` (`UserID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `subject`
+--
+
+INSERT INTO `subject` (`SubjectID`, `SubjectCode`, `SubjectName`, `UserID`, `Dateupdated`) VALUES
+(1, 'ICA337', 'Databasessssss', 2, '2013-03-18'),
+(2, 'ICA40111', 'Cert IV in Information Technology', 5, '2013-03-18'),
+(3, 'ICA337', 'Databasessssss', 2, '2013-03-18');
 
 -- --------------------------------------------------------
 
@@ -117,7 +126,15 @@ CREATE TABLE `subtopic` (
   `DateUpdated` date NOT NULL,
   PRIMARY KEY (`SubtopicID`),
   KEY `FK_subtopic` (`TopicID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `subtopic`
+--
+
+INSERT INTO `subtopic` (`SubtopicID`, `SubtopicName`, `TopicID`, `Content`, `Downloads`, `DateUpdated`) VALUES
+(1, 'Test Subtopic No. 2', 3, 'adsdfasdfasdfasdf', 15, '2013-03-22'),
+(2, 'SOMETHING 2', 4, '', 12, '2013-03-22');
 
 -- --------------------------------------------------------
 
@@ -143,7 +160,15 @@ CREATE TABLE `token` (
   `TokenCode` varchar(20) NOT NULL,
   `TokenDate` date NOT NULL,
   PRIMARY KEY (`TokenID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `token`
+--
+
+INSERT INTO `token` (`TokenID`, `TokenCode`, `TokenDate`) VALUES
+(1, '1234', '2013-03-15'),
+(2, '0000', '2013-03-15');
 
 -- --------------------------------------------------------
 
@@ -155,11 +180,21 @@ CREATE TABLE `topic` (
   `TopicID` int(5) NOT NULL AUTO_INCREMENT,
   `TopicName` varchar(50) NOT NULL,
   `SubjectID` int(11) NOT NULL,
-  `SubjectCode` int(5) NOT NULL,
+  `SubjectCode` varchar(15) NOT NULL,
   PRIMARY KEY (`TopicID`),
   KEY `FK_topic` (`SubjectCode`),
   KEY `FK_topicsub` (`SubjectID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `topic`
+--
+
+INSERT INTO `topic` (`TopicID`, `TopicName`, `SubjectID`, `SubjectCode`) VALUES
+(1, 'Insert an SQL Statement', 3, 'ICA337'),
+(2, 'Using $_Sessions[] Variables', 3, 'ICA337'),
+(3, 'What is PhoneGap?', 1, 'ICA50711'),
+(4, 'topic for subject id no. 2', 2, 'ICA40111');
 
 -- --------------------------------------------------------
 
@@ -190,15 +225,20 @@ CREATE TABLE `users` (
   `password` varchar(50) NOT NULL,
   `role` int(1) NOT NULL COMMENT '1 = Admin, 2 = Coordinator, 3 = Teacher, 4 = Student',
   PRIMARY KEY (`UserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`UserID`, `fName`, `lName`, `username`, `password`, `role`) VALUES
-(1, 'Kris', 'Vega', 'veg09287209', 'eclipse50', 1),
-(2, 'Alan', 'Schenk', 'sch01548357', 'tafe123', 2);
+(1, 'Kris', 'Vega', 'veg09287209', 'eclipse50', 4),
+(2, 'Alan', 'Schenk', 'sch01548357', 'tafe123', 2),
+(3, 'Bill', 'Kas', 'kas12345678', 'tafe123', 2),
+(4, 'Glen', 'Holmes', 'hol12345678', 'admin', 1),
+(5, 'Agnes', 'Hennesys', 'hen12345678', 'tafe123', 3),
+(6, 'Troy', 'Huang', 'HUA10328951', 'ab19f5d7599401dcca2cee7912dd6c46', 3),
+(7, 'Nathan', 'Bab', 'nathanbab', 'ab19f5d7599401dcca2cee7912dd6c46', 4);
 
 -- --------------------------------------------------------
 

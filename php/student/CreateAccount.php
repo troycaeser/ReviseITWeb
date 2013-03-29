@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Create Account</title>
-<?php require_once("../DAL/Verification.php"); require_once("../DAL/DataAccessLayer.php"); ?>
+<?php require_once("../../DAL/Verification.php"); require_once("../../DAL/DataAccessLayer.php"); ?>
 </head>
 <body>
 <?php
@@ -33,7 +33,7 @@ if(isset($_POST["submitUser"])){
 	elseif (!verifyPassword($pass1))
 		echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
 	else { $pass = md5($pass1);
-		createUser($userName, $pass, $fName, $lName, "3");
+		createUser($userName, $pass, $fName, $lName, "4");
 	}
 }
 ?>
