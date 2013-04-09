@@ -1,6 +1,6 @@
 <?php
 
-	include 'init.php'; 
+	include 'getConnection.php'; 
 
 	//reminder: $_SESSION['UserID'] still exists on this page, but will be removed after.
 	session_destroy();

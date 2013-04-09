@@ -23,7 +23,7 @@ $token = "";
 <table border="0"><tr><td><label for="token">Enter Token</label></td>
 <td><input type="text" name="token" id="token"  value="<?php echo($token); ?>" /></td></tr>
 <?php if ($settoken) echo "<tr><td colspan='2' class='errmsg'>Please enter a token!</td></tr>"; ?>
-<tr><td><input type="submit" name="reset" value="RESET" /></td>
+<tr><td><input type="reset" name="reset" value="RESET" /></td>
 <td><input type="submit" name="submitNToken" value="SUBMIT" /></td></tr></table>
 </form>
 	<?php

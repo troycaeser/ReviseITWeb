@@ -1,11 +1,13 @@
 <?php
-	include 'init.php';
+	include 'getConnection.php';
 
 	function display_Welcome(){
-		$result = mysql_query("SELECT CONCAT(fName,' ', lName) FROM users WHERE UserID = '".$_SESSION['UserID']."'") or die(mysql_error());
-
-		$welcome_name = mysql_result($result, 0);
-		return $welcome_name;
+		$result = $db->prepare("SELECT CONCAT(fName,' ', lName) FROM users WHERE UserID = :userid");
+		$result->bindParam("userid", $_SESSION['UserID']);
+		$result->execute();
+		$welcome_name = $query->fetchColumn();
+		echo $welcome_name;
+		//return $welcome_name;
 	}
 
 	echo "<div class='welcome'>";

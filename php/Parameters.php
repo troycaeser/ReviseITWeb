@@ -1,7 +1,6 @@
 <?php
 
 	function provideAccess($role){
-		echo("Parameters");
 		if ($role == 1) header("Location: admin/admin_Home.php");
 		if ($role == 2) header("Location: teacher/teacher_Home.php");
 		if ($role == 3) header("Location: teacher/teacher_Home.php");

@@ -1,18 +1,34 @@
 <?php
 
-	include '../init.php';
+	include '../getConnection.php';
 
-	echo display_All_Subjects();
+	try{
+		$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID");
+		$result->execute();
+		$stuff = $result->fetch(PDO::FETCH_ASSOC);
+		//echo '<pre>', print_r($result, true), '</pre>';
+		echo '<pre>', print_r($stuff, true), '</pre>';
 
-	function display_All_Subjects(){
+	}catch(PDOException $e){
+		echo $e->getMessage();
+	}
 
-		//get result from the table "subject"
-		$result = mysql_query("SELECT * FROM subject, users WHERE subject.UserID = users.UserID") or die(mysql_error());
-		$subjectID;
+	//echo display_All_Subjects();
+
+	/*function display_All_Subjects(){
+
+		try{
+
+
+		//prepare from the table "subject"
+		$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID");
+		$result->execute();
+		echo '<pre>', print_r($result, true), '</pre>';
+	}*/
 
 		//opening the first section of the row-fluid. (span 8)
 		//these are the titles - first row.
-		echo "<div class='span8'>";
+		/*echo "<div class='span8'>";
 			echo"<div class='row-fluid'>";
 				echo "<div class='span1'></div>";
 				echo "<div class='span5'><h4>Subject</h4></div>";
@@ -24,7 +40,7 @@
 			echo "<form action='edit_subject.php' method='post'>";
 				//display everything in a row-fluid/spans while looping the result.
 				//pass SubjectID in the url for each individual link.
-				while($row = mysql_fetch_array($result)){
+				while($row = $result->fetchAll(PDO::FETCH_ASSOC)){
 					//adds checklist for each item.
 					echo "<div class='span1'>";
 						echo "<label class='checkbox'>";
@@ -47,7 +63,7 @@
 				echo '<button type="submit" name="edit_submit" class="btn">Edit Selected Items</button>';
 			echo "</form>";
 
-		echo "</div>";
+		echo "</div>";*/
 
-	}
+	//}
 ?>

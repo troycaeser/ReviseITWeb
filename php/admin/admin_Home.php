@@ -1,5 +1,6 @@
 <?php
-	include '../init.php';
+	//include '../init.php';
+	include '../getConnection.php';
 	require '../check_logged_in.php';
 ?>
 
@@ -19,9 +20,7 @@
 		<br /><br />
 
 		<div class="container">
-			<?php
-				include '../welcome.php';
-			?>
+			
 
 			<div class="page-header">
 				<h1>What would you like to do?</h1>
