@@ -1,6 +1,6 @@
 <?php
 
-	include '../init.php';
+	include '../getConnection.php';
 	require '../check_logged_in.php';
 
 	//to create subject you need SubjectID, SubjectCode(3char 5 num), SubjectName, UserID, Dateupdated
