@@ -23,9 +23,6 @@
 			<br /><br />
 
 			<div class="container">
-				<?php
-					include '../welcome.php';
-				?>
 
 				<div class="page-header">
 					<h1>Topics Lists</h1>
