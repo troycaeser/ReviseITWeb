@@ -2,9 +2,22 @@
 
 	include '../getConnection.php';
 
+	$userid = $_SESSION['UserID'];
+
 	try{
-		$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID");
-		$result->execute();
+		$role_query = $db->prepare("SELECT role FROM users WHERE UserID = :userId");
+		$role_query->bindParam("userId", $userid);
+		$role_query->execute();
+		$role_result = $role_query->fetch(PDO::FETCH_ASSOC);
+
+		if($role_result['role'] == 1){
+			$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID");
+			$result->execute();
+		}
+		else{
+			$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID AND users.UserID = ".$role_result['role']);
+			$result->execute();
+		}
 
 		echo "<div class='span8'>";
 			echo"<div class='row-fluid'>";
