@@ -1,12 +1,12 @@
 <?php
 
-	include '../init.php';
+	include '../getConnection.php';
 	require '../check_logged_in.php';
 
 	//to create subject you need SubjectID, SubjectCode(3char 5 num), SubjectName, UserID, Dateupdated
 
 	//this query selects teachers & coordinators, and displays only user id and names.
-	$query_teachers = mysql_query("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
+	//$query_teachers = mysql_query("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
 
 	//assign variables.
 	$subject_code = $_POST['subject_code'];
@@ -18,7 +18,7 @@
 	$date = date('Y-m-d', time());
 
 	//UPDATE SUBJECT QUERY
-	$query_update_subject = "INSERT INTO subject VALUES(null,'".$subject_code."','".$subject_name."', '".$selected_teacher."', '".$date."')";
+	//$query_update_subject = "INSERT INTO subject VALUES(null,'".$subject_code."','".$subject_name."', '".$selected_teacher."', '".$date."')";
 
 ?>
 

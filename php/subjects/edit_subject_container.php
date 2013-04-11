@@ -2,6 +2,8 @@
 
 	//echo get_subjectID();
 
+	include '../getConnection.php';
+
 	if (isset($_POST['chk_group'])) {
 		echo "<form method='post' action='".$_SERVER["PHP_SELF"]."'>";
 		    $selected_chk = $_POST['chk_group'];
@@ -12,13 +14,18 @@
 		        	echo "SUBJECT_ID = ".$selected_chk[$i];
 
 		        	//select subject details according to their ids.
-					$subject_query = mysql_query("SELECT * FROM subject WHERE SubjectID = '".$selected_chk[$i]."'");
-					$user_query = mysql_query("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
-					$current_user_query = mysql_query("SELECT UserID FROM subject WHERE SubjectID = '".$selected_chk[$i]."'");
-					$current_user = mysql_result($current_user_query, 0);
+					$subject_query = $db->prepare("SELECT * FROM subject WHERE SubjectID = '".$selected_chk[$i]."'");
+					$subject_query->execute();
+
+					$user_query = $db->prepare("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
+					$user_query->execute();
+
+					$current_user_query = $db->prepare("SELECT UserID FROM subject WHERE SubjectID = '".$selected_chk[$i]."'");
+					$current_user_query->execute();
+					$current_user = $current_user_query->fetch(PDO::FETCH_ASSOC);
 					//echo $current_user;
 
-					while($row = mysql_fetch_array($subject_query)){
+					while($row = $subject_query->fetch(PDO::FETCH_ASSOC)){
 			        	echo "<fieldset>";
 			        		echo "<input type='hidden' name='sub_ID".$selected_chk[$i]."' value='".$selected_chk[$i]."'>";
 			        		echo "<div class='control-group'>";
@@ -38,7 +45,7 @@
 			        		echo "<div class='control-group'>";
 			        			echo "<label class='control-label' for='subject_coodinator'>Coordinator</label>";
 			        			echo "<select name='subject_coordinator".$i."' id='subject_coordinator' multiple='multiple'>";
-								    while($row = mysql_fetch_array($user_query)){
+								    while($row = $user_query->fetch(PDO::FETCH_ASSOC)){
 										echo("<option value='". $row['UserID'] ."' >". $row['fName'] ." ". $row['lName'] ."</option>");
 									}
 								echo "</select>";
@@ -54,6 +61,8 @@
 
 	}
 
+
+	//not completely working at the moment, this query only edits up to 3 ids, and only works with ids up to 4....need to fix.
 	if (isset($_POST["update_submit"])){
     	for($i=0; $i<4; $i++){
     		//update query

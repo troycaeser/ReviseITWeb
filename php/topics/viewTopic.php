@@ -1,5 +1,5 @@
 <?php
-	require'../init.php';
+	require'../getConnection.php';
 	require '../check_logged_in.php';
 
 	$subject_ID = $_GET['ID'];

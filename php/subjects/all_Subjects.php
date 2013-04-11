@@ -27,7 +27,7 @@
 			<div class='row-fluid'>
 				<!-- Displays All subjects -->
 				<?php
-					include'subjects.php';
+					include 'subjects.php';
 				?>
 
 				<div class="span4">

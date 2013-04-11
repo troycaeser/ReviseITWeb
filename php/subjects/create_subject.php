@@ -6,7 +6,8 @@
 	//to create subject you need SubjectID, SubjectCode(3char 5 num), SubjectName, UserID, Dateupdated
 
 	//this query selects teachers & coordinators, and displays only user id and names.
-	$query_teachers = mysql_query("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
+	$query_teachers = $db->prepare("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
+	$query_teachers->execute();
 
 	//assign variables.
 	$subject_code = $_POST['subject_code'];
@@ -16,9 +17,6 @@
 	//get the date in Australia and assign variable
 	date_default_timezone_set('Australia/Melbourne');
 	$date = date('Y-m-d', time());
-
-	//insert subject query.
-	$query_subject = "INSERT INTO subject VALUES(null,'".$subject_code."','".$subject_name."', '".$selected_teacher."', '".$date."')";
 
 ?>
 
@@ -67,7 +65,7 @@
 									<?php
 										//echo out the select table (this is for the user id.)
 									    echo "<select name='subject_coordinator' id='subject_coordinator' multiple='multiple'>";
-										    while($row = mysql_fetch_array($query_teachers)){
+										    while($row = $query_teachers->fetch(PDO::FETCH_ASSOC)){
 												echo("<option value = '" . $row['UserID'] . "'>". $row['fName'] ." ". $row['lName'] ."</option>");
 											}
 										echo "</select>";
@@ -108,7 +106,9 @@
 
 <?php
 	if (isset($_POST["submit"])){
-		mysql_query($query_subject) or die(mysql_error());
+		//insert subject query.
+		$query_subject = $db->prepare("INSERT INTO subject VALUES(null,'".$subject_code."','".$subject_name."', '".$selected_teacher."', '".$date."')");
+		$query_subject->execute();
 
 		echo "1 record added";
 	}
