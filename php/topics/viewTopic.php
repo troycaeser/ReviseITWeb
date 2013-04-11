@@ -33,12 +33,11 @@
 				
 				<div class="row-fluid">
 					<?php
-						
+					try
+					{
 						//select topic accoding to subject id.
-						$query = "SELECT * FROM topic WHERE SubjectID = '".$subject_ID."'";
-
-						$SQL = mysql_query($query)
-							or die("Problem loading query ".mysql_error());
+						$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."'");
+						$result->execute();
 						
 							echo "<div class='span8'>";
 								echo"<div class='row-fluid'>";
@@ -47,7 +46,7 @@
 									echo "<div class='span3'><h4>Delete Topic</h4></div>";
 								echo "</div>";
 	
-							while($row = mysql_fetch_array($SQL))
+							while($row = $result->fetchALL(PDO::FETCH_ASSOC))
 							{
 								$id=$row['TopicID'];
 								
@@ -60,7 +59,11 @@
 							}
 							echo '<br><a href="newtopic.html">Add New Topic</a>';
 							echo "</div>";
-						
+					}
+					catch(PDOException $e)
+					{
+						echo $e->getMessage();
+					}
 					?>
                     
 					<div class="span4">
