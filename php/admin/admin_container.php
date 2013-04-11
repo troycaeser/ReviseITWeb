@@ -11,9 +11,9 @@
 		<a href='all_Accounts.php'>All Users</a>
 	</div>
 	<div class="span4">
-		<h3>See All Subjects!</h3>
+		<h3 class="bootstro" data-bootstro-title="intro" data-bootstro-content="yupyupyup">See All Subjects!</h3>
 		<p>Check out these subjects and fix 'em!</p>
-		<a href="../subjects/all_Subjects.php">All Subjects</a>
+		<a id="example" href="../subjects/all_Subjects.php" class="btn btn-primary" rel="popover" data-content="just testing on popovers" data-original-title="All Subjects">All Subjects</a>
 	</div>
 	<div class="span4">
 		<h3>Create a token</h3>
@@ -21,3 +21,5 @@
 		<a href="admin_CreateToken.php">Token</a>
 	</div>
 </div>
+
+<a class="btn btn-large btn-success" href="#" id="bootstroTest">boostro test click me</a>

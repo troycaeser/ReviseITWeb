@@ -41,5 +41,16 @@
 
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 		<script src="../../assets/js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstro.min.js"></script>
+		<script>
+		$(document).ready(function(){
+
+		
+			$('bootstroTest').click(function(){
+				bootstro.start(".bootstro");
+				//$('#example').popover({trigger: "hover"});
+			});
+		});
+		</script>
 	</body>
 </html>
