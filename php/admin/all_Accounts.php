@@ -1,5 +1,5 @@
 <?php
-  include '../init.php';
+  include '../getConnection.php';
   require '../check_logged_in.php';
 ?>
 
@@ -7,10 +7,7 @@
 <html>
 <head>
   <?php
-  	include '../init.php';
     include '../header_container.php';
-  	if ($_GET['ROLE'] != NULL) $role = $_GET['ROLE'];
-
   ?>
   <title>ReviseIT - Accounts</title>
 </head>
@@ -29,11 +26,19 @@
   <!-- Displays All subjects -->
   <?php
 
-
 		//get result from the table "subject"
-		if ($role == "5" || $role == NULL) $result = mysql_query("SELECT * FROM users ORDER BY role ASC") or die(mysql_error());
-		elseif ($role == "6") $result = mysql_query("SELECT * FROM users WHERE role = 2 OR role = 3 ORDER BY role ASC") or die(mysql_error());
-		else $result = mysql_query("SELECT * FROM users WHERE role = ".$role) or die(mysql_error());
+		if ($role == 5 || $role == NULL){
+      $result = $db->prepare("SELECT * FROM users ORDER BY role ASC");
+      $result->execute();
+    }
+		else if ($role == 6){
+      $result = $db->prepare("SELECT * FROM users WHERE role = 2 OR role = 3 ORDER BY role ASC");
+      $result->execute();
+    }
+		else{
+      $result = $db->prepare("SELECT * FROM users WHERE role = ".$role);
+      $result->execute();
+    }
 		//opening the first section of the row-fluid. (span 8)
 ?>
   <div class='span8'>
@@ -73,7 +78,7 @@
     </div>
     <?php
 			//displa everything in a row-fluid/spans while looping the result.
-			while($row = mysql_fetch_array($result)){
+			while($row = $result->fetch(PDO::FETCH_ASSOC)){
 				echo "<div class='row-fluid'>";
 					echo "<div class='span6'>".$row['username']."</div>";
 					echo "<div class='span2'>".$row['fName']."</div>";
