@@ -120,7 +120,7 @@ if (isset($_POST['newAccnt']))
     <div class="span4">
       <ul class="nav nav-list">
         <li class="nav-header">Quick Access</li>
-        <li class="active"><a href="#">Create Accounts</a></li>
+        <li class="active"><a href="CreateUser.php">Create Accounts</a></li>
         <li><a href="#">Subject Roles</a></li>
         <li><a href="#">Account details</a></li>
         <li><a href="#">My account</a></li>
