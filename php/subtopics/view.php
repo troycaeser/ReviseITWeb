@@ -1,5 +1,5 @@
 <?php
-	include '../init.php';
+	include '../getConnection.php';
 	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
@@ -33,8 +33,8 @@
 */
 
         // Get results from the database
-        $result = mysql_query("SELECT * FROM subtopic WHERE TopicID ='".$topic_ID."'") 
-                or die(mysql_error());  
+        $result = $db->prepare("SELECT * FROM subtopic WHERE TopicID ='".$topic_ID."'") ;
+        $result->execute();         
                 
         // Display data in table
         //echo "<p><b>View All</b> | <a href='view-paginated.php?page=1'>View Paginated</a></p>";
@@ -65,8 +65,8 @@
             
             
             <?php
-				while($row = mysql_fetch_array( $result )) {
-						
+				while($row = $result->fetchALL(PDO::FETCH_ASSOC)) 
+				{	
 						$id=$row['SubtopicID'];
 						
 						//echo contents in divs
