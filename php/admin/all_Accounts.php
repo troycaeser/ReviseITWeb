@@ -27,18 +27,21 @@
   <?php
 
 		//get result from the table "subject"
-		if ($role == 5 || $role == NULL){
-      $result = $db->prepare("SELECT * FROM users ORDER BY role ASC");
-      $result->execute();
-    }
-		else if ($role == 6){
-      $result = $db->prepare("SELECT * FROM users WHERE role = 2 OR role = 3 ORDER BY role ASC");
-      $result->execute();
-    }
-		else{
-      $result = $db->prepare("SELECT * FROM users WHERE role = ".$role);
-      $result->execute();
-    }
+		if ($role == 5 || $role == NULL)
+		{
+			$result = $db->prepare("SELECT * FROM users ORDER BY role ASC");
+      		$result->execute();
+    	}
+		else if ($role == 6)
+		{
+			$result = $db->prepare("SELECT * FROM users WHERE role = 2 OR role = 3 ORDER BY role ASC");
+			$result->execute();
+    	}
+		else
+		{
+     		$result = $db->prepare("SELECT * FROM users WHERE role = ".$role);
+      		$result->execute();
+    	}
 		//opening the first section of the row-fluid. (span 8)
 ?>
   <div class='span8'>
@@ -52,9 +55,9 @@
           <option>All</option>
           <option>Admin</option>
           <option>Coordinator</option>
+          <option>Student</option>
           <option>Teacher (All)</option>
           <option>Teacher (Non-coordinator)</option>
-          <option>Student</option>
         </select>
       </div>
       <div class='span4'>
@@ -78,7 +81,8 @@
     </div>
     <?php
 			//displa everything in a row-fluid/spans while looping the result.
-			while($row = $result->fetch(PDO::FETCH_ASSOC)){
+			while($row = $result->fetch(PDO::FETCH_ASSOC))
+			{
 				echo "<div class='row-fluid'>";
 					echo "<div class='span6'>".$row['username']."</div>";
 					echo "<div class='span2'>".$row['fName']."</div>";
@@ -93,20 +97,23 @@
 			}
 		echo "</div>";
 
-if (isset($_POST['newList'])){
+if (isset($_POST['newList']))
+{
 	$lrole = ($_POST['listRole']);
-	switch ($lrole) {
+	switch ($lrole) 
+	{
 		case "All": $role = 5; break;
 		case "Admin": $role = 1; break;
 		case "Coordinator": $role = 2; break;
+		case "Student": $role = 4; break;
 		case "Teacher (All)": $role = 6; break;
 		case "Teacher (Non-coordinator)": $role = 3; break;
-		case "Student": $role = 4; break;
 	}
-		header ("Location: all_Accounts.php?ROLE=$role.");
+		header ("Location: all_Accounts.php?ROLE=$role");
 }
 
-if (isset($_POST['newAccnt'])){
+if (isset($_POST['newAccnt']))
+{
 	header ('Location: CreateUser.php');
 }
 ?>
