@@ -30,21 +30,10 @@
 					$query->execute();
 					$id = $query->fetchColumn();
 					$_SESSION['UserID'] = $id;
+					$_SESSION['Role'] = $role;
 					//echo '<pre>', print_r($id, true), '</pre>';
 
-					//if role is 1, redirect to admin home.
-					if($role == 1){
-						header("Location: admin/admin_Home.php");
-					}
-					else if ($role == 2){
-						header("Location: teacher/teacher_Home.php");
-					}
-					else if($role == 3){
-						header("Location: teacher/teacher_Home.php");
-					}
-					else if($role == 4){
-						header("Location: student/studentHome.php");
-					}
+					header("Location: home_page_director.php");
 
 	 			    //echo '<pre>', print_r($role, true), '</pre>';
 

@@ -1,5 +1,5 @@
 <?php
-	include '../init.php';
+	include '../getConnection.php';
 	require '../check_logged_in.php';
 ?>
 
@@ -19,9 +19,6 @@
 		<br /><br />
 
 		<div class="container">
-			<?php
-				include '../welcome.php';
-			?>
 
 			<div class="page-header">
 				<h1>Create Token</h1>

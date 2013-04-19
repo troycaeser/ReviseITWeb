@@ -1,6 +1,6 @@
 
 <?php
-	include '../init.php';
+	include '../getConnection.php';
 	require '../check_logged_in.php';
 	require_once("../../DAL/DataAccessLayer.php");
 	$settoken = 0;

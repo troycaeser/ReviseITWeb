@@ -10,7 +10,7 @@
 		    for ($i=0; $i<count($selected_chk); $i++) {
 		        echo "<div class='span4'>";
 		        	$global[$i] = $selected_chk[$i];
-		        	echo $global[$i];
+		        	//echo $global[$i];
 		        	echo "SUBJECT_ID = ".$selected_chk[$i];
 
 		        	//select subject details according to their ids.
@@ -66,9 +66,9 @@
 	if (isset($_POST["update_submit"])){
     	for($i=0; $i<4; $i++){
     		//update query
-    		$query_update_string = "UPDATE subject SET SubjectID='".$_POST['sub_ID'.$i]."', SubjectCode='".$_POST['subject_code'.$i]."', SubjectName='".$_POST['subject_name'.$i]."', UserID='".$_POST['subject_coordinator'.$i]."' WHERE SubjectID='".$_POST['sub_ID'.$i]."'";
+    		$query_update_string = $db->prepare("UPDATE subject SET SubjectID='".$_POST['sub_ID'.$i]."', SubjectCode='".$_POST['subject_code'.$i]."', SubjectName='".$_POST['subject_name'.$i]."', UserID='".$_POST['subject_coordinator'.$i]."' WHERE SubjectID='".$_POST['sub_ID'.$i]."'");
+			$query_update_string->execute();
 			//echo $teststring;
-			mysql_query($query_update_string);
     	}
 	}
 
