@@ -22,7 +22,7 @@
 		<div class="container">
 			
 
-			<div class="page-header">
+			<div class="page-header bootstro" data-bootstro-step="0" data-bootstro-placement="bottom" data-bootstro-title="The Help System" data-bootstro-content="Not sure what to do? No worries, just <b>click next</b> and we will walk you through the ReviseIT web app. Otherwise, click outside the box. You may use the arrow keys.">
 				<h1>What would you like to do?</h1>
 			</div>
 			
@@ -46,8 +46,10 @@
 		$(document).ready(function(){
 
 		
-			$('bootstroTest').click(function(){
-				bootstro.start(".bootstro");
+			$('#help').click(function(){
+				bootstro.start(".bootstro", {
+					finishButton: ''
+				});
 				//$('#example').popover({trigger: "hover"});
 			});
 		});

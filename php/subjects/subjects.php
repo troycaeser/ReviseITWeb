@@ -27,8 +27,8 @@
 			$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID AND users.UserID = ".$role_result['role']);
 			$result->execute();
 			
-			echo "<div class='span8'>";
-				echo"<div class='row-fluid'>";
+			echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
+				echo "<div class='row-fluid'>";
 					echo "<div class='span1'></div>";
 					echo "<div class='span5'><h4>Subject</h4></div>";
 					echo "<div class='span2'><h4>Code</h4></div>";
@@ -36,7 +36,7 @@
 					echo "<div class='span2'><h4>Coordinator</h4></div>";
 				echo "</div>";
 	
-				echo "<form action='' method=''>";
+				echo "<form action='edit_subject.php' method='post'>";
 					//display everything in a row-fluid/spans while looping the result.
 					//pass SubjectID in the url for each individual link.
 					while($row = $result->fetch(PDO::FETCH_ASSOC))
@@ -58,13 +58,14 @@
 							echo "</div>";
 						echo "</a>";
 					}
+					echo '<button type="submit" name="edit_submit" class="btn bootstro" data-bootstro-placement="bottom" data-bootstro-title="Editing Subjects" data-bootstro-content="Select the checkboxes on the subjects you wish to edit, then select <b>Edit Selected Items</b> to go into the edit subjects page.">Edit Selected Items</button>';
 				echo "</form>";
 			echo "</div>";
 		}
 		else
 		{
-			echo "<div class='span8'>";
-			echo"<div class='row-fluid'>";
+			echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of Subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
+			echo "<div class='row-fluid'>";
 				echo "<div class='span1'></div>";
 				echo "<div class='span5'><h4>Subject</h4></div>";
 				echo "<div class='span2'><h4>Code</h4></div>";
@@ -94,7 +95,7 @@
 						echo "</div>";
 					echo "</a>";
 				}
-				echo '<button type="submit" name="edit_submit" class="btn">Edit Selected Items</button>';
+				echo '<button type="submit" name="edit_submit" class="btn bootstro" data-bootstro-placement="bottom" data-bootstro-title="Editing Subjects" data-bootstro-content="Select the checkboxes on the subjects you wish to edit, then select <b>Edit Selected Items</b> to go into the edit subjects page.">Edit Selected Items</button>';
 			echo "</form>";
 		echo "</div>";
 		}

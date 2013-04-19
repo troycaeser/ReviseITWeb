@@ -20,7 +20,7 @@
 
 		<div class="container">
 
-			<div class="page-header">
+			<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Subjects" data-bootstro-content="Welcome to the subjects page!">
 				<h1>All Subjects</h1>
 			</div>
 			
@@ -33,7 +33,7 @@
 				<div class="span4">
 					<ul class="nav nav-list">
 						<li class="nav-header">Quick Access</li>
-						<li class="active"><a href="create_subject.php">Create Subjects</a></li>
+						<li class="bootstro" data-bootstro-placement="left" data-bootstro-title="Create Subjects!" data-bootstro-content="Click this link to <b>create subjects page</b>!"><a href="create_subject.php">Create Subjects</a></li>
 						<li><a href="#">My account</a></li>
 						<li class="divider"></li>
 						<li><a href="#">About Us</a></li>
@@ -64,5 +64,18 @@
 
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 		<script src="../../assets/js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstro.min.js"></script>
+		<script>
+		$(document).ready(function(){
+
+		
+			$('#help').click(function(){
+				bootstro.start(".bootstro", {
+					finishButton: ''
+				});
+				//$('#example').popover({trigger: "hover"});
+			});
+		});
+		</script>
 	</body>
 </html>
