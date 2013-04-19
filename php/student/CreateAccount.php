@@ -37,6 +37,7 @@ if(isset($_POST["submitUser"])){
 		echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
 	else { $pass = md5($pass1);
 		createUser($userName, $pass, $fName, $lName, "4");
+		header("Location: studentHome.php");
 	}
 }
 ?>
