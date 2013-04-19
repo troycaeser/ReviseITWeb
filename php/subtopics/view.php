@@ -90,7 +90,7 @@
                     <li class="nav-header">Quick Access</li>
                     <li class="active"><a href="new.php">Add Subtopic</a></li>
                     <li><a href="#">Account details</a></li>
-                    <li><a href="#">My account</a></li>
+                    <li><a href="../account/my_account.php">My account</a></li>
                     <li class="divider"></li>
                     <li><a href="#">About Us</a></li>
                 </ul>

@@ -1,6 +1,8 @@
 <?php
+
 	include '../getConnection.php';
-	require '../check_logged_in.php';
+	include '../check_logged_in.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +15,7 @@
 	</head>
 	<body>
 		<?php
-			include 'subjects_menu_bar.php';
+			include 'accounts_menu_bar.php';
 		?>
 		
 		<br /><br />
@@ -21,38 +23,16 @@
 		<div class="container">
 
 			<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Subjects" data-bootstro-content="Welcome to the subjects page!">
-				<h1>All Subjects</h1>
+				<h1>My Account Information</h1>
 			</div>
 			
 			<div class='row-fluid'>
 				<!-- Displays All subjects -->
 				<?php
-					include 'subjects.php';
+					include 'accounts.php';
 				?>
-
-				<div class="span4">
-					<ul class="nav nav-list">
-						<li class="nav-header">Quick Access</li>
-						<li class="bootstro" data-bootstro-placement="left" data-bootstro-title="Create Subjects!" data-bootstro-content="Click this link to <b>create subjects page</b>!"><a href="create_subject.php">Create Subjects</a></li>
-						<li><a href="../account/my_account.php">My account</a></li>
-					</ul>
-				</div>
 			</div>
 			
-			<!-- This drop down button isn't working, commented out for future use.-->
-			<!--
-			<div class="btn-group">
-			    <button class="btn dropdown-toggle" data-toggle="dropdown">
-			      Action
-			      <span class="caret"></span>
-			    </button>
-			    <ul class="dropdown-menu">
-			      <li><a href='delete_subject.php'>Delete</a></li>
-			      <li><a href='edit_subject.php'>Edit</a></li>
-			    </ul>
-			</div>
-			-->
-
 		</div>
 		
 		<!-- Footer -->

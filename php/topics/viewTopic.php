@@ -66,11 +66,9 @@
 					<div class="span4">
 						<ul class="nav nav-list">
 							<li class="nav-header">Quick Access</li>
-							<li class="active"><a href="../subjects/create_subject.php">Create Subjects</a></li>
+							<li><a href="../subjects/create_subject.php">Create Subjects</a></li>
 							<li><a href="#">Account details</a></li>
-							<li><a href="#">My account</a></li>
-							<li class="divider"></li>
-							<li><a href="#">About Us</a></li>
+							<li><a href="../account/my_account.php">My account</a></li>
 						</ul>
 					</div>
 				</div>

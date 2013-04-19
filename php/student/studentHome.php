@@ -42,9 +42,8 @@
     <div class="span4">
       <ul class="nav nav-list">
         <li class="nav-header">Quick Access</li>
-        <li class="active"><a href="#">My Account</a>
+        <li><a href="../account/my_account.php">My Account</a></li>
         <li><a href="#">Contact Admin</a></li>
-        </li><a href="#">Help</a></li>
       </ul>
     </div>
   </div>
