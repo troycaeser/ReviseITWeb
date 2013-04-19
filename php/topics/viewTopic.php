@@ -43,7 +43,7 @@
 									echo "<div class='span3'><h4>Delete Topic</h4></div>";
 								echo "</div>";
 	
-							while($row = $result->fetchALL(PDO::FETCH_ASSOC))
+							while($row = $result->fetch(PDO::FETCH_ASSOC))
 							{
 								$id=$row['TopicID'];
 								
