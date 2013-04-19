@@ -4,7 +4,7 @@
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 				<span class="icon-th-list"></span>
 			</a>
-			<a href="admin_Home.php" class="brand">reviseIT</a>
+			<a href="../home_page_director.php" class="brand">reviseIT</a>
 			<p class="nav navbar-text">user type: <strong>administrator</strong></p>
 			<div class="nav-collapse collapse">
 				<ul class="nav pull-right">
