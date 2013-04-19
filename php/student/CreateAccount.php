@@ -3,6 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Create Account</title>
+
+<!-- This is a comment to test that the github is working for Cjay -->
+
 <?php require_once("../../DAL/Verification.php"); require_once("../../DAL/DataAccessLayer.php"); ?>
 </head>
 <body>
