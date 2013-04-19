@@ -15,9 +15,6 @@
 <br />
 <br />
 <div class="container">
-  <div class="welcome">
-    <h5>Welcome, Student</h5>
-  </div>
   <div class="page-header">
     <h1>Revise IT - Student Access</h1>
   </div>
@@ -27,7 +24,7 @@
         <div class="span3">
           <h3>Create an Account!</h3>
           <p>Enter a token and register an account!</p>
-          <a href="../EnterToken.php" class="btn btn-primary" rel="popover" data-original-title="Register">Register</a> </div>
+          <a href="EnterToken.php" class="btn btn-primary" rel="popover" data-original-title="Register">Register</a> </div>
         <div class="span3">
           <h3>Enrol in Subject</h3>
           <p>Obtain access to a subject and it's content!</p>
