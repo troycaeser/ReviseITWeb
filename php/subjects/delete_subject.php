@@ -23,7 +23,7 @@
 						<span class="icon-th-list"></span>
 					</a>
 					<a href="#" class="brand">reviseIT</a>
-					<p class="nav navbar-text">user type: <strong>administrator</strong></p>
+					<p class="nav navbar-text">user type: <strong>teacher</strong></p>
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
 							<li class="active"><a href="#">Home</a></li>
