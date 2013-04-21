@@ -35,7 +35,7 @@
         // Get results from the database
         $result = $db->prepare("SELECT * FROM subtopic WHERE TopicID ='".$topic_ID."'") ;
         $result->execute();         
-                
+		        
         // Display data in table
         //echo "<p><b>View All</b> | <a href='view-paginated.php?page=1'>View Paginated</a></p>";
         

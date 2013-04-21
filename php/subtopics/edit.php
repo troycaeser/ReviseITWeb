@@ -74,6 +74,7 @@
 				 
 				 or die(mysql_error());
 
+
 				 $top_id = mysql_query("SELECT TopicID FROM subtopic WHERE SubtopicID='".$subtopic_ID."'");
 				 $topic_ID = mysql_result($top_id, 0, "TopicID");
 			 

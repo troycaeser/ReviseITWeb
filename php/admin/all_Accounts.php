@@ -83,6 +83,7 @@
 			//displa everything in a row-fluid/spans while looping the result.
 			while($row = $result->fetch(PDO::FETCH_ASSOC))
 			{
+				echo "<a href='../admin/ViewLockedUsers.php?ID=".$row['username']."'>";
 				echo "<div class='row-fluid'>";
 					echo "<div class='span6'>".$row['username']."</div>";
 					echo "<div class='span2'>".$row['fName']."</div>";
@@ -124,6 +125,7 @@ if (isset($_POST['newAccnt']))
         <li><a href="#">Subject Roles</a></li>
         <li><a href="#">Account details</a></li>
         <li><a href="#">My account</a></li>
+        <li><a href="ViewLockedUsers.php">View locked accounts</a></li>
         <li class="divider"></li>
         <li><a href="#">About Us</a></li>
       </ul>
