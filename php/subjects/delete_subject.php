@@ -40,8 +40,8 @@
 		<div class="container">
         <?php	
 		
-		$topic_ID = $_GET['id'];
-        if (isset($_GET['id']) && is_numeric($_GET['id']))
+		$topic_ID = $_GET['ID'];
+        if (isset($_GET['ID']) && is_numeric($_GET['ID']))
 	 	{
 			try
 			{
