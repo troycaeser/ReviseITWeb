@@ -23,7 +23,7 @@
 						<span class="icon-th-list"></span>
 					</a>
 					<a href="#" class="brand">reviseIT</a>
-					<p class="nav navbar-text">user type: <strong>administrator</strong></p>
+					<p class="nav navbar-text">user type: <strong>teacher</strong></p>
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
 							<li class="active"><a href="#">Home</a></li>
@@ -40,8 +40,8 @@
 		<div class="container">
         <?php	
 		
-		$topic_ID = $_GET['id'];
-        if (isset($_GET['id']) && is_numeric($_GET['id']))
+		$topic_ID = $_GET['ID'];
+        if (isset($_GET['ID']) && is_numeric($_GET['ID']))
 	 	{
 			try
 			{

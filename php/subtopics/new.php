@@ -1,6 +1,6 @@
 <?php
 	
-	require '../init.php';
+	require '../getConnection.php';
 	require '../check_logged_in.php';
 	
 	// get the current path
@@ -79,18 +79,10 @@
 		 //Topic -> Subtopic.
 
 		 // Save the data to the database
-		 $SQL = mysql_query("INSERT INTO subtopic VALUES(NULL, '".$SubtopicName."', '".$DateUpdated."', 0")
-			 		or die(mysql_error()); 
-					
-		 $cSQL = mysql_query($SQL);
-			
-		 $query = mysql_query ($cSQL);
-			
-		 $query2 = "SELECT * from subtopic";
-			 
-		 $queryCall = mysql_query($query2, $db);
-			 
-		 $realData = mysql_result($data, 0, 'topic.SubjectID');
+		 $SQL = $db->prepare("INSERT INTO subtopic VALUES(NULL, :subName, :subDate, 0");
+		 $SQL->bindParam("subName", $SubtopicName);
+		 $SQL->bindParam("subDate", $DateUpdated);
+		 $SQL->execute();
 		 
 	 
 		 // Check to make sure all fields are filled in
