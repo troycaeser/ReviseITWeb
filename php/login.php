@@ -20,7 +20,6 @@
 					$query->bindParam('userName', $username);
 					$query->execute();
 					$role = $query->fetchColumn();
-					//echo '<pre>', print_r($role, true), '</pre>';
 
 					//get id from username and set sessiosn.
 					$query = $db->prepare("SELECT `UserID` FROM `users` WHERE `username` =:userName ");
@@ -29,32 +28,34 @@
 					$id = $query->fetchColumn();
 					$_SESSION['UserID'] = $id;
 					$_SESSION['Role'] = $role;
-					//echo '<pre>', print_r($id, true), '</pre>';
 
 					header("Location: home_page_director.php");
 
 				}
 				else
 				{
-					if(isset($_SESSION['login_attempt']))
+					if(isset($_SESSION['loginCount']))
 					{
-						if($_SESSION['login_attempt'] < 3)
+						$_SESSION['loginCount']++;
+						if($_SESSION['loginCount'] > 3)
 						{
-							$attempt = $_SESSION['login_attempt'] + 1;
+							echo "<script type='text/javascript'>alert('Your account has been locked.\\nPlease contact administrator')</script>";
 							
-							if($attempt = 3)
-							{
-								echo "<script type='text/javascript'>alert('Cannot log in')</script>";
-							}
+							$statement = $db->prepare("UPDATE users SET locked = 1 WHERE username=:user OR password=:pass");
+							$statement->bindParam("user", $username);
+							$statement->bindParam("pass", $password);
+							$statement->execute();
+							$_SESSION['loginCount'] = 0;
+							exit;
 						}
 						else
 						{
-							echo "<script type='text/javascript'>alert('No log')</script>";
+							$_SESSION['loginCount'] = $_SESSION['loginCount'] + 1;
 						}
 					}
 					else
 					{
-						header("Location: index.php");
+						$_SESSION['loginCount'] = 1;
 					}
 				}
 			}
@@ -62,13 +63,10 @@
 			{
 				echo "please enter username and password";
 			}
-
-		//login($username, $password);
-
 	}
 	catch(PDOException $e)
 	{
-		echo $e->getMessage();
+		echo "The system is experiencing some problems\n.We will try and get things running as soon as possible";
 	}
 ?>
 
