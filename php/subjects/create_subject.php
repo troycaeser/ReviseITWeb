@@ -110,6 +110,6 @@
 		$query_subject = $db->prepare("INSERT INTO subject VALUES(null,'".$subject_code."','".$subject_name."', '".$selected_teacher."', '".$date."')");
 		$query_subject->execute();
 
-		echo "1 record added";
+		header("Location: all_Subjects.php");
 	}
 ?>
