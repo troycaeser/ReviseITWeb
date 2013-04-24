@@ -66,7 +66,7 @@
     </form>
   </div>
     <div class='row-fluid'>
-      <div class='span6'>
+      <div class='span3'>
         <h4>Username</h4>
       </div>
       <div class='span2'>
@@ -78,24 +78,39 @@
       <div class='span2'>
         <h4>Role</h4>
       </div>
+      <div class='span3'>
+        <h4>Account Status</h4>
+      </div>
     </div>
     <?php
 			//displa everything in a row-fluid/spans while looping the result.
 			while($row = $result->fetch(PDO::FETCH_ASSOC))
 			{
-				echo "<a href='../admin/ViewLockedUsers.php?ID=".$row['username']."'>";
+				echo "<a href='../admin/EditAccount.php?ID=".$row['username']."'>";
 				echo "<div class='row-fluid'>";
-					echo "<div class='span6'>".$row['username']."</div>";
+					echo "<div class='span3'>".$row['username']."</div>";
 					echo "<div class='span2'>".$row['fName']."</div>";
 					echo "<div class='span2'>".$row['lName']."</div>";
 					echo "<div class='span2'>";
+					echo "<div class='span3'>";
+
 					if ($row['role'] == "1") echo 'Admin'; 
 					else if ($row['role'] == "2") echo 'Co-ordinator'; 
 					else if ($row['role'] == "3") echo 'Teacher'; 
-					else if ($row['role'] == "4") echo 'Student';  
+					else if ($row['role'] == "4") echo 'Student';
 					echo"</div>";
-				echo "</div>";
+					
+					if ($row['locked'] == "1") echo 'Locked';
+					else if ($row['locked'] != "1 | 0") echo 'Current';
+				    echo "</div>";
+				
+					if ($row['locked'] == "1") echo '<a href="UnlockAccount.php?ID=' . $row['username'] . '">Unlock</a>';
+					else if ($row['locked'] == "0") echo '<a href="LockAccount.php?ID=' . $row['username'] . '">Lock</a>'; 
+					echo"</div>";
+					
+
 			}
+			
 		echo "</div>";
 
 if (isset($_POST['newList']))

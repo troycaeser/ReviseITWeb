@@ -41,23 +41,44 @@ if(isset($_POST["submitUser"])){
 	}
 }
 ?>
+
 <form method="post" action='<?php echo($_SERVER["PHP_SELF"]); ?>'>
-<table border="0"><tr><td><label for="fName">Enter First Name</label></td>
-<td><input type="text" name="fName" id="fName" value='<?php echo $fName ?>'/></td></tr>
-<?php if ($setfName) echo "<tr><td colspan='2' class='errmsg'>Please enter a first name!</td></tr>"; ?>
-<tr><td><label for="lName">Enter Last Name</label></td>
-<td><input type="text" name="lName" id="lName" value='<?php echo $lName ?>' /></td></tr>
-<?php if ($setlName) echo "<tr><td colspan='2' class='errmsg'>Please enter a last name!</td></tr>"; ?>
-<tr><td><label for="userName">Enter Username</label></td>
-<td><input type="text" name="userName" id="userName" value='<?php echo $userName ?>' /></td></tr>
-<?php if ($setuserName) echo "<tr><td colspan='2' class='errmsg'>Please enter a username!</td></tr>"; ?>
-<tr><td><label for="pass1">Enter Password</label></td>
-<td><input type="password" name="pass1" id="pass1" value='' /></td></tr>
-<tr><td><label for="pass2">Confirm Password</label></td>
-<td><input type="password" name="pass2" id="pass2" value='' /></td></tr>
-<tr><td><input type="submit" name="reset" value="RESET" /></td>
-<td><input type="submit" name="submitUser" value="SUBMIT" /></td></tr></table>
+<table border="0">
+    <tr>
+        <td><label for="fName">Enter First Name</label></td>
+        <td><input type="text" name="fName" id="fName" value='<?php echo $fName ?>'/></td>
+    </tr>
+    <?php if ($setfName) echo "<tr><td colspan='2' class='errmsg'>Please enter a first name!</td></tr>"; ?>
+    
+    <tr>
+        <td><label for="lName">Enter Last Name</label></td>
+        <td><input type="text" name="lName" id="lName" value='<?php echo $lName ?>' /></td>
+    </tr>
+    <?php if ($setlName) echo "<tr><td colspan='2' class='errmsg'>Please enter a last name!</td></tr>"; ?>
+    
+    <tr>
+        <td><label for="userName">Enter Username</label></td>
+        <td><input type="text" name="userName" id="userName" value='<?php echo $userName ?>' /></td>
+    </tr>
+    <?php if ($setuserName) echo "<tr><td colspan='2' class='errmsg'>Please enter a username!</td></tr>"; ?>
+    
+    <tr>
+        <td><label for="pass1">Enter Password</label></td>
+        <td><input type="password" name="pass1" id="pass1" value='' /></td>
+    </tr>
+    
+    <tr>
+        <td><label for="pass2">Confirm Password</label></td>
+        <td><input type="password" name="pass2" id="pass2" value='' /></td>
+    </tr>
+    
+    <tr>
+        <td><input type="submit" name="reset" value="RESET" /></td>
+        <td><input type="submit" name="submitUser" value="SUBMIT" /></td>
+    </tr>
+</table>
 </form>
+
 <?php if (isset($POST["reset"])){
 	$setfName = 0;
 	$setlName = 0;
