@@ -6,7 +6,10 @@
 
 <!-- This is a comment to test that the github is working for Cjay -->
 
-<?php require_once("../../DAL/Verification.php"); require_once("../../DAL/DataAccessLayer.php"); ?>
+<?php 
+	require_once("../../DAL/Verification.php"); 
+	require_once("../../DAL/DataAccessLayer.php"); 
+?>
 </head>
 <body>
 <?php
@@ -18,26 +21,36 @@ $fName = "";
 $lName = "";
 $userName = "";
 
-if(isset($_POST["submitUser"])){
-	if ($_POST["fName"] == NULL)
-		$setfName = 1;
-	else $fName = $_POST["fName"];
-	if ($_POST["lName"] == NULL)
-		$setlName = 1;
-	else $lName = $_POST["lName"];
-	if ($_POST["userName"] == NULL)
-		$setuserName = 1;
-	else $userName = $_POST["userName"];
-	$pass1 = $_POST["pass1"];
-	$pass2 = $_POST["pass2"];
-	
-	if ($pass1 != $pass2)
-		echo ("<p class='errmsg'>Passwords do not match!</p>");
-	elseif (!verifyPassword($pass1))
-		echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
-	else { $pass = md5($pass1);
-		createUser($userName, $pass, $fName, $lName, "4");
-		header("Location: studentHome.php");
+if(isset($_POST["submitUser"]))
+{
+	if($row['username'] == $userName && $row['password'] == $pass1 && $row['password'] == $pass2)
+	{
+		echo "Username and password are already in use";
+	}
+	else
+	{
+		if ($_POST["fName"] == NULL)
+			$setfName = 1;
+		else $fName = $_POST["fName"];
+		if ($_POST["lName"] == NULL)
+			$setlName = 1;
+		else $lName = $_POST["lName"];
+		if ($_POST["userName"] == NULL)
+			$setuserName = 1;
+		else $userName = $_POST["userName"];
+		$pass1 = $_POST["pass1"];
+		$pass2 = $_POST["pass2"];
+		
+		if ($pass1 != $pass2)
+			echo ("<p class='errmsg'>Passwords do not match!</p>");
+		elseif (!verifyPassword($pass1))
+			echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
+		else 
+		{ 
+			$pass = md5($pass1);
+			createUser($userName, $pass, $fName, $lName, "4");
+			header("Location: studentHome.php");
+		}
 	}
 }
 ?>
@@ -78,8 +91,13 @@ if(isset($_POST["submitUser"])){
     </tr>
 </table>
 </form>
+<<<<<<< HEAD
 
 <?php if (isset($POST["reset"])){
+=======
+<?php if (isset($POST["reset"]))
+{
+>>>>>>> origin/master
 	$setfName = 0;
 	$setlName = 0;
 	$setuserName = 0;

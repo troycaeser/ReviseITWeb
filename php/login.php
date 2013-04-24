@@ -1,9 +1,7 @@
 <?php
-	
-	try{
-
+	try
+	{
 		include 'getConnection.php';
-		//$db = dbConnect();
 
 			$username = $_POST['username'];
 			$password = $_POST['password'];
@@ -22,7 +20,6 @@
 					$query->bindParam('userName', $username);
 					$query->execute();
 					$role = $query->fetchColumn();
-					//echo '<pre>', print_r($role, true), '</pre>';
 
 					//get id from username and set sessiosn.
 					$query = $db->prepare("SELECT `UserID` FROM `users` WHERE `username` =:userName ");
@@ -31,84 +28,45 @@
 					$id = $query->fetchColumn();
 					$_SESSION['UserID'] = $id;
 					$_SESSION['Role'] = $role;
-					//echo '<pre>', print_r($id, true), '</pre>';
 
 					header("Location: home_page_director.php");
 
-	 			    //echo '<pre>', print_r($role, true), '</pre>';
-
-	 			    //direct user to home page (depending on the role.)
-					//include 'Parameters.php';
-					//provideAccess($role);
-				}else{
-					echo "incorrect username or password";
 				}
-
-			}else{
+				else
+				{
+					if(isset($_SESSION['loginCount']))
+					{
+						$_SESSION['loginCount']++;
+						if($_SESSION['loginCount'] > 3)
+						{
+							echo "<script type='text/javascript'>alert('Your account has been locked.\\nPlease contact administrator')</script>";
+							
+							$statement = $db->prepare("UPDATE users SET locked = 1 WHERE username=:user OR password=:pass");
+							$statement->bindParam("user", $username);
+							$statement->bindParam("pass", $password);
+							$statement->execute();
+							$_SESSION['loginCount'] = 0;
+							exit;
+						}
+						else
+						{
+							$_SESSION['loginCount'] = $_SESSION['loginCount'] + 1;
+						}
+					}
+					else
+					{
+						$_SESSION['loginCount'] = 1;
+					}
+				}
+			}
+			else
+			{
 				echo "please enter username and password";
 			}
-
-		//login($username, $password);
-
-	}catch(PDOException $e){
-		echo $e->getMessage();
 	}
-	
-
-	//$db = getConnection();
-
-	/*if(empty($_POST) === false){
-
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-
-		if(empty($username) == true || empty($password) == true){
-			$errors[] = 'You need to enter a username and password';
-		}
-		else if(user_exists($username) === false){
-			$errors[] = 'Incorrect username!';
-		}
-		else{
-			$query = mysql_query("SELECT COUNT(`UserID`) FROM `users` WHERE `username` = '$username' AND `password` = '$password'");
-			echo mysql_result($query, 0);
-			//$password = md5($password);
-			
-			$login = login($username, $password);
-			if($login === false){
-				$errors[] = 'username and password do not match.';
-			}
-			else{
-				//set the user session as the user ID, it is unique. $login returns user ID.
-				$_SESSION['UserID'] = $login;
-				
-				//gets the role of the username
-				include 'role.php';
- 			    $role = user_type_from_username($username);
-
-				//direct user to home page (depending on the role.)
-				include 'Parameters.php';
-				provideAccess($role);
-			}
-		}
-		//print_r($errors);
-
+	catch(PDOException $e)
+	{
+		echo "The system is experiencing some problems\n.We will try and get things running as soon as possible";
 	}
-
-	function user_exists($username){
-		$query = mysql_query("SELECT COUNT(`UserID`) FROM `users` WHERE `username` = '$username'");
-		return (mysql_result($query, 0) == 1) ? true : false;
-	}
-
-	function user_id_from_username($username){
-		$query = mysql_query("SELECT `UserID` FROM `users` WHERE `username` = '$username'");
-		return mysql_result($query, 0, 'UserID');
-	}
-
-	function login($username, $password){
-		$user_id = user_id_from_username($username);
-
-		$query = mysql_query("SELECT COUNT(`UserID`) FROM `users` WHERE `username` = '$username' AND `password` = '$password'");
-		return (mysql_result($query, 0) == 1) ? $user_id : false;
-	}
-*/
 ?>
+
