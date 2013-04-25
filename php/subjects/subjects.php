@@ -2,10 +2,11 @@
 
 	include '../getConnection.php';
 
-	$userid = $_SESSION['UserID'];
+	$userid = $_SESSION['Role'];
 
 	try
 	{
+		
 		$role_query = $db->prepare("SELECT role FROM users WHERE UserID = :userId");
 		$role_query->bindParam("userId", $userid);
 		$role_query->execute();
@@ -58,7 +59,6 @@
 							echo "</div>";
 						echo "</a>";
 					}
-					echo '<button type="submit" name="edit_submit" class="btn bootstro" data-bootstro-placement="bottom" data-bootstro-title="Editing Subjects" data-bootstro-content="Select the checkboxes on the subjects you wish to edit, then select <b>Edit Selected Items</b> to go into the edit subjects page.">Edit Selected Items</button>';
 				echo "</form>";
 			echo "</div>";
 		}
@@ -79,8 +79,6 @@
 				//pass SubjectID in the url for each individual link.
 				while($row = $result->fetch(PDO::FETCH_ASSOC))
 				{
-					
-
 					//display subjects in a list style with anchor pointing to the subject's topics
 					echo "<a href='../topics/viewTopic.php?ID=".$row['SubjectID']."'>";
 						echo "<div name='subject_ID".$row['SubjectID']."' id='".$row['SubjectID']."' class='row-fluid'>";
