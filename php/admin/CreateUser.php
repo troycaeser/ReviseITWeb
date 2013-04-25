@@ -1,5 +1,5 @@
 <?php
-  include '../init.php';
+  include '../getConnection.php';
   require '../check_logged_in.php';
 ?>
 
@@ -7,7 +7,8 @@
 <html>
 <head>
 <?php 
-  require_once("../../DAL/Verification.php"); require_once("../../DAL/DataAccessLayer.php");
+  require_once("../../DAL/Verification.php"); 
+  require_once("../../DAL/DataAccessLayer.php");
   include '../header_container.php';
 ?>
 </head>
@@ -33,26 +34,34 @@ $fName = "";
 $lName = "";
 $userName = "";
 
-if(isset($_POST["submitUser"])){
-	if ($_POST["fName"] == NULL)
-		$setfName = 1;
-	else $fName = $_POST["fName"];
-	if ($_POST["lName"] == NULL)
-		$setlName = 1;
-	else $lName = $_POST["lName"];
-	if ($_POST["userName"] == NULL)
-		$setuserName = 1;
-	else $userName = $_POST["userName"];
-	$pass1 = $_POST["pass1"];
-	$pass2 = $_POST["pass2"];
-	
-	if ($pass1 != $pass2)
-		echo ("<p class='errmsg'>Passwords do not match!</p>");
-	elseif (!verifyPassword($pass1))
-		echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
-	else { $pass = md5($pass1);
-		createUser($userName, $pass, $fName, $lName, "3");
-		header('Location: admin_Home.php');
+if(isset($_POST["submitUser"]))
+{
+	if($row['username'] == $userName && $row['password'] == $pass1 && $row['password'] == $pass2)
+	{
+		echo "Username and password are already in use. Please enter a different username & password";
+	}
+	else
+	{
+		if ($_POST["fName"] == NULL)
+			$setfName = 1;
+		else $fName = $_POST["fName"];
+		if ($_POST["lName"] == NULL)
+			$setlName = 1;
+		else $lName = $_POST["lName"];
+		if ($_POST["userName"] == NULL)
+			$setuserName = 1;
+		else $userName = $_POST["userName"];
+		$pass1 = md5($_POST["pass1"]);
+		$pass2 = md5($_POST["pass2"]);
+		
+		if ($pass1 != $pass2)
+			echo ("<p class='errmsg'>Passwords do not match!</p>");
+		elseif (!verifyPassword($pass1))
+			echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
+		else { $pass = md5($pass1);
+			createUser($userName, $pass, $fName, $lName, "3");
+			header('Location: admin_Home.php');
+		}
 	}
 }
 ?>
@@ -93,24 +102,25 @@ if(isset($_POST["submitUser"])){
               </div>
             </div>
             <div class="controls">
-              <input class="btn" type="submit" name="reset" value="RESET" />
               <input class="btn" type="submit" name="submitUser" value="SUBMIT" />
+              <input class="btn" type="submit" name="reset" value="RESET" />
             </div>
           </fieldset>
         </div>
       </form>
     </div>
-    <?php if (isset($POST["reset"])){
-	$setfName = 0;
-	$setlName = 0;
-	$setuserName = 0;
-
-	$fName = "";
-	$lName = "";
-	$userName = "";
-	$pass1 = "";
-	$pass2 = "";
-}
+    <?php if (isset($POST["reset"]))
+	{
+		$setfName = 0;
+		$setlName = 0;
+		$setuserName = 0;
+	
+		$fName = "";
+		$lName = "";
+		$userName = "";
+		$pass1 = "";
+		$pass2 = "";
+	}
 ?>
   <div class="span4">
     <ul class="nav nav-list">
@@ -126,7 +136,7 @@ if(isset($_POST["submitUser"])){
   <div class="container">
     <div class="nav-collapse collapse">
       <ul class="nav pull-right">
-        <li><a href="#">Log out</a></li>
+        <li><a href="../logout.php">Log out</a></li>
         <li><a href="#">Contact Admin</a></li>
         <li><a href="#">Help</a></li>
       </ul>

@@ -2,31 +2,29 @@
 
 	include '../getConnection.php';
 
-	$userid = $_SESSION['UserID'];
+	$userRole = $_SESSION['Role'];
 
 	try
 	{
+		
 		$role_query = $db->prepare("SELECT role FROM users WHERE UserID = :userId");
 		$role_query->bindParam("userId", $userid);
 		$role_query->execute();
 		$role_result = $role_query->fetch(PDO::FETCH_ASSOC);
 
-		if($role_result['role'] == 1)
+		if($userRole == 1 || $userRole == 4)
 		{
 			$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID");
 			$result->execute();
 		}
-		else
+		else if($userRole == 2 || $userRole == 3)
 		{
-			$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID AND users.UserID = ".$role_result['role']);
+			$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID AND subject.UserID = :bind_id");
+			$result->bindParam("bind_id",$_SESSION['UserID']);
 			$result->execute();
 		}
-		
-		if($role_result['role'] == 2 || $role_result['role'] == 3 || $role_result['role'] == 4)
-		{
-			$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID AND users.UserID = ".$role_result['role']);
-			$result->execute();
-			
+		echo $_SESSION['UserID'];
+
 			echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
 				echo "<div class='row-fluid'>";
 					echo "<div class='span1'></div>";
@@ -58,52 +56,8 @@
 							echo "</div>";
 						echo "</a>";
 					}
-					echo '<button type="submit" name="edit_submit" class="btn bootstro" data-bootstro-placement="bottom" data-bootstro-title="Editing Subjects" data-bootstro-content="Select the checkboxes on the subjects you wish to edit, then select <b>Edit Selected Items</b> to go into the edit subjects page.">Edit Selected Items</button>';
 				echo "</form>";
 			echo "</div>";
-		}
-		else
-		{
-			echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of Subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
-			echo "<div class='row-fluid'>";
-				echo "<div class='span1'></div>";
-				echo "<div class='span3'><h4>Subject</h4></div>";
-				echo "<div class='span2'><h4>Code</h4></div>";
-				echo "<div class='span2'><h4>Date</h4></div>";
-				echo "<div class='span2'><h4>Coordinator</h4></div>";
-				echo "<div class='span2'></div>";
-			echo "</div>";
-
-			echo "<form action='edit_subject.php' method='post'>";
-				//display everything in a row-fluid/spans while looping the result.
-				//pass SubjectID in the url for each individual link.
-				while($row = $result->fetch(PDO::FETCH_ASSOC))
-				{
-					
-
-					//display subjects in a list style with anchor pointing to the subject's topics
-					echo "<a href='../topics/viewTopic.php?ID=".$row['SubjectID']."'>";
-						echo "<div name='subject_ID".$row['SubjectID']."' id='".$row['SubjectID']."' class='row-fluid'>";
-						
-						//adds checklist for each item.
-							echo "<div class='span1'>";
-								echo "<label class='checkbox'>";
-									echo "<input name='chk_group[]' value='".$row['SubjectID']."' type='checkbox' />";
-								echo "</label>";
-							echo "</div>";
-							
-							echo "<div class='span3'>".$row['SubjectName']."</div>";
-							echo "<div class='span2'>".$row['SubjectCode']."</div>";
-							echo "<div class='span2'>".$row['Dateupdated']."</div>";
-							echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>";
-							echo "<div class='span2'><a href='delete_subject.php?ID=".$row['SubjectID']."'>".Delete."</a></div>";	
-						echo "</div>";
-					echo "</a>";
-				}
-				echo '<button type="submit" name="edit_submit" class="btn bootstro" data-bootstro-placement="bottom" data-bootstro-title="Editing Subjects" data-bootstro-content="Select the checkboxes on the subjects you wish to edit, then select <b>Edit Selected Items</b> to go into the edit subjects page.">Edit Selected Items</button>';
-			echo "</form>";
-		echo "</div>";
-		}
 	}
 	catch(PDOException $e)
 	{
