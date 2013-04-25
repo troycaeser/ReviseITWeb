@@ -21,8 +21,8 @@
 					$query->execute();
 					$role = $query->fetchColumn();
 
-					//get id from username and set sessiosn.
-					$query = $db->prepare("SELECT `username` FROM `users` WHERE `username` =:userName ");
+					//get id from username and set session.
+					$query = $db->prepare("SELECT `UserID` FROM `users` WHERE `username` =:userName ");
 					$query->bindParam('userName', $username);
 					$query->execute();
 					$id = $query->fetchColumn();
