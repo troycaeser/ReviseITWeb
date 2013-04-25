@@ -5,6 +5,7 @@
 
 			$username = $_POST['username'];
 			$password = $_POST['password'];
+			
 
 			if(!empty($username) && !empty($password)){
 				$statement = $db->prepare("SELECT * FROM users WHERE username=:user AND password=:pass");
@@ -28,11 +29,28 @@
 					$id = $query->fetchColumn();
 					$_SESSION['UserID'] = $id;
 					$_SESSION['Role'] = $role;
+					$_SESSION['Lock'] = $lock;
+					
+					//get locked status from username
+	 			    $query = $db->prepare("SELECT `locked` FROM `users` WHERE `username` = :userName");
+					$query->bindParam('userName', $username);
+					$query->execute();
+					$role = $query->fetchColumn();
+
+					if ($row['locked'] == "1"){
+	
+						session_destroy();
+						header("Location: access_denied_login.php");	
+					}
+					
 
 					header("Location: home_page_director.php");
 
+
+					
+
 				}
-				else
+				else 
 				{
 					if(isset($_SESSION['loginCount']))
 					{
@@ -57,11 +75,13 @@
 					{
 						$_SESSION['loginCount'] = 1;
 					}
+
 				}
 			}
 			else
 			{
 				echo "please enter username and password";
+
 			}
 	}
 	catch(PDOException $e)

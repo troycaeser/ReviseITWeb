@@ -86,29 +86,31 @@
 			//displa everything in a row-fluid/spans while looping the result.
 			while($row = $result->fetch(PDO::FETCH_ASSOC))
 			{
-				echo "<a href='../admin/EditAccount.php?ID=".$row['username']."'>";
+				echo "<a href='../admin/EditAccount.php?ID=".$row['UserID']."'>";
 				echo "<div class='row-fluid'>";
 					echo "<div class='span3'>".$row['username']."</div>";
 					echo "<div class='span2'>".$row['fName']."</div>";
 					echo "<div class='span2'>".$row['lName']."</div>";
 					echo "<div class='span2'>";
+						if ($row['role'] == "1") echo 'Admin'; 
+						else if ($row['role'] == "2") echo 'Co-ordinator'; 
+						else if ($row['role'] == "3") echo 'Teacher'; 
+						else if ($row['role'] == "4") echo 'Student';
+					echo"</div>";
+					
 					echo "<div class='span3'>";
-
-					if ($row['role'] == "1") echo 'Admin'; 
-					else if ($row['role'] == "2") echo 'Co-ordinator'; 
-					else if ($row['role'] == "3") echo 'Teacher'; 
-					else if ($row['role'] == "4") echo 'Student';
+						echo "<div class'row-fluid'>";
+							echo "<div class='span6'>";
+								if ($row['locked'] == "1") echo 'Locked';
+								else if ($row['locked'] != "1 | 0") echo 'Current';
+							echo "</div>";
+							echo "<div class='span6'>";
+								if ($row['locked'] == "1") echo '<a href="UnlockAccount.php?ID=' . $row['username'] . '">Unlock</a>';
+								else if ($row['locked'] == "0") echo '<a href="LockAccount.php?ID=' . $row['username'] . '">Lock</a>';
+							echo "</div>";
+						echo "</div>";
 					echo"</div>";
 					
-					if ($row['locked'] == "1") echo 'Locked';
-					else if ($row['locked'] != "1 | 0") echo 'Current';
-				    echo "</div>";
-				
-					if ($row['locked'] == "1") echo '<a href="UnlockAccount.php?ID=' . $row['username'] . '">Unlock</a>';
-					else if ($row['locked'] == "0") echo '<a href="LockAccount.php?ID=' . $row['username'] . '">Lock</a>'; 
-					echo"</div>";
-					
-
 			}
 			
 		echo "</div>";
@@ -140,7 +142,6 @@ if (isset($_POST['newAccnt']))
         <li><a href="#">Subject Roles</a></li>
         <li><a href="#">Account details</a></li>
         <li><a href="#">My account</a></li>
-        <li><a href="ViewLockedUsers.php">View locked accounts</a></li>
         <li class="divider"></li>
         <li><a href="#">About Us</a></li>
       </ul>
