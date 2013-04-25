@@ -26,7 +26,14 @@
 					$query->bindParam('userName', $username);
 					$query->execute();
 					$id = $query->fetchColumn();
+
+					//get username from username and set session.
+					$query = $db->prepare("SELECT `username` FROM `users` WHERE `username` =:userName ");
+					$query->bindParam('userName', $username);
+					$query->execute();
+					$username = $query->fetchColumn();
 					$_SESSION['UserID'] = $id;
+					$_SESSION['username'] = $username;
 					$_SESSION['Role'] = $role;
 
 					header("Location: home_page_director.php");
