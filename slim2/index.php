@@ -16,6 +16,8 @@ $app->get('/date/subject/:id/', "getSubjectDate");
 $app->get('/date/topic/:id/', "getTopicDate"); 
 $app->get('/date/subtopic/:id/', "getSubtopicDate"); 
 $app->post('/testsummary/:userid/:testid/', "uploadTestSummary");
+$app->post('/login/', "login");
+$app->post('/signup/', "signup");
 
 //Gets entire table - subject
 function getAll()
@@ -419,6 +421,71 @@ function getSubtopic($top)
 	catch(PDOException $e)
 	{
 		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+//Logs in with user and pass (MOBILE)
+//
+function login() 
+{
+	try{
+		$dbh = getConnection();		
+		$request = \Slim\Slim::getInstance()->request();
+		$q = json_decode($request->getBody());
+		$sql = "SELECT UserID, fName, lName FROM users WHERE username = :username and password = :password;";
+		
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("username", $q->username);
+		$stmt->bindParam("password", $q->password);
+		$stmt->execute();
+		$row=$stmt->fetch(PDO::FETCH_OBJ);
+		$db=NULL;
+		
+		if($row != NULL)
+			echo '{"AKEY":"true", "UserID":"'.$row['UserID'].'"}';
+		else
+			echo '{"AKEY":"false, "UserID":"0"}';
+
+	}
+	catch (PDOException $e){
+		if($dbh != NULL) $dbh = NULL;
+		echo $e->getMessage();
+	}
+}
+
+//Allows for sign up on mobile
+//
+function signup() {
+	try{
+		$dbh = getConnection();		
+		$request = \Slim\Slim::getInstance()->request();
+		$q = json_decode($request->getBody());
+		
+		$sql = "INSERT INTO users (username, fName, lName, password, role) VALUES (:username, :fName, :lName, :password, '4');";		
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("username", $q->username);
+		$stmt->bindParam("fName", $q->fName);
+		$stmt->bindParam("lName", $q->lName);
+		$stmt->bindParam("password", $q->password);
+		$stmt->execute();
+				
+		$sql = "SELECT UserID FROM users WHERE username = :username AND password = :password;";		
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("username", $q->username);
+		$stmt->bindParam("password", $q->password);
+		$stmt->execute();
+		$row=$stmt->fetch(PDO::FETCH_OBJ);
+		$db=NULL;
+		
+		if($row != NULL)
+			echo '{"AKEY":"true", "UserID":"'.$row->UserID.'"}';
+		else
+			echo '{"AKEY":"false", "UserID":"0"}';
+
+	}
+	catch (PDOException $e){
+		if($dbh != NULL) $dbh = NULL;
 		echo $e->getMessage();
 	}
 }
