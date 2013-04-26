@@ -74,10 +74,10 @@
       <div class='span2'>
         <h4>Last Name</h4>
       </div>
-      <div class='span1'>
+      <div class='span2'>
         <h4>Role</h4>
       </div>
-      <div class='span3'>
+      <div class='span2'>
         <h4>Account Status</h4>
       </div>
       <div class='span2'>
@@ -93,14 +93,14 @@
 					echo "<div class='span2'>".$row['username']."</div>";
 					echo "<div class='span2'>".$row['fName']."</div>";
 					echo "<div class='span2'>".$row['lName']."</div>";
-					echo "<div class='span1'>";
+					echo "<div class='span2'>";
 						if ($row['role'] == "1") echo 'Admin'; 
 						else if ($row['role'] == "2") echo 'Co-ordinator'; 
 						else if ($row['role'] == "3") echo 'Teacher'; 
 						else if ($row['role'] == "4") echo 'Student';
 					echo"</div>";
 					
-					echo "<div class='span3'>";
+					echo "<div class='span2'>";
 						echo "<div class'row-fluid'>";
 							echo "<div class='span6'>";
 								if ($row['locked'] == "1") echo 'Locked';
@@ -109,8 +109,8 @@
 							echo "<div class='span6'>";
 								if ($row['locked'] == "1") 
 								
-								echo '<button><a href="UnlockAccount.php?ID=' . $row['username'] . '">Unlock</a></button>';
-								else if ($row['locked'] == "0") echo '<button><a href="LockAccount.php?ID=' . $row['username'] . '">Lock</a></button>';
+								echo '<a href="UnlockAccount.php?ID=' . $row['username'] . '">Unlock</a>';
+								else if ($row['locked'] == "0") echo '<a href="LockAccount.php?ID=' . $row['username'] . '">Lock</a>';
 							echo "</div>";
 						echo "</div>";
 					echo"</div>";
@@ -118,10 +118,10 @@
 					echo "<div class='span2'>";
 						echo "<div class'row-fluid'>";
 							echo "<div class='span6'>";
-								echo "<div class='span1'>".'<button><a href="EditAccount.php?ID=' . $row['UserID'] . '">Edit</a></button></div>';	
+								echo "<div class='span1'>".'<a href="EditAccount.php?ID=' . $row['UserID'] . '">Edit</a></div>';	
 							echo "</div>";
 							echo "<div class='span6'>";
-								echo "<div class='span1'>".'<button><a href="EditAccount.php?ID=' . $row['UserID'] . '">Delete</a></button></div>';
+								echo "<div class='span1'>".'<a href="DeleteAccount.php?ID=' . $row['UserID'] . '">Delete</a></div>';
 							echo "</div>";
 						echo "</div>";
 					echo"</div>";
