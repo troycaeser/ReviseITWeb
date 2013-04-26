@@ -36,20 +36,21 @@
 					$_SESSION['UserID'] = $id;
 					$_SESSION['username'] = $username;
 					$_SESSION['Role'] = $role;
-					$_SESSION['Lock'] = $lock;
+					//$_SESSION['Locked'] = $locked;
 					
 					//get locked status from username
 	 			    $query = $db->prepare("SELECT `locked` FROM `users` WHERE `username` = :userName");
 					$query->bindParam('userName', $username);
 					$query->execute();
-					$role = $query->fetchColumn();
-
+					//$locked = $query->fetchColumn();
+					
+					/*
 					if ($row['locked'] == "1"){
 	
-						session_destroy();
+						//session_destroy();
 						header("Location: access_denied_login.php");	
 					}
-					
+					*/
 
 					header("Location: home_page_director.php");
 

@@ -23,7 +23,6 @@
   <h1>All Accounts</h1>
 </div>
 <div class='row-fluid'> 
-  <!-- Displays All subjects -->
   <?php
 
 		//get result from the table "subject"
@@ -66,7 +65,7 @@
     </form>
   </div>
     <div class='row-fluid'>
-      <div class='span3'>
+      <div class='span2'>
         <h4>Username</h4>
       </div>
       <div class='span2'>
@@ -75,23 +74,26 @@
       <div class='span2'>
         <h4>Last Name</h4>
       </div>
-      <div class='span2'>
+      <div class='span1'>
         <h4>Role</h4>
       </div>
       <div class='span3'>
         <h4>Account Status</h4>
       </div>
+      <div class='span2'>
+        <h4></h4>
+      </div>
     </div>
     <?php
-			//displa everything in a row-fluid/spans while looping the result.
+			//display everything in a row-fluid/spans while looping the result.
 			while($row = $result->fetch(PDO::FETCH_ASSOC))
 			{
-				echo "<a href='../admin/EditAccount.php?ID=".$row['UserID']."'>";
+				//echo "<a href='../admin/EditAccount.php?ID=".$row['UserID']."'>";
 				echo "<div class='row-fluid'>";
-					echo "<div class='span3'>".$row['username']."</div>";
+					echo "<div class='span2'>".$row['username']."</div>";
 					echo "<div class='span2'>".$row['fName']."</div>";
 					echo "<div class='span2'>".$row['lName']."</div>";
-					echo "<div class='span2'>";
+					echo "<div class='span1'>";
 						if ($row['role'] == "1") echo 'Admin'; 
 						else if ($row['role'] == "2") echo 'Co-ordinator'; 
 						else if ($row['role'] == "3") echo 'Teacher'; 
@@ -102,15 +104,27 @@
 						echo "<div class'row-fluid'>";
 							echo "<div class='span6'>";
 								if ($row['locked'] == "1") echo 'Locked';
-								else if ($row['locked'] != "1 | 0") echo 'Current';
+								else echo 'Active';
 							echo "</div>";
 							echo "<div class='span6'>";
-								if ($row['locked'] == "1") echo '<a href="UnlockAccount.php?ID=' . $row['username'] . '">Unlock</a>';
-								else if ($row['locked'] == "0") echo '<a href="LockAccount.php?ID=' . $row['username'] . '">Lock</a>';
+								if ($row['locked'] == "1") 
+								
+								echo '<button><a href="UnlockAccount.php?ID=' . $row['username'] . '">Unlock</a></button>';
+								else if ($row['locked'] == "0") echo '<button><a href="LockAccount.php?ID=' . $row['username'] . '">Lock</a></button>';
 							echo "</div>";
 						echo "</div>";
 					echo"</div>";
 					
+					echo "<div class='span2'>";
+						echo "<div class'row-fluid'>";
+							echo "<div class='span6'>";
+								echo "<div class='span1'>".'<button><a href="EditAccount.php?ID=' . $row['UserID'] . '">Edit</a></button></div>';	
+							echo "</div>";
+							echo "<div class='span6'>";
+								echo "<div class='span1'>".'<button><a href="EditAccount.php?ID=' . $row['UserID'] . '">Delete</a></button></div>';
+							echo "</div>";
+						echo "</div>";
+					echo"</div>";
 			}
 			
 		echo "</div>";
@@ -135,19 +149,6 @@ if (isset($_POST['newAccnt']))
 	header ('Location: CreateUser.php');
 }
 ?>
-    <div class="span4">
-      <ul class="nav nav-list">
-        <li class="nav-header">Quick Access</li>
-        <li class="active"><a href="CreateUser.php">Create Accounts</a></li>
-        <li><a href="#">Subject Roles</a></li>
-        <li><a href="#">Account details</a></li>
-        <li><a href="#">My account</a></li>
-        <li class="divider"></li>
-        <li><a href="#">About Us</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
 
 <!-- This is the same as the navigation bar at the top, except I used it for the footer.-->
 <div class="navbar navbar-fixed-bottom">

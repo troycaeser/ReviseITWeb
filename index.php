@@ -52,10 +52,8 @@
 							<div class="controls">
                             	<a href="php/admin/ResetPassword.php">Reset Password</a>
 								<button type="submit" class="btn">Sign in</button>
-                                
 							</div>
 						</div>
-                        
 					</fieldset>
 				</div>
 			</form>
