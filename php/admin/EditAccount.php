@@ -87,10 +87,9 @@
 	 
 	 //----------------------
 
-	 if (isset($_POST['submit']))
-	 {
+	 if (isset($_POST['editUser']))
+	 {	
 		try{
-	   
 			//write query
 			//in this case, it seemed like we have so many fields to pass and
 			//its kinda better if we'll label them and not use question marks
@@ -104,16 +103,18 @@
 			$stmt = $db->prepare($query);
 			
 			//bind the parameters
-			$stmt->bindParam(':fName', $_POST['fName']);
-			$stmt->bindParam(':lName', $_POST['lName']);
-			$stmt->bindParam(':username', $_POST['username']);
-			$stmt->bindParam(':password', $_POST['password']);
-			$stmt->bindParam(':UserID', $_POST['UserID']);
+			$stmt->bindParam('fName', $_POST['fName']);
+			$stmt->bindParam('lName', $_POST['lName']);
+			$stmt->bindParam('username', $_POST['username']);
+			$stmt->bindParam('password', $_POST['password']);
+			$stmt->bindParam('UserID', $_POST['UserID']);
 		   
 			// Execute the query
 			$stmt->execute();
 		   
 			echo "Record was updated.";
+			
+			header("Location: all_Accounts.php");
 	   
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();
@@ -122,11 +123,11 @@
 
 		try {
 			//prepare query
-			$query = "SELECT UserID, fName, lName, username, password FROM users WHERE UserID = UserID";
+			$query = "SELECT UserID, fName, lName, username, password FROM users WHERE UserID = :bind_UserID";
 			$stmt = $db->prepare( $query );
 		   
 			//this is the first question mark
-			$stmt->bindParam(2, $_REQUEST['UserID']);
+			$stmt->bindParam("bind_UserID", $_GET['ID']);
 		   
 			//execute our query
 			$stmt->execute();
@@ -143,20 +144,33 @@
 		   
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();
-	}
+		}
+		
+		
+		if(isset($_POST["deleteUser"]))
+		{
+			try {
+			
+				$query = "DELETE FROM users WHERE UserID=:bind_UserID";
+				$stmt = $db->prepare($query);
+				$stmt->bindParam("bind_UserID", $UserID);
+				
+				$stmt->execute();
+				echo "<div>Record was deleted.</div>";
+				
+				$fName = "";
+				$lName = "";
+				$userName = "";
+				$password = "";
+				
+			}catch(PDOException $exception){ //to handle error
+				echo "Error: " . $exception->getMessage();
+			}
+			
+			header("Location: all_Accounts.php");
+		
+		}
   
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 //----------------------
-	 
-	 
 /*
 	 // If the form hasn't been submitted, get the data from the db and display the form
 	 else
@@ -204,6 +218,79 @@
 ?>
 
 
+
+
+      <form class="form-horizontal" method="post" action='<?php echo($_SERVER["PHP_SELF"]); ?>'>
+        <div class="center">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="fName">First Name:</label>
+              <div class="controls">
+                <input type="text" name="fName" id="fName" value='<?php echo $fName ?>'/>
+              </div>
+            </div>
+            <?php if ($setfName) echo "<tr><td colspan='2' class='errmsg'>Please enter a first name!</td></tr>"; ?>
+            <div class="control-group">
+              <label class="control-label" for="lName">Last Name:</label>
+              <div class="controls">
+                <input type="text" name="lName" id="lName" value='<?php echo $lName ?>' />
+              </div>
+            </div>
+            <?php if ($setlName) echo "<tr><td colspan='2' class='errmsg'>Please enter a last name!</td></tr>"; ?>
+            <div class="control-group">
+              <label class="control-label" for="userName">Username:</label>
+              <div class="controls">
+                <input type="text" name="username" id="username" value='<?php echo $username ?>' />
+              </div>
+            </div>
+            <?php if ($setuserName) echo "<tr><td colspan='2' class='errmsg'>Please enter a username!</td></tr>"; ?>
+            <div class="control-group">
+              <label class="control-label" for="pass1">New Password:</label>
+              <div class="controls">
+                <input type="password" name="pass1" id="pass1" value='' />
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="pass2">Confirm Password</label>
+              <div class="controls">
+                <input type="password" name="pass2" id="pass2" value='' />
+              </div>
+            </div>
+            <div class="controls">
+			<input type="submit" name="editUser" value="Edit" />
+            <input type="submit" name="deleteUser" value="Delete" />
+            </div>
+          </fieldset>
+        </div>
+      </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <form class="form-horizontal" action="" method="post">
 <input type='hidden' name='UserID' value='<?php echo $UserID ?>' />
        
@@ -231,10 +318,8 @@
     	</tr>
     	<tr>     
              <!-- we will set the action to edit -->
-			<input type="submit" name="submit" value="Edit" />
-            <input type="submit" name="delete" value="Delete" />
-             
-             <a href='all_Accounts.php'>All Accounts</a>
+			<input type="submit" name="editUser" value="Edit" />
+            <input type="submit" name="deleteUser" value="Delete" />
     	</tr>
      </td>
  </table>

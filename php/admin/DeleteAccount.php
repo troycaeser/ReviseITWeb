@@ -1,6 +1,6 @@
 <?php
 
-	include '../init.php';
+  	include '../getConnection.php';
 	require '../check_logged_in.php';
 
 
@@ -19,29 +19,33 @@
 	 DELETE.PHP
 	 Deletes a specific entry from the 'user' table
 	*/
-
-	$action = isset($_GET['action']) ? $_GET['action']: "";
-
-	if($action=='delete')
+	
+	$UserID = $_GET['ID'];
+	
+	if(isset($_POST["deleteUser"]))
 	{
 		try {
 		
-			$query = "DELETE FROM users WHERE ID = ?";
+			$query = "DELETE FROM users WHERE UserID=:bind_UserID";
 			$stmt = $db->prepare($query);
-			$stmt->bindParam(1, $_GET['ID']);
+			$stmt->bindParam("bind_UserID", $UserID);
 			
-			$result = $stmt->execute();
+			$stmt->execute();
 			echo "<div>Record was deleted.</div>";
 			
-			header("Location: all_Accounts.php");
+			$fName = "";
+		    $lName = "";
+		    $userName = "";
+		    $password = "";
 			
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();
 		}
+		
+		header("Location: all_Accounts.php");
     
 	}
-	 
-	 //  http://www.codeofaninja.com/2012/02/pdo-crud-tutorial.html
+
 ?>
 </body>
 </html>
