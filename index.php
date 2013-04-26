@@ -17,7 +17,8 @@
 					<a href="#" class="brand">reviseIT</a>
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
-							<li class="active"><a href="php/student/EnterToken.php">Sign up</a></li>
+							<li class="active"><a href="#">Sign up</a></li>
+							<!--<li class="active"><a href="php/student/EnterToken.php">Sign up</a></li>-->
 						</ul>
 					</div>
 				</div>
@@ -50,7 +51,8 @@
 						
 						<div class="control-group">
 							<div class="controls">
-                            	<a href="php/admin/ResetPassword.php">Reset Password</a>
+                            	<!--<a href="php/admin/ResetPassword.php">Reset Password</a>-->
+                            	<a href="#">Reset Password</a>
 								<button type="submit" class="btn">Sign in</button>
 							</div>
 						</div>

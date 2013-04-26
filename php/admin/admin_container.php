@@ -8,7 +8,8 @@
 	<div class="span4 bootstro" data-bootstro-placement="bottom" data-bootstro-title="This is Accounts" data-bootstro-content="Click the link below to see account information. You're able to create, update and delete them.">
 		<h3>Manage All Users!</h3>
 		<p>Create, Edit and Delete all the users!</p>
-		<a href='all_Accounts.php'>All Users</a>
+		<!--<a href='all_Accounts.php'>All Users</a>-->
+		<a href='#'>All Users</a>
 	</div>
 	<div class="span4 bootstro" data-bootstro-placement="bottom" data-bootstro-title="All the subjects" data-bootstro-content="Click on the link to see a list of all the subjects. You can edit, create and even delete them.">
 		<h3>See All Subjects!</h3>
