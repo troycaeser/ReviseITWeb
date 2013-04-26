@@ -32,18 +32,13 @@
 			</div>
 		</div>
 		
-		<!-- This is the same as the navigation bar at the top, except I used it for the footer.-->
-		<div class="navbar navbar-fixed-bottom">
-			<div class="container">
-				<ul class="nav pull-right">
-					<li><a href="#">Log out</a></li>
-					<li><a href="#">Help</a></li>
-				</ul>
-			</div>
-		</div>
+		<!-- Footer -->
+		<?php
+			include '../footer.php';
+		?>
 
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-		<script src="../assets/js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstrap.js"></script>
 		<script src="../../assets/js/bootstro.min.js"></script>
 		<script>
 		$(document).ready(function()
