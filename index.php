@@ -50,7 +50,8 @@
 						
 						<div class="control-group">
 							<div class="controls">
-                            	<a href="php/admin/ResetPassword.php">Reset Password</a>
+                            	<!--<a href="php/admin/ResetPassword.php">Reset Password</a>-->
+                            	<a href="#">Reset Password</a>
 								<button type="submit" class="btn">Sign in</button>
 							</div>
 						</div>
