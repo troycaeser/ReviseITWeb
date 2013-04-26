@@ -31,11 +31,9 @@
 
 				<!-- Error message -->
 				<?php if ($settoken) echo "<div class='errmsg'>Please enter a token!</div>"; ?>
-				<div class="control-group">
-					<div class="controls">
-						<button class="btn" type="submit" name="reset" onClick="reset();">Reset</button>
-						<button class="btn" type="submit" name="submitNToken">Submit</button>
-					</div>
+				<div class="controls">
+					<button class="btn" type="submit" name="reset" onClick="reset();">Reset</button>
+					<button class="btn" type="submit" name="submitNToken">Submit</button>
 				</div>
 			</fieldset>
 		</div>

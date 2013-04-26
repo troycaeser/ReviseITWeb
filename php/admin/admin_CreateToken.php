@@ -27,7 +27,7 @@
 			<div class='row-fluid'>
 				<!-- Displays Links -->
 				<?php
-					include'CreateToken.php';
+					include 'CreateToken.php';
 				?>
 			</div>
 		</div>
@@ -44,5 +44,18 @@
 
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 		<script src="../assets/js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstro.min.js"></script>
+		<script>
+		$(document).ready(function()
+		{
+			$('#help').click(function()
+			{
+				bootstro.start(".bootstro", 
+				{
+					finishButton: ''
+				});
+			});
+		});
+		</script>
 	</body>
 </html>
