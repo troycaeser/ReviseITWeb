@@ -8,7 +8,6 @@ $app = new \Slim\Slim();
 $app->get('/getAll/', 'getAll');
 $app->get('/getContent/:subid', 'getContent');
 $app->get('/getSubjects/', 'getSubjects');
-//$app->post('/getSubject/', 'getSubject');
 $app->get('/getTopic/:sub', 'getTopic');
 $app->get('/getSubtopic/:top', 'getSubtopic');
 $app->get('/getTest/:subid', 'getTest');
@@ -18,7 +17,7 @@ $app->get('/date/topic/:id/', "getTopicDate");
 $app->get('/date/subtopic/:id/', "getSubtopicDate"); 
 $app->post('/testsummary/:userid/:testid/', "uploadTestSummary");
 
-
+//Gets entire table - subject
 function getAll()
 {
 	$sql = "SELECT * from subject";
@@ -38,6 +37,7 @@ function getAll()
 	}
 }
 
+//Gets entire table - topic
 function getTopics()
 {
 	$sql = "SELECT * from topic";
@@ -57,6 +57,7 @@ function getTopics()
 	}
 }
 
+//Gets entire table - subtopic
 function getSubTopics()
 {
 	$sql = "SELECT * from subtopic";
@@ -76,6 +77,7 @@ function getSubTopics()
 	}
 }
 
+//Gets entire table - test
 function getTests()
 {
 	$sql = "SELECT * from test";
@@ -95,6 +97,7 @@ function getTests()
 	}
 }
 
+//Gets entire table - multichoice
 function getMultichoice()
 {
 	$sql = "SELECT * from multichoice";
@@ -439,42 +442,6 @@ function getConnection()
 		echo $e->getMessage();
 	}
 }
-
-
-/*function getSubject()
-{
-	$request = \Slim\Slim::getInstance()->request();
-	$q = json_decode($request->getBody());
-	$array = $q->SubjectIDs;
-	
-	$tmp = "";
-
-	try
-	{
-		//echo json_encode($array);
-		for($i = 0; $i <= count($q); $i++)
-		{
-		echo $array[0];
-		//$sql = "";
-		//$sql = "Select * from topic where SubjectID=:id";
-		//$dbh = getConnection();
-		//$stmt=$dbh->prepare($sql);
-		//$stmt->bindParam("id",$q->SubjectID);
-		//$stmt->execute();
-		//$row=$stmt->fetchAll(PDO::FETCH_OBJ);
-		//$dbh=null;
-		//$tmp += $row;
-		}
-		//echo json_encode($tmp);
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}*/
-
-
 
 //runs the app
 $app->run();
