@@ -8,7 +8,7 @@ $app = new \Slim\Slim();
 $app->get('/getAll/', 'getAll');
 $app->get('/getContent/:subid', 'getContent');
 $app->get('/getSubjects/', 'getSubjects');
-$app->post('/getSubject/', 'getSubject');
+//$app->post('/getSubject/', 'getSubject');
 $app->get('/getTopic/:sub', 'getTopic');
 $app->get('/getSubtopic/:top', 'getSubtopic');
 $app->get('/getTest/:subid', 'getTest');
@@ -21,22 +21,95 @@ $app->post('/testsummary/:userid/:testid/', "uploadTestSummary");
 
 function getAll()
 {
+	$sql = "SELECT * from subject";
 	try
 	{
-		$dbh = getConnection();		
-		$request = \Slim\Slim::getInstance()->request();
-		$q = json_decode($request->getBody());
-		$sql = "SELECT * FROM subject";
+		$dbh = getConnection();
 		$stmt=$dbh->prepare($sql);
 		$stmt->execute();
 		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
-		$db=NULL;
-		
-		echo json_encode($rows);
+		$dbh=null;
+		echo '["subject"' . json_encode($rows) . ']' . getTopics();
 	}
-	catch (PDOException $e)
+	catch(PDOException $e)
 	{
-		if($dbh != NULL) $dbh = NULL;
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getTopics()
+{
+	$sql = "SELECT * from topic";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->execute();
+		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbh=null;
+		echo '["topic"' . json_encode($rows) . ']' . getSubTopics();
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getSubTopics()
+{
+	$sql = "SELECT * from subtopic";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->execute();
+		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbh=null;
+		echo '["subtopic"' . json_encode($rows) . ']' . getTests();
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getTests()
+{
+	$sql = "SELECT * from test";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->execute();
+		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbh=null;
+		echo '["test"' . json_encode($rows) . ']' . getMultichoice();
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getMultichoice()
+{
+	$sql = "SELECT * from multichoice";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->execute();
+		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
+		$dbh=null;
+		echo '["multichoice"' . json_encode($rows) . ']';
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
 		echo $e->getMessage();
 	}
 }
@@ -368,10 +441,11 @@ function getConnection()
 }
 
 
-function getSubject()
+/*function getSubject()
 {
 	$request = \Slim\Slim::getInstance()->request();
 	$q = json_decode($request->getBody());
+	$array = $q->SubjectIDs;
 	
 	$tmp = "";
 
@@ -380,7 +454,7 @@ function getSubject()
 		//echo json_encode($array);
 		for($i = 0; $i <= count($q); $i++)
 		{
-		echo $q->id[0];
+		echo $array[0];
 		//$sql = "";
 		//$sql = "Select * from topic where SubjectID=:id";
 		//$dbh = getConnection();
@@ -398,7 +472,7 @@ function getSubject()
 		if($dbh != null) $dbh = null;
 		echo $e->getMessage();
 	}
-}
+}*/
 
 
 
