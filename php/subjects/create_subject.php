@@ -45,21 +45,21 @@
 				<div class="span8">
 					<form class="form-horizontal" method="post" action='<?php echo($_SERVER["PHP_SELF"]); ?>'>
 						<fieldset>
-							<div class="control-group">
+							<div class="control-group bootstro" data-bootstro-step="0" data-bootstro-placement="bottom" data-bootstro-title="The Subject Code" data-bootstro-content="Please enter the <b>subject code</b> in the textfield.">
 								<label class="control-label" for="subject_code">Subject Code</label>
 								<div class="controls">
 									<input type="text" name="subject_code" id="subject_code" value="" />
 								</div>
 							</div>
 
-							<div class="control-group">
+							<div class="control-group bootstro" data-bootstro-step="1" data-bootstro-placement="bottom" data-bootstro-title="The Subject Name" data-bootstro-content="Please enter the <b>subject name</b> in the textfield.">
 								<label class="control-label" for="subject_name">Subject Name</label>
 								<div class="controls">
 									<input type="text" name="subject_name" id="subject_name" value="" />
 								</div>
 							</div>
 
-							<div class="control-group">
+							<div class="control-group bootstro" data-bootstro-step="2" data-bootstro-placement="bottom" data-bootstro-title="Coordinator" data-bootstro-content="Please <b>assign a coordinator</b> for the subject, select on of the options.">
 								<label class="control-label" for="subject_coordinator">Coordinator</label>
 								<div class="controls">
 									<?php
@@ -74,8 +74,8 @@
 							</div>
 
 							<div class="controls">
-								<button class="btn" type="submit" name="reset">Reset</button>
-								<button class="btn btn-primary" type="submit" name="submit">Submit</button>
+								<button class="btn bootstro" data-bootstro-step="3" data-bootstro-placement="right" data-bootstro-title="Reset" data-bootstro-content="Click this button to reset the fields to <b>blank</b>." type="submit" name="reset">Reset</button>
+								<button class="btn btn-primary bootstro" data-bootstro-step="4" data-bootstro-placement="right" data-bootstro-title="Submit" data-bootstro-content="Once everything in the textfield is entered, <b>click this button</b> to add a confirm adding the subject." type="submit" name="submit">Submit</button>
 							</div>
 						</fieldset>
 					</form>
@@ -85,10 +85,7 @@
 					<ul class="nav nav-list">
 						<li class="nav-header">Quick Access</li>
 						<li class="active"><a href="create_subject.php">Create Subjects</a></li>
-						<li><a href="#">Account details</a></li>
 						<li><a href="#">My account</a></li>
-						<li class="divider"></li>
-						<li><a href="#">About Us</a></li>
 					</ul>
 				</div>
 			</div>
@@ -100,7 +97,20 @@
 		?>
 
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-		<script src="../../js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstro.min.js"></script>
+		<script>
+		$(document).ready(function(){
+
+		
+			$('#help').click(function(){
+				bootstro.start(".bootstro", {
+					finishButton: ''
+				});
+				//$('#example').popover({trigger: "hover"});
+			});
+		});
+		</script>
 	</body>
 </html>
 
