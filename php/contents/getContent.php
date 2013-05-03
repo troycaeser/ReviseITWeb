@@ -1,6 +1,6 @@
 <?php
 
-include '../init.php';
+include '../getConnection.php';
 
 
 echo displayContent($subtopic_ID);
