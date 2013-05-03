@@ -66,7 +66,7 @@
 									echo "<script type='text/javascript'>alert('Your account has been locked.\\nPlease contact administrator')</script>";
 									
 									//This SQL statement updates their locked status from 0 to 1, depending on whether they entered the correct username and incorrect password, or vice versa
-									$statement = $db->prepare("UPDATE users SET locked = 1 WHERE username=:user OR password=:pass");
+									$statement = $db->prepare("UPDATE users SET locked = 1 WHERE username=:user");
 									$statement->bindParam("user", $username);
 									$statement->bindParam("pass", $mdPassword);
 									$statement->execute();
