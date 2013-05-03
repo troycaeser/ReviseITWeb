@@ -1,0 +1,40 @@
+Step1 - Set up github
+
+	git config --global user.name "your username"
+
+	git config --global user.email "your email"
+
+
+Step1a - Go to your project folder.
+
+	cd E:/NewUniserver/UniServer/www/project_ReviseIT
+
+Step2 - to check status:
+
+	git status
+
+Step3 - Get updates from github
+
+	git pull origin master
+
+Step4 - work on your project
+
+Step5 - check project status
+
+	git status
+	(You should see a bunch of red text for your updated files)
+
+step6 - add your updated files
+
+	git add -A
+	(If you check your status again, the red text files should turn green)
+
+Step7 - commit your changes
+
+	git commit -m "changes name"
+
+Step8 - push your updated files up to github
+	
+	git push origin master
+	type username
+	type password(it won't type but do it anyways)
