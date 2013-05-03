@@ -151,16 +151,9 @@ if (isset($_POST['newAccnt']))
 ?>
 
 <!-- This is the same as the navigation bar at the top, except I used it for the footer.-->
-<div class="navbar navbar-fixed-bottom">
-  <div class="container">
-    <div class="nav-collapse collapse">
-      <ul class="nav pull-right">
-        <li><a href="#">Log out</a></li>
-        <li><a href="#">Help</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+<?php
+	include "../footer.php"
+?>
 <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script> 
 <script src="../../assets/js/bootstrap.js"></script>
 </body>

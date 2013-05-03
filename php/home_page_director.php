@@ -1,5 +1,7 @@
 <?php
 	include 'getConnection.php';
+	
+	session_start();
 
 	//echo $_SESSION['UserID'];
 	$role = $_SESSION['Role'];
