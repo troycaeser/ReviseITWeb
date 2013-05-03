@@ -14,6 +14,11 @@ function isString($field){
 	return true;
 }
 
+function isAlphaNumeric($field){
+	if (ereg('[a-zA-Z0-9 _]', $field)) return true;
+	else return false;
+}
+
 function checklength($field, $length){
 	if (strlen($field) < $length) return false;
 	return true;
@@ -21,21 +26,5 @@ function checklength($field, $length){
 
 function checkEmail($email){
 	if (eregi("^[a-zA-Z0-9_]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$]", $email)) return false;
- 	list($Username, $Domain) = split("@",$email);
-	if(getmxrr($Domain, $MXHost)) 
-	{
-	   return TRUE;
-	}
-	else 
-	{
-	   if(fsockopen($Domain, 25, $errno, $errstr, 30)) 
-	   {
-		  return TRUE; 
-	   }
-	   else 
-	   {
-		  return FALSE; 
-	   }
-	}
 }
 ?>
