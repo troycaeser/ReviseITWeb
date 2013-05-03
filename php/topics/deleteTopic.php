@@ -1,5 +1,6 @@
 <?php
-	require('../init.php');
+	require '../getConnection.php';
+	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
 ?>
@@ -16,10 +17,8 @@
 
 	<?php
 		
-		$query = 'UPDATE topic SET deletionStatus = 1 WHERE TopicID="'.$topic_ID.'"';
-		
-		$SQL = mysql_query($query)
-			or die("Problem executing query ".mysql_error());
+		$result = $db->prepare('UPDATE topic SET deletionStatus = 1 WHERE TopicID="'.$topic_ID.'"');
+		$result->execute();
 	?>
     
     <script type="text/javascript">
