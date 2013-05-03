@@ -31,11 +31,10 @@
 			$result = $db->prepare("SELECT * FROM subject, users WHERE subject.UserID = users.UserID AND subject.UserID = :bind_id");
 			$result->bindParam("bind_id",$_SESSION['UserID']);
 			$result->execute();
-			
 		}
 		
 		//If you're an admin, you'll be able to edit the subjects, and if you're a teacher or student then you can only view the subjects
-		if($userRole ==1)
+		if($userRole == 1)
 		{
 			echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
 				echo "<div class='row-fluid'>";

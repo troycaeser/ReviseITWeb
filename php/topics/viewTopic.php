@@ -49,8 +49,8 @@
 								
 								echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
 										echo "<div class='span3'>".$row['TopicName']."</div>";
-										echo "<div class='span6'><a href='editTopic.php?ID=".$row['TopicID']."'>".Edit."</a></div>";
-										echo "<div class='span3'><a href='deleteTopic.php?ID=".$row['TopicID']."'>".Delete."</a></div>";	
+										echo "<div class='span6'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
+										echo "<div class='span3'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";	
 								echo "</a>";
 	
 							}

@@ -1,5 +1,5 @@
 <?php
-	require '../init.php';
+	require '../getConnection.php';
 	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
@@ -18,46 +18,40 @@
 <body>
 <?php 
 	
-	function renderForm($TopicID, $topName, $subCode, $error)
+	/*function renderForm($TopicID, $topName, $subCode, $error)
 	{
 		if($error !='')
 		{
 			echo '<div style="padding: 4px; border: 1px; solid red; color:red;">'.$error.'</div>';
 		}
-	}
+	}*/
 	
+	$result= $db->prepare("SELECT TopicName, SubjectCode FROM topic WHERE TopicID = '".$topic_ID."'");
+	$result->execute();
 	
-	$query = "SELECT TopicName, SubjectCode FROM topic WHERE TopicID = '".$topic_ID."'";
-		
-	$SQL = mysql_query($query)
-		or die("Problem loading query ".mysql_error());
-			
-	$row = mysql_fetch_array($SQL);
-			
-	if($row)
-	{
-		$topName = $row['TopicName'];
-		$subCode = $row['SubjectCode'];
-			
-		renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
+	while($row = $result->fetch(PDO::FETCH_ASSOC))
+	{			
+		if($result)
+		{
+			$topName = $row['TopicName'];
+			$subCode = $row['SubjectCode'];
+				
+			//renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
+		}
+		else
+		{
+			echo "No Results";
+		}
 	}
-	else
-	{
-		echo "No Results";
-	}
-	
 	if(isset($_POST['submit']))
 	{
-		//header("Location:../viewTopic.php/".$row['SubjectID']);
-		$topicName = $_POST['topicName'];
-		$subCode = $_POST['SubjCode'];
-					
-		$SQL = "UPDATE topic SET TopicName = '$topicName', SubjectCode = '$subCode' WHERE TopicID = '".$topic_ID."'";
+			
+		$stmt = $db->prepare("UPDATE topic SET TopicName = ':topicName', SubjectCode = ':subCode' WHERE TopicID = '".$topic_ID."'");
+		$stmt->execute();
+		$stmt->bindParam("topicName", $topicName = $_POST['topicName']);
+		$stmt->bindParam("subCode", $subCode = $_POST['SubjCode']);
 		
-		$query = mysql_query($SQL)
-			or die("Problem updating table ".mysql_error());
-		
-		renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
+		//renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
 	}
 ?>
 <form method="post" action="">
