@@ -46,14 +46,13 @@ function createToken($token){
 	try{
 		$dbh = connectDB();
 		date_default_timezone_set('Australia/Melbourne');
-		$date = date('Y/m/d', time());
-		$sql = "INSERT INTO token (tokenCode, tokenDate) VALUES ('".$token."', '".$date."');"; 
+		$datetime = date('Y/m/d H:i:s');
+		$sql = "INSERT INTO token (tokenCode, tokenDate) VALUES ('".$token."', '".$datetime."');"; 
 			$stmt=$dbh->prepare($sql);
 			$stmt->bindParam("tokenCode", $token);
-			$stmt->bindParam("tokenDate", $date);
+			$stmt->bindParam("tokenDate", $datetime);
 			$stmt->execute();
 			$dbh = null;
-			echo("Success");
 			return true;
 	}
 	catch (PDOException $e){
@@ -66,12 +65,25 @@ function createToken($token){
 function createUser($username, $password, $fName, $lName, $role){
 	try{
 		$dbh = connectDB();
+		$sql = "SELECT * FROM users WHERE username = '".$username."';"; 
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("username", $username);
+		$stmt->execute();
+		if ($row != NULL) return "error";		
+	}
+	catch (PDOException $e){
+		if($dbh != null) $dbh = null;
+		echo("Could not create Account: Error: - ".$e->getMessage());
+		return false;
+	}
+	
+	try {
 		$sql = "INSERT INTO users (username, password, fName, lName, role) VALUES ('".$username."', '".$password."', '".$fName."', '".$lName."', '".$role."');"; 
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("username", $username);
-		$stmt->bindParam("password", $username);
-		$stmt->bindParam("fName", $username);
-		$stmt->bindParam("lName", $username);
+		$stmt->bindParam("password", $password);
+		$stmt->bindParam("fName", $fNname);
+		$stmt->bindParam("lName", $lName);
 		$stmt->bindParam("role", $role);
 		$stmt->execute();
 		$dbh = null;
