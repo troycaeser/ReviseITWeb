@@ -30,7 +30,8 @@
 	$result->execute();
 	
 	while($row = $result->fetch(PDO::FETCH_ASSOC))
-	{			
+	{
+		
 		if($result)
 		{
 			$topName = $row['TopicName'];
@@ -45,11 +46,11 @@
 	}
 	if(isset($_POST['submit']))
 	{
+		$topicName = $_POST['topicName'];	
+		$subCode = $_POST['SubjCode'];
 			
-		$stmt = $db->prepare("UPDATE topic SET TopicName = ':topicName', SubjectCode = ':subCode' WHERE TopicID = '".$topic_ID."'");
+		$stmt = $db->prepare("UPDATE topic SET TopicName = '$topicName', SubjectCode = '$subCode' WHERE TopicID = '".$topic_ID."'");
 		$stmt->execute();
-		$stmt->bindParam("topicName", $topicName = $_POST['topicName']);
-		$stmt->bindParam("subCode", $subCode = $_POST['SubjCode']);
 		
 		//renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
 	}

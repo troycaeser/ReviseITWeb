@@ -1,5 +1,5 @@
 <?php
-	include '../init.php';
+	include '../getConnection.php';
 	include '../check_logged_in.php';
 
 	$subtopic_ID = $_GET['ID'];

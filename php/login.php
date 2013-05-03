@@ -7,7 +7,6 @@
 
 			$username = $_POST['username'];
 			$password = $_POST['password'];
-			
 			$mdPassword = md5($password);
 			
 			//get locked status from username
@@ -58,7 +57,6 @@
 							if(isset($_SESSION['loginCount']))
 							{
 								$_SESSION['loginCount']++;
-								echo $mdPassword;
 								//If a person has been unable to login successfully 3 times
 								if($_SESSION['loginCount'] > 3)
 								{
@@ -68,7 +66,7 @@
 									//This SQL statement updates their locked status from 0 to 1, depending on whether they entered the correct username and incorrect password, or vice versa
 									$statement = $db->prepare("UPDATE users SET locked = 1 WHERE username=:user OR password=:pass");
 									$statement->bindParam("user", $username);
-									$statement->bindParam("pass", $mdPassword);
+									$statement->bindParam("pass", $password);
 									$statement->execute();
 									$_SESSION['loginCount'] = 0;
 									exit;
@@ -83,17 +81,14 @@
 							{
 								$_SESSION['loginCount'] = 1;
 							}
-		
 						}
 					}
 					else
 					{
 						//Error message displays if the person has not entered a username and password
 						echo "please enter username and password";
-		
 					}
-				}
-				
+				}	
 			else
 			{
 				echo "Access denied";	
