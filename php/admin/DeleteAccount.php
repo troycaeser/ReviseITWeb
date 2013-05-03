@@ -1,6 +1,6 @@
 <?php
 
-  //	include '../getConnection.php';
+  	include '../getConnection.php';
 	require '../check_logged_in.php';
 
 

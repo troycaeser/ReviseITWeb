@@ -1,6 +1,6 @@
 <?php
 
-	include '../init.php';
+	include '../getConnection.php';
 	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
@@ -15,12 +15,15 @@
 </head>
 
 <body>
+
 <?php
+	
 	/* 
 	 DELETE.PHP
 	 Deletes a specific entry from the 'subtopic' table
 	*/
 
+	/*
 	// Get id value
 	$SubtopicID = $_GET['id'];
 	 
@@ -40,6 +43,32 @@
 	 {
 	 	header("Location: view.php");
 	 }
+	*/
+
+//--------------------------------------------------------------------------------------------
+	/* 
+	 DELETE.PHP
+	 Deletes a specific entry from the 'user' table
+	*/
+	
+	$SubtopicID = $_GET['ID'];
+	
+	if (isset($_POST['delete']))
+    {
+		
+		try {
+		
+			$query = "DELETE FROM subtopic WHERE SubtopicID=:subtopic_ID";
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(":subtopic_ID", $SubtopicID);
+			$stmt->execute();
+			
+			header("Location: view.php?ID=".$topic_ID."");
+			
+		}catch(PDOException $exception){ //to handle error
+			echo "Error: " . $exception->getMessage();
+		}
+	}
 ?>
 </body>
 </html>

@@ -47,14 +47,14 @@
 						echo "</div>";
 	
 						//display subjects in a list style with anchor pointing to the subject's topics
-						//echo "<a href='../topics/viewTopic.php?ID=".$row['SubjectID']."'>";
+						echo "<a href='../topics/viewTopic.php?ID=".$row['SubjectID']."'>";
 							echo "<div name='subject_ID".$row['SubjectID']."' id='".$row['SubjectID']."' class='row-fluid'>";
 								echo "<div class='span5'>".$row['SubjectName']."</div>";
 								echo "<div class='span2'>".$row['SubjectCode']."</div>";
 								echo "<div class='span2'>".$row['Dateupdated']."</div>";
 								echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>";
 							echo "</div>";
-						//echo "</a>";
+						echo "</a>";
 					}
 				echo "</form>";
 			echo "</div>";

@@ -35,6 +35,7 @@
         // Get results from the database
         $result = $db->prepare("SELECT * FROM subtopic WHERE TopicID ='".$topic_ID."'") ;
         $result->execute();         
+		
                 
         // Display data in table
         //echo "<p><b>View All</b> | <a href='view-paginated.php?page=1'>View Paginated</a></p>";
@@ -65,7 +66,7 @@
             
             
             <?php
-				while($row = $result->fetchALL(PDO::FETCH_ASSOC)) 
+				while($row = $result->fetch(PDO::FETCH_ASSOC))
 				{	
 						$id=$row['SubtopicID'];
 						
@@ -75,8 +76,8 @@
 								echo "<div class='span3'>".$row['SubtopicName']."</div>";
 								echo "<div class='span4'>".$row['Content']."</div>";
 								echo "<div class='span2'>".$row['DateUpdated']."</div>";
-								echo "<div class='span1'>".'<a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></div>';
-								echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
+								echo "<div class='span1'>".'<button name="edit"><a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></button></div>';
+								echo "<div class='span1'>".'<button name="delete"><a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></button></div>';	
 							echo "</div>";
 						echo "</a>";
 				} 

@@ -1,5 +1,5 @@
 <?php
-	include '../init.php';
+	include '../getConnection.php';
 	require '../check_logged_in.php';
 
 	$subtopic_ID = $_GET['ID'];
@@ -47,7 +47,7 @@
                     <!--<div class='span2'><h4>Coordinator</h4></div>-->
 				</div>           
 <?php	 
-	 
+	/* 
 	 $subtopic_ID = $_GET['ID'];
 	 
 	function renderForm($subtopic_ID, $subtopic_Name, $Content, $DateUpdated, $error)
@@ -122,7 +122,100 @@
    }
    
    // http://twitter.github.com/bootstrap/base-css.html#tables
+   
+   */
 ?>
+
+
+
+
+
+
+<?php	 
+
+	$subtopic_ID = $_GET['ID'];
+
+	 if (isset($_POST['submit']))
+	 {
+		 
+		try{
+			//write query
+			//in this case, it seemed like we have so many fields to pass and
+			//its kinda better if we'll label them and not use question marks
+			//like what we used here
+			
+			$query = "UPDATE subtopic SET SubtopicName=':subtopic_Name', Content=':Content', 
+				 			  DateUpdated=':DateUpdated' WHERE SubtopicID=':subtopic_ID'";
+			
+			
+			//prepare query for excecution
+			$stmt = $db->prepare($query);
+			
+			//bind the parameters
+			$stmt->bindParam(':subtopic_Name', $_POST['SubtopicName']);
+			$stmt->bindParam(':topic_ID', $_POST['TopicID']);
+			$stmt->bindParam(':Content', $_POST['Content']);
+			$stmt->bindParam(':DateUpdated', $_POST['DateUpdated']);
+		   
+			// Execute the query
+			$stmt->execute();
+		    
+			//indicate record updated
+			echo "Record was updated.";
+			
+			// return to all accounts page
+			header("Location: view.php?ID=':topic_ID'"); 
+			
+	   
+		}catch(PDOException $exception){ //to handle error
+			echo "Error: " . $exception->getMessage();
+		}
+	}
+
+		try {
+			//prepare query
+			$query = "SELECT * FROM subtopic WHERE SubtopicID=:subtopic_ID";
+			
+			$stmt = $db->prepare( $query );
+		   
+			//this is the first question mark
+			$stmt->bindParam(":subtopic_ID", $_GET['ID']);
+		   
+			//execute our query
+			$stmt->execute();
+		   
+			//store retrieved row to a variable
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+			
+			//values to fill up in form
+			 $subtopic_Name = $row['SubtopicName'];
+			 $topic_ID = $row['TopicID'];
+			 $Content = $row['Content'];
+			 $DateUpdated = $row['DateUpdated'];
+		   
+		}catch(PDOException $exception){ //to handle error
+			echo "Error: " . $exception->getMessage();
+		}
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <form action="" method="post">
