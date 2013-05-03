@@ -66,7 +66,11 @@
             
             
             <?php
+<<<<<<< HEAD
 				while($row = $result->fetch(PDO::FETCH_ASSOC))
+=======
+				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
+>>>>>>> origin/master
 				{	
 						$id=$row['SubtopicID'];
 						

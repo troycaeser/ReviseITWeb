@@ -30,13 +30,6 @@
 					include 'subjects.php';
 				?>
 
-				<div class="span4">
-					<ul class="nav nav-list">
-						<li class="nav-header">Quick Access</li>
-						<li class="bootstro" data-bootstro-placement="left" data-bootstro-title="Create Subjects!" data-bootstro-content="Click this link to <b>create subjects page</b>!"><a href="create_subject.php">Create Subjects</a></li>
-						<li><a href="../account/my_account.php">My account</a></li>
-					</ul>
-				</div>
 			</div>
 			
 			<!-- This drop down button isn't working, commented out for future use.-->

@@ -133,7 +133,7 @@
 
 <?php	 
 
-	$subtopic_ID = $_GET['ID'];
+	 $subtopic_ID = $_GET['ID'];
 
 	 if (isset($_POST['submit']))
 	 {
