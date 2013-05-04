@@ -43,7 +43,7 @@
 					echo "<div class='span2'><h4>Code</h4></div>";
 					echo "<div class='span2'><h4>Date</h4></div>";
 					echo "<div class='span2'><h4>Coordinator</h4></div>";
-					echo "<div class='span2'></div>";
+					echo "<div class='span2'>&nbsp</div>";
 				echo "</div>";
 	
 				echo "<form action='edit_subject.php' method='post'>";
@@ -65,7 +65,7 @@
 									echo "<div class='span2'>".$row['SubjectCode']."</div>";
 									echo "<div class='span2'>".$row['Dateupdated']."</div>";
 									echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>";
-									echo "<div class='span2'><a href='delete_subject.php?ID=".$row['SubjectID']."'>Delete</a></div>";  
+									echo "<div class='span2'><a href='delete_subject.php?ID=".$row['SubjectID']."'>Delete</a></div>";
 							echo "</a>";
 						echo "</div>";
 					}
