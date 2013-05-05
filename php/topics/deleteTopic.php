@@ -29,7 +29,7 @@
 		if(delete_IT)
 		{
 			<?php
-				$id=$row['TopicID'];
+				//$id=$row['TopicID'];
 					
 				echo "window.location.href = 'viewTopic.php?ID=".$topic_ID."'";
 			?>
@@ -38,7 +38,7 @@
 		
 	</script>
 	
-	<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="../../assets/js/bootstrap.js"></script>
 </body>
 </html>
