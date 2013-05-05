@@ -29,7 +29,7 @@
 				<?php
 					include 'subjects.php';
 				?>
-
+				<a href="#" rel="popover" class="btn" data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="" data-original-title="Popover on top">Popover on top</a>
 			</div>
 			
 			<!-- This drop down button isn't working, commented out for future use.-->
@@ -66,6 +66,21 @@
 				});
 				//$('#example').popover({trigger: "hover"});
 			});
+
+		    $("a[rel=popover]")
+            .popover({
+                offset: 10,
+                trigger: 'manual',
+                animate: false,
+                html: true,
+                placement: 'left',
+                template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+
+            }).click(function(e) {
+                e.preventDefault() ;
+            }).mouseenter(function(e) {
+                $(this).popover('show');
+            });
 		});
 		</script>
 	</body>
