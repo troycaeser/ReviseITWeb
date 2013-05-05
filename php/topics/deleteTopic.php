@@ -16,7 +16,6 @@
 <body>
 
 	<?php
-		
 		$result = $db->prepare('UPDATE topic SET deletionStatus = 1 WHERE TopicID="'.$topic_ID.'"');
 		$result->execute();
 	?>
@@ -28,14 +27,10 @@
 		
 		if(delete_IT)
 		{
-			<?php
-				//$id=$row['TopicID'];
-					
+			<?php	
 				echo "window.location.href = 'viewTopic.php?ID=".$topic_ID."'";
 			?>
 		}
-		
-		
 	</script>
 	
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
