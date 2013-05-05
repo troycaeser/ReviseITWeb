@@ -46,12 +46,15 @@
 	}
 	if(isset($_POST['submit']))
 	{
-		$topicName = $_POST['topicName'];	
-		$subCode = $_POST['SubjCode'];
+		$topicName = htmlentities($_POST['topicName']);	
+		$subCode = htmlentities($_POST['SubjCode']);
 			
-		$stmt = $db->prepare("UPDATE topic SET TopicName = '$topicName', SubjectCode = '$subCode' WHERE TopicID = '".$topic_ID."'");
+		$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode WHERE TopicID = '".$topic_ID."'");
+		$stmt->bindParam("topicName", $topicName);
+		$stmt->bindParam("subCode", $subCode);
 		$stmt->execute();
 		
+		header("Location: viewTopic.php?ID=".$topic_ID);
 		//renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
 	}
 ?>
