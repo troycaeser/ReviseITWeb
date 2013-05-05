@@ -69,25 +69,20 @@ function createUser($username, $password, $fName, $lName, $role){
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("username", $username);
 		$stmt->execute();
-		if ($row != NULL) return "error";		
-	}
-	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		echo("Could not create Account: Error: - ".$e->getMessage());
-		return false;
-	}
-	
-	try {
-		$sql = "INSERT INTO users (username, password, fName, lName, role) VALUES ('".$username."', '".$password."', '".$fName."', '".$lName."', '".$role."');"; 
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("username", $username);
-		$stmt->bindParam("password", $password);
-		$stmt->bindParam("fName", $fNname);
-		$stmt->bindParam("lName", $lName);
-		$stmt->bindParam("role", $role);
-		$stmt->execute();
-		$dbh = null;
-		return true;
+		if ($row=$stmt->fetch(PDO::FETCH_OBJ)) return "error";
+		else {		
+			$password = md5($password);
+			$sql = "INSERT INTO users (username, password, fName, lName, role, locked) VALUES ('".$username."', '".$password."', '".$fName."', '".$lName."', '".$role."', '0');"; 
+			$stmt=$dbh->prepare($sql);
+			$stmt->bindParam("username", $username);
+			$stmt->bindParam("password", $password);
+			$stmt->bindParam("fName", $fNname);
+			$stmt->bindParam("lName", $lName);
+			$stmt->bindParam("role", $role);
+			$stmt->execute();
+			$dbh = null;
+			return true;
+		}
 	}
 	catch (PDOException $e){
 		if($dbh != null) $dbh = null;
