@@ -3180,6 +3180,10 @@ table th[class*="span"],
           transition: height 0.35s ease;
 }
 
+.collapse.div{
+  margin-top: 20px;
+}
+
 .collapse.in {
   height: auto;
 }
@@ -6152,7 +6156,7 @@ a.badge:focus {
   font-weight: 200;
   line-height: 30px;
   color: inherit;
-  background-color: #eeeeee;
+  background-color: #181818;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;

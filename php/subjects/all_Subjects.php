@@ -67,20 +67,34 @@
 				//$('#example').popover({trigger: "hover"});
 			});
 
-		    $("a[rel=popover]")
+			$('html').click(function(e) {
+			    $('.popups').popover('hide');
+			});
+
+			$('.popups').popover({
+			    html: true,
+			    trigger: 'manual',
+			}).click(function(e) {
+			    $(this).popover('toggle');
+			    e.stopPropagation();
+			});
+  
+        	$(".collapse").collapse({
+        		toggle: false
+        	});
+
+		    /*$("a[rel=popover]")
             .popover({
                 offset: 10,
                 trigger: 'manual',
                 animate: false,
                 html: true,
-                placement: 'left',
+                placement: 'right',
+                content: '<button class="btn btn-success" id="edit">Edit</button>' + '<button class="btn btn-danger" id="delete">delete</button>',
                 template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
-
-            }).click(function(e) {
-                e.preventDefault() ;
             }).mouseenter(function(e) {
                 $(this).popover('show');
-            });
+            });*/
 		});
 		</script>
 	</body>

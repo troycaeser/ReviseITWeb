@@ -4,7 +4,16 @@
 
 	include '../getConnection.php';
 
-	if (isset($_POST['chk_group'])) 
+	if(isset($_POST['update_submit'])){
+		echo $subjectName = $_POST['subject_name'.$_GET['ID']];
+		echo $subjectCode = $_POST['subject_code'.$_GET['ID']];
+		echo $selectedUser = $_POST['subject_coordinator'.$_GET['ID']];
+
+		
+
+	}
+
+	/*if (isset($_POST['chk_group'])) 
 	{
 		echo "<form method='post' action='".$_SERVER["PHP_SELF"]."'>";
 		    $selected_chk = $_POST['chk_group'];
@@ -72,5 +81,5 @@
 			$query_update_string->execute();
 			//echo $teststring;
     	}
-	}
+	}*/
 ?>
