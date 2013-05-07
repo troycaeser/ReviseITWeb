@@ -29,7 +29,14 @@
 				<?php
 					include 'subjects.php';
 				?>
-				<a href="#" rel="popover" class="btn" data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="" data-original-title="Popover on top">Popover on top</a>
+				<div class='span4'>
+					<a class="btn" data-toggle="collapse" data-target="#create_form">Create Subjects</a>
+					<div id="create_form" class='collapse div'>
+						<?php
+							include 'create_subject.php';
+						?>
+					</div>
+				</div>
 			</div>
 			
 			<!-- This drop down button isn't working, commented out for future use.-->
