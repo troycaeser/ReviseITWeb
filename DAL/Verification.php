@@ -10,13 +10,13 @@ function verifyPassword($password){
 }
 
 function isString($field){
-	if (!(ereg('[a-zA-Z _]', $field))) return false;
-	return true;
+	if (ereg('[^a-zA-Z _]', $field)) return false;
+	else return true;
 }
 
 function isAlphaNumeric($field){
-	if (ereg('[a-zA-Z0-9 _]', $field)) return true;
-	else return false;
+	if (ereg('[^a-zA-Z0-9 _]', $field)) return false;
+	else return true;
 }
 
 function checklength($field, $length){

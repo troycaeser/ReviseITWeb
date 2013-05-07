@@ -25,8 +25,6 @@
     <!-- Displays Links -->
     
     <?php
-	include '../getConnection.php';
-	require '../check_logged_in.php';
 	require_once("../../DAL/DataAccessLayer.php");
 	require_once("../../DAL/Verification.php");
 	$settoken = 0;
@@ -42,7 +40,8 @@
 				$settoken = 2;
 			else {
 				createToken($token);
-				header("Location: admin_Home.php");	
+				echo "Token Created";
+				exit;
 			}
 		}
 	}

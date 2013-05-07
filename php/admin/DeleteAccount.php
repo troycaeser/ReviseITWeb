@@ -22,9 +22,32 @@
 	
 	$UserID = $_GET['ID'];
 	
-	if(isset($_POST["deleteUser"]))
-	{
-		try {
+	try{
+		
+			$query = "UPDATE subject SET UserID='' WHERE UserID =:bind_UserID";
+			$stmt = $db->prepare($query);
+			$stmt->bindParam("bind_UserID", $UserID);
+			
+			$stmt->execute();
+
+			
+		}catch(PDOException $exception){ //to handle error
+			echo "Error: " . $exception->getMessage();
+		}
+
+	try{
+		
+			$query = "DELETE FROM usersubject WHERE UserID =:bind_UserID";
+			$stmt = $db->prepare($query);
+			$stmt->bindParam("bind_UserID", $UserID);
+			
+			$stmt->execute();
+			
+		}catch(PDOException $exception){ //to handle error
+			echo "Error: " . $exception->getMessage();
+		}
+
+	try{
 		
 			$query = "DELETE FROM users WHERE UserID=:bind_UserID";
 			$stmt = $db->prepare($query);
@@ -42,9 +65,9 @@
 			echo "Error: " . $exception->getMessage();
 		}
 		
+		
+		$db = NULL;		
 		header("Location: all_Accounts.php");
-    
-	}
 
 ?>
 </body>

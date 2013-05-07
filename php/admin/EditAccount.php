@@ -1,251 +1,112 @@
 <?php
-  	include '../getConnection.php';
-	require '../check_logged_in.php';
-
-	//$UserID = $_GET['ID'];
+  include '../getConnection.php';
+  require '../check_logged_in.php';
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-		<?php
-			include '../header_container.php';
-		?>
-		<title>ReviseIT - Edit User</title>
+<?php 
+  require_once("../../DAL/Verification.php"); 
+  require_once("../../DAL/DataAccessLayer.php");
+  include '../header_container.php';
+?>
 </head>
 <body>
-	<?php
-		include 'subtopics_menu_bar.php';
-	?>
-
-	<br /><br />
-
+  <?php
+    include 'admin_menu_bar.php';
+  ?>
+<br /><br />
 <div class="container">
+  <div class="page-header">
+    <h1>Revise IT - Edit User Account</h1>
+  </div>
+  <div class='row-fluid'>
+    <div class='span8'>
+      <?php
 
-	<div class="page-header">
-        <h1>Edit Account</h1>
-    </div>
+$UserID = $_GET['ID'];
 
-<?php
-	/* 
-	 EDIT.PHP
-	 Allows user to edit a specific entry in the database
-	*/
-	
-	 // Creates the edit record form
-	 // Function created since, this form is used multiple times in this file
+$details = getDetails($UserID);
 
-?>
+$fName = $details->fName;
+$lName = $details->lName;
+$userName = $details->username;
 
-<!-- subtopicname, content, date updated-->
-    	<div class="row-fluid">
-        	<div class="span8">
-            	<div class='row-fluid'>
-                    <div class='span3'><h4>First Name</h4></div>
-                    <div class='span3'><h4>Last Name</h4></div>
-                    <div class='span3'><h4>Username</h4></div>
-                    <div class='span3'><h4>Password</h4></div>
-                    <!--<div class='span2'><h4>Coordinator</h4></div>-->
-				</div>           
-<?php	 
-	 
-	// $UserID = $_GET['ID'];
-	 /*
-	function renderForm($UserID, $fName, $lName, $username, $password, $error)
-	{
-		// If there are any errors, display them
-		if ($error != '')
-		{
-			echo '<div style="padding:4px; border:1px solid red; color:red;">'.$error.'</div>';
+$setfName = 0;
+$setlName = 0;
+$setuserName = 0;
+
+
+if(isset($_POST["submitUser"]))
+{
+		if ($_POST["fName"] == NULL)
+			$setfName = 1;
+		else {
+			$fName = $_POST["fName"];
+			if (!isString($fName))
+			$setfName = 2;
+		}
+		if ($_POST["lName"] == NULL)
+			$setlName = 1;
+		else {
+			$lName = $_POST["lName"];
+			if (!isString($lName))
+			$setlName = 2;
+		}
+		if ($_POST["userName"] == NULL)
+			$setuserName = 1;
+		else {
+			$userName = $_POST["userName"];
+			if (!isAlphaNumeric($userName))
+			$setuserName = 2;
+		}
+		$pass1 = $_POST["pass1"];
+		$pass2 = $_POST["pass2"];
+		$UserID = $_POST["UserID"];
+		
+		if ($pass1 != $pass2)
+			echo ("<p class='errmsg'>Passwords do not match!</p>");
+		elseif (!verifyPassword($pass1))
+			echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
+		elseif (($setfName == 0) && ($setlName == 0) && ($setuserName == 0)){
+			 { $pass = $pass1; 
+			editUser($fName, $lName, $userName, $pass, $UserID);
+			echo "Account Updated";
+			exit;
 		}
 	}
-		*/
-		/*		 
-	 // Check if the form has been submitted. If it has, process the form and save it to the database
-	 if (isset($_POST['submit']))
-	 {
-		 		$username = $_GET['ID'];
-				
-				$q = "UPDATE users SET username = :bind_username, fName = :bind_fName,
-					  lName = :bind_lName, password = :bind_password WHERE UserID = :bind_UserID";
-		
-				$query = $db->prepare($q);
-				
-				$query->bindParam('bind_UserID', $UserID);
-				$query->bindParam('bind_fName', $fName);
-				$query->bindParam('bind_lName', $lName);
-				$query->bindParam('bind_username', $username);
-				$query->bindParam('bind_password', $password);
-				$query->execute();
-
-				header("Location: all_Accounts.php");
-						 
-  	 }
-	 
-	 
-	 */
-	 
-	 //----------------------
-
-	 if (isset($_POST['editUser']))
-	 {	
-		try{
-			//write query
-			//in this case, it seemed like we have so many fields to pass and
-			//its kinda better if we'll label them and not use question marks
-			//like what we used here
-			
-			$query = "UPDATE users SET fName = :fName, lName = :lName, 
-					 username = :username, password = :password WHERE UserID = :UserID";
-			
-			
-			//prepare query for excecution
-			$stmt = $db->prepare($query);
-			
-			//bind the parameters
-			$stmt->bindParam('fName', $_POST['fName']);
-			$stmt->bindParam('lName', $_POST['lName']);
-			$stmt->bindParam('username', $_POST['username']);
-			$stmt->bindParam('password', $_POST['password']);
-			$stmt->bindParam('UserID', $_POST['UserID']);
-		   
-			// Execute the query
-			$stmt->execute();
-		   
-			echo "Record was updated.";
-			
-			header("Location: all_Accounts.php");
-	   
-		}catch(PDOException $exception){ //to handle error
-			echo "Error: " . $exception->getMessage();
-		}
-	}
-
-		try {
-			//prepare query
-			$query = "SELECT UserID, fName, lName, username, password FROM users WHERE UserID = :bind_UserID";
-			$stmt = $db->prepare( $query );
-		   
-			//this is the first question mark
-			$stmt->bindParam("bind_UserID", $_GET['ID']);
-		   
-			//execute our query
-			$stmt->execute();
-		   
-			//store retrieved row to a variable
-			$row = $stmt->fetch(PDO::FETCH_ASSOC);
-			
-			//values to fill up in form
-			$UserID = $row['UserID'];
-			$fName = $row['fName'];
-			$lName = $row['lName'];
-			$username = $row['username'];
-			$password = $row['password'];
-		   
-		}catch(PDOException $exception){ //to handle error
-			echo "Error: " . $exception->getMessage();
-		}
-		
-		
-		if(isset($_POST["deleteUser"]))
-		{
-			try {
-			
-				$query = "DELETE FROM users WHERE UserID=:bind_UserID";
-				$stmt = $db->prepare($query);
-				$stmt->bindParam("bind_UserID", $UserID);
-				
-				$stmt->execute();
-				echo "<div>Record was deleted.</div>";
-				
-				$fName = "";
-				$lName = "";
-				$userName = "";
-				$password = "";
-				
-			}catch(PDOException $exception){ //to handle error
-				echo "Error: " . $exception->getMessage();
-			}
-			
-			header("Location: all_Accounts.php");
-		
-		}
-  
-/*
-	 // If the form hasn't been submitted, get the data from the db and display the form
-	 else
-	 {
-	 
-	 // Get the 'id' value from the URL (if it exists), making sure that it is valid 
-	 //(checing that it is numeric/larger than 0)
-	
-	
-	 if (isset($_GET['ID']) && is_numeric($_GET['ID']) && $_GET['ID'] > 0)
-	 {
-		 // Query db
-		 $UserID = $_GET['UserID'];
-		 $result = $db->prepare("SELECT * FROM users WHERE UserID='".$UserID."'")
-		 $stmt->execute();
-		 $row=$stmt->fetchALL(PDO::FETCH_OBJ);
-	 
-		 // Check that the 'id' matches up with a row in the database
-		 if($row)
-		 {
-			 // Retrieve data from db
-			 $fName = $row['fName'];
-			 $lName = $row['lName'];
-			 $username = $row['username'];
-			 $password = $row['password'];
-			 
-			 // Display form
-			 renderForm($UserID, $fName, $lName, $username, $password, '');
-		 }
-		 // If there is no match, display result
-		 else
-		 {
-		 	echo "No results!";
-		 }
-	 }
-	 else
-	 // If the 'id' in the URL isn't valid, or if there is no 'id' value, display an error
-	 {
-	 	echo 'Error!';
-	 }
-   }
-   */
-   
-   // http://twitter.github.com/bootstrap/base-css.html#tables
+}
 ?>
-
-
-
-
       <form class="form-horizontal" method="post" action='<?php echo($_SERVER["PHP_SELF"]); ?>'>
         <div class="center">
           <fieldset>
             <div class="control-group">
-              <label class="control-label" for="fName">First Name:</label>
+              <label class="control-label" for="fName">Enter First Name</label>
               <div class="controls">
                 <input type="text" name="fName" id="fName" value='<?php echo $fName ?>'/>
               </div>
             </div>
-            <?php if ($setfName) echo "<tr><td colspan='2' class='errmsg'>Please enter a first name!</td></tr>"; ?>
+            <?php if ($setfName == 1) echo "<p class='errmsg'>Please enter a first name!</p>";
+			elseif ($setfName == 2) echo "<p class='errmsg'>Please enter a valid first name!</p>"; ?>
             <div class="control-group">
-              <label class="control-label" for="lName">Last Name:</label>
+              <label class="control-label" for="lName">Enter Last Name</label>
               <div class="controls">
                 <input type="text" name="lName" id="lName" value='<?php echo $lName ?>' />
               </div>
             </div>
-            <?php if ($setlName) echo "<tr><td colspan='2' class='errmsg'>Please enter a last name!</td></tr>"; ?>
+            <?php if ($setlName == 1) echo "<p class='errmsg'>Please enter a last name!</p>";
+			elseif ($setlName == 2) echo "<p class='errmsg'>Please enter a valid last name!</p>"; ?>
             <div class="control-group">
-              <label class="control-label" for="userName">Username:</label>
+              <label class="control-label" for="userName">Enter Username</label>
               <div class="controls">
-                <input type="text" name="username" id="username" value='<?php echo $username ?>' />
+                <input type="text" name="userName" id="userName" value='<?php echo $userName ?>' />
               </div>
             </div>
-            <?php if ($setuserName) echo "<tr><td colspan='2' class='errmsg'>Please enter a username!</td></tr>"; ?>
+            <?php if ($setuserName == 1) echo "<p class='errmsg'>Please enter a username!</p>";
+			elseif ($setuserName == 2) echo "<p class='errmsg'>Please enter a valid username!</p>"; ?>
             <div class="control-group">
-              <label class="control-label" for="pass1">New Password:</label>
+              <label class="control-label" for="pass1">Enter Password</label>
               <div class="controls">
                 <input type="password" name="pass1" id="pass1" value='' />
               </div>
@@ -256,95 +117,50 @@
                 <input type="password" name="pass2" id="pass2" value='' />
               </div>
             </div>
+            <input type="hidden" name="UserID" id="UserID" value='<?php echo $UserID ?>' />
             <div class="controls">
-			<input type="submit" name="editUser" value="Edit" />
-            <input type="submit" name="deleteUser" value="Delete" />
+              <input class="btn" type="submit" name="submitUser" value="SUBMIT" />
+              <input class="btn" type="reset" name="reset" value="RESET" />
             </div>
           </fieldset>
         </div>
       </form>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<form class="form-horizontal" action="" method="post">
-<input type='hidden' name='UserID' value='<?php echo $UserID ?>' />
-       
-<table width="100" border="0">
-    <td>
-    	<tr>
-            <label>
-                <input type="text" name="fName" id="fName" value='<?php echo $fName; ?>'/>
-            </label>
-     	</tr>
-    	<tr>
-            <label>
-                <input type="text" name="lName" id="lName" value='<?php echo $lName; ?>' />
-            </label>
-    	</tr>
-   		<tr>
-            <label>
-                <input type="text" name="username" id="username" value='<?php echo $username; ?>' />
-            </label>
-    	</tr>
-    	<tr>
-            <label>
-                <input type="password" name="password" id="password" value='<?php echo $password;  ?>' />
-            </label>
-    	</tr>
-    	<tr>     
-             <!-- we will set the action to edit -->
-			<input type="submit" name="editUser" value="Edit" />
-            <input type="submit" name="deleteUser" value="Delete" />
-    	</tr>
-     </td>
- </table>
- </form>
-         </div>
-             <!-- Displays subtopics -->
-            <div class="span4">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Quick Access</li>
-                    <li class="active"><a href="new.php">Add Subtopic</a></li>
-                    <li><a href="#">Account details</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">About Us</a></li>
-                </ul>
-            </div>
-        </div>
+    <?php if (isset($POST["reset"]))
+	{
+		$setfName = 0;
+		$setlName = 0;
+		$setuserName = 0;
+	
+		$fName = "";
+		$lName = "";
+		$userName = "";
+		$pass1 = "";
+		$pass2 = "";
+	}
+?>
+  <div class="span4">
+    <ul class="nav nav-list">
+      <li class="nav-header">Quick Access</li>
+      <li class="active"><a href="#">Help</a></li>
+      <li><a href="#">Contact Admin</a></li>
+      <li><a href="#">My Account</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+<div class="navbar navbar-fixed-bottom">
+  <div class="container">
+    <div class="nav-collapse collapse">
+      <ul class="nav pull-right">
+        <li><a href="../logout.php">Log out</a></li>
+        <li><a href="#">Contact Admin</a></li>
+        <li><a href="#">Help</a></li>
+      </ul>
     </div>
-    
-		
-    <!-- Footer -->
-		<?php
-			include '../footer.php';
-		?>
-    		
-                
+  </div>
+</div>
+<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script> 
+<script src="../../assets/js/bootstrap.js"></script>
 </body>
-</html>  
+</html>
