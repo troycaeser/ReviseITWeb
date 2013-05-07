@@ -34,17 +34,22 @@ if(isset($_POST['Submit']))
 			$result = $db->prepare("SELECT topic.SubjectID from topic, subject WHERE subject.SubjectCode = topic.SubjectCode AND topic.SubjectCode = :subjCode");
 			$result->bindParam("subjCode", $subjectCode);
 			if($result->execute())
-			{	
-				if($result->rowCount() == 1)
+			{
+				$comeback = $result->fetchColumn();
+				echo $comeback;	
+				
+				//This sql query is used to insert the respective variable into the topic table
+				$resultSQL = $db->prepare("INSERT INTO topic VALUES(NULL, ':topicName', :result , :subjCode, 0, :date");
+				$resultSQL->bindParam("topicName", $topicName);
+				$resultSQL->bindParam("result", $result);
+				$resultSQL->bindParam("subjCode", $subjectCode);
+				$resultSQL->bindParam("date", $date);
+				$resultSQL->execute();		
+				
+				while($row = $resultSQL->fetch(PDO::FETCH_ASSOC))
 				{
-					//This sql query is used to insert the respective variable into the topic table
-					$resultSQL = $db->prepare("INSERT INTO topic VALUES(NULL, ':topicName', :result , :subjCode, 0, :date");
-					$resultSQL->bindParam("topicName", $topicName);
-					$resultSQL->bindParam("result", $result);
-					$resultSQL->bindParam("subjCode", $subjectCode);
-					$resultSQL->bindParam("date", $date);
-					$resultSQL->execute();		
-				}		
+					echo $row['TopicName'];
+				}
 			}
 		}
 		else

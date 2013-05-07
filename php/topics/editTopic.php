@@ -46,6 +46,9 @@
 	}
 	if(isset($_POST['submit']))
 	{
+		date_default_timezone_set('Australia/Melbourne');
+		$date = date('Y-m-d', time());
+	
 		$topicName = htmlentities($_POST['topicName']);	
 		$subCode = htmlentities($_POST['SubjCode']);
 			
