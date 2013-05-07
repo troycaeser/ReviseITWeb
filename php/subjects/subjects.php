@@ -38,8 +38,7 @@
 		{
 			echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
 				echo "<div class='row-fluid'>";
-					echo "<div class='span1'></div>";
-					echo "<div class='span3'><h4>Subject</h4></div>";
+					echo "<div class='span4'><h4>Subject</h4></div>";
 					echo "<div class='span2'><h4>Code</h4></div>";
 					echo "<div class='span2'><h4>Date</h4></div>";
 					echo "<div class='span2'><h4>Coordinator</h4></div>";
@@ -67,16 +66,11 @@
 
 						echo "<div class='row-fluid'>";
 							//adds checklist for each item.
-							echo "<div class='span1'>";
-								echo "<label class='checkbox'>";
-									echo "<input name='chk_group[]' value='".$row['SubjectID']."' type='checkbox' />";
-								echo "</label>";
-							echo "</div>";
 		
 							//display subjects in a list style with anchor pointing to the subject's topics
 							//echo "<a rel='popover' data-toggle='popover' href='../topics/viewTopic.php?ID=".$row['SubjectID']."'>";
 							echo "<a href='../topics/viewTopic.php?ID=".$row['SubjectID']."'>";
-									echo "<div class='span3'>".$row['SubjectName']."</div>";
+									echo "<div class='span4'>".$row['SubjectName']."</div>";
 									echo "<div class='span2'>".$row['SubjectCode']."</div>";
 									echo "<div class='span2'>".$row['Dateupdated']."</div>";
 									echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>";

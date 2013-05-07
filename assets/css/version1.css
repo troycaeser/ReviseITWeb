@@ -6221,3 +6221,14 @@ a.badge:focus {
   left:130px;
   bottom:10px;
 }*/
+
+.h4center{
+  display: table;
+  width: 100%;
+}
+
+.h4centerd{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}

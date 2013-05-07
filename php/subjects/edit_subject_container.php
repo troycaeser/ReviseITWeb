@@ -4,10 +4,6 @@
 
 	include '../getConnection.php';
 
-	if(isset($_POST['delete_Subject'])){
-		echo "blah";
-	}
-
 	if(isset($_POST['update_submit'])){
 		$subjectID = $_GET['ID'];
 		$subjectName = $_POST['subject_name'.$_GET['ID']];
@@ -21,7 +17,14 @@
 		$query_update_string->bindParam("bind_UserID", $selectedUser);
 		$query_update_string->execute();
 
-		header("Location: all_Subjects.php");
+		echo "<div class='alert alert-success h4center'>";
+			echo "<h4 class='h4centerd'>Edit Successful!</h4>";
+		echo "</div>";
+
+		//this block makes sure it waits 3 seconds
+		$time = 3;
+		$url = "all_Subjects.php";
+		header("Refresh: $time; url=$url");
 
 	}
 
