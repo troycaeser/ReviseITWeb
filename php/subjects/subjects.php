@@ -82,7 +82,9 @@
 									echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>";
 									//echo "<div class='span2'><a href='delete_subject.php?ID=".$row['SubjectID']."'>Delete</a></div>";
 							echo "</a>";
-							echo "<a rel='popover' data-content='<a class=".'btn'." name=".'edit_Subject'." data-toggle=".'collapse'." data-target=".'#editSub'.$subjectID.''.">Edit</a><button class=".'btn'." name=".'delete_Subject'." value=".$subjectID.">Delete</button>' class='btn popups' data-toggle='popover'><i class='icon-arrow-right'></i></a>";
+							echo "<a rel='popover' data-content='<a class=".'btn'." name=".'edit_Subject'." data-toggle=".'collapse'." data-target=".'#editSub'.$subjectID.''.">Edit</a><a href=".'delete_subject.php?DELETEID='.$subjectID.''." class=".'btn'." name=".'delete_Subject'." value=".$subjectID.">Delete</a>' class='btn popups' data-toggle='popover'><i class='icon-arrow-right'></i></a>";
+
+							/* The Editing Block */
 							echo "<div id='editSub".$subjectID."' class='collapse div'>";
 								echo "<div class='hero-unit'>";
 									echo "<h4>Editing Subject: <em><u>".$subjectName."</u></em></h4>";
@@ -116,6 +118,7 @@
 									echo "</form>";
 								echo "</div>";
 							echo "</div>";
+							/* The Editing Block */
 						echo "</div>";
 					}
 					//echo '<button type="submit" name="edit_submit" class="btn">Edit Selected Items</button>';

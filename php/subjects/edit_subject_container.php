@@ -4,12 +4,24 @@
 
 	include '../getConnection.php';
 
-	if(isset($_POST['update_submit'])){
-		echo $subjectName = $_POST['subject_name'.$_GET['ID']];
-		echo $subjectCode = $_POST['subject_code'.$_GET['ID']];
-		echo $selectedUser = $_POST['subject_coordinator'.$_GET['ID']];
+	if(isset($_POST['delete_Subject'])){
+		echo "blah";
+	}
 
-		
+	if(isset($_POST['update_submit'])){
+		$subjectID = $_GET['ID'];
+		$subjectName = $_POST['subject_name'.$_GET['ID']];
+		$subjectCode = $_POST['subject_code'.$_GET['ID']];
+		$selectedUser = $_POST['subject_coordinator'.$_GET['ID']];
+
+		$query_update_string = $db->prepare("UPDATE subject SET SubjectID = :bind_SubjectID, SubjectCode = :bind_SubjectCode, SubjectName = :bind_SubjectName, UserID = :bind_UserID WHERE SubjectID = :bind_SubjectID");
+		$query_update_string->bindParam("bind_SubjectID", $subjectID);
+		$query_update_string->bindParam("bind_SubjectCode", $subjectCode);
+		$query_update_string->bindParam("bind_SubjectName", $subjectName);
+		$query_update_string->bindParam("bind_UserID", $selectedUser);
+		$query_update_string->execute();
+
+		header("Location: all_Subjects.php");
 
 	}
 

@@ -40,27 +40,19 @@
 		<div class="container">
         <?php	
 		
-		$topic_ID = $_GET['ID'];
-        if (isset($_GET['ID']) && is_numeric($_GET['ID']))
-	 	{
-			try
-			{
-				// Delete the entry
-				$result = $db->prepare("DELETE FROM subject WHERE SubjectID='".$topic_ID."'");
-				$result->execute();
-			}
-			catch(PDOExcepiton $e)
-			{
-				echo $e->getMessage();
-			}
-				
-			 // Redirect back to the view page
-			 header("Location: all_subjects.php");
-		}
-		else
-		// If id isn't set, or isn't valid, redirect back to the view page
+		$subjectID = $_GET['DELETEID'];
+		try
 		{
-			header("Location: all_subjects.php");
+			// Delete the entry
+			$result = $db->prepare("DELETE FROM subject WHERE SubjectID = :bind_SubjectID");
+			$result->bindParam("bind_SubjectID", $subjectID);
+			$result->execute();
+
+		 	header("Location: all_subjects.php");
+		}
+		catch(PDOExcepiton $e)
+		{
+			echo $e->getMessage();
 		}
 	 ?>
 				<div class="span4">
