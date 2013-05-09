@@ -175,6 +175,13 @@ input[type="search"]::-webkit-search-cancel-button {
 textarea {
   overflow: auto;
   vertical-align: top;
+  width: 200px; 
+  min-width:750px; 
+  max-height:1000px; 
+
+  height:200px; 
+  min-height:350px;  
+  max-height:500px;
 }
 
 @media print {

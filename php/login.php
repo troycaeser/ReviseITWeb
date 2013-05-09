@@ -5,9 +5,9 @@ try
 		
 	session_start();
 
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-	$mdPassword = md5($password);
+	$username 		= 	$_POST['username'];
+	$password 		= 	$_POST['password'];
+	$mdPassword 	= 	md5($password);
 			
 	//get locked status from username
 	$query = $db->prepare("SELECT `locked` FROM `users` WHERE `username` = :userName");
@@ -17,9 +17,10 @@ try
 			
 	if($locked == 0)
 	{
+			//If the username or the password is not empty, do the following code.
 			if(!empty($username) && !empty($password))
 			{
-				$statement = $db->prepare("SELECT * FROM users WHERE username=:user AND password=:pass");
+				$statement = $db->prepare("SELECT * FROM `users` WHERE `username` = :user AND `password` = :pass");
 				$statement->bindParam("user", $username);
 				$statement->bindParam("pass", $mdPassword);
 				$statement->execute();

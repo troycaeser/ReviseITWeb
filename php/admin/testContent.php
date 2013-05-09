@@ -25,8 +25,12 @@
 			
 			<div class='row-fluid'>
 				<form>
-					<textarea id="some-textarea" class="textarea" placeholder="Enter text ..."></textarea>
+					<textarea id="content_textarea" class="textarea" placeholder="Place your content here..."></textarea>
+					<br />
+					<input id='clickContent' type="button" class='btn btn-primary' value="submit" />
 				</form>
+
+				<div id='output'></div>
 			</div>
 		</div>
 		
@@ -53,6 +57,11 @@
 					finishButton: ''
 				});
 			});
+			
+			$('#clickContent').click(function(){
+				$('#output').append($('#content_textarea').val());
+			});
+
 		});
 		</script>
 		<script>
