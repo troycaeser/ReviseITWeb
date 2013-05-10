@@ -5,63 +5,47 @@
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<?php
-        include '../header_container.php';
-    ?>
-    <title>ReviseIT - New Topic</title>
-</head>
+<link rel="stylesheet" href="../../assets/css/version1.css">
+<link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
 
 <body>
 <p align="right"><strong>Date: </strong><?php echo date("d/m/y") ?></p>
 <?php
-//SQL Script used to Insert the Topic Name and Subject Code typed in from the previous newTopic.html page
-$topicName = $_POST["strtopicName"];
-$subjectCode = $_POST["strsubjectCode"];
 
-date_default_timezone_set('Australia/Melbourne');
-$date = date('Y-m-d', time());
+	$query = $db->prepare("SELECT topic.SubjectID, TopicName, topic.SubjectCode FROM topic, subject WHERE subject.SubjectCode = topic.SubjectCode");
+	$query->execute();
 
-//SELECT SELECT topic.SubjectID from topic, subject WHERE subject.SubjectCode = topic.SubjectCode AND topic.SubjectCode = '$subjectCode';
-
-if(isset($_POST['Submit']))
-{
-	try
-	{
-		if(!empty($topicName) && !empty($subjectCode))
-		{
-			//This sql select query used to combine the SubjectID from the Subject Table to the Topic table	
-			$result = $db->prepare("SELECT topic.SubjectID from topic, subject WHERE subject.SubjectCode = topic.SubjectCode AND topic.SubjectCode = :subjCode");
-			$result->bindParam("subjCode", $subjectCode);
-			if($result->execute())
-			{
-				$comeback = $result->fetchColumn();
-				echo $comeback;	
-				
-				//This sql query is used to insert the respective variable into the topic table
-				$resultSQL = $db->prepare("INSERT INTO topic VALUES(NULL, ':topicName', :result , :subjCode, 0, :date");
-				$resultSQL->bindParam("topicName", $topicName);
-				$resultSQL->bindParam("result", $result);
-				$resultSQL->bindParam("subjCode", $subjectCode);
-				$resultSQL->bindParam("date", $date);
-				$resultSQL->execute();		
-				
-				while($row = $resultSQL->fetch(PDO::FETCH_ASSOC))
-				{
-					echo $row['TopicName'];
-				}
-			}
-		}
-		else
-		{
-			echo "Please enter Topic Name & Subject Code";
-		}
-	}
-	catch(PDOException $e)
-	{
-		echo $e->getMessage();
-	}
-}
 ?>
+<form action="addTopic.php" method="post">
+<table border="1" align="center">
+   	<input type="hidden" id="topicID" name="topID" />
+    
+    <tr>
+        <td><label for="topicN">Topic Name:</label></td>
+        <td><input type="text" id="topicName" name="strtopicName" /></td>
+	</tr>
+    
+	<input type="hidden" id="SubjectID" name="subID" />
+    
+    <tr>
+        <td><label class="control-label" for="subject_code">Subject Code:</label><td>
+			<div class="controls">
+				<?php
+					//echo out the select table (this is for the user id.)
+				    echo "<select name='subject_code' id='subject_code' multiple='multiple'>";
+					    while($row = $query->fetch(PDO::FETCH_ASSOC))
+						{
+							echo("<option value = '" . $row['SubjectID'] . "'>". $row['TopicName'] ." ". $row['SubjectCode'] ."</option>");
+						}
+					echo "</select>";
+				?>
+			</div>
+    </tr>
+    
+    <tr>
+    	<td><label for="subTopic">Send Subject Topic</label></td>
+        <td><input type="submit" value="Submit" name="Submit"/> <input type="reset" value="Clear" /></td>
+</table>
+</form>
 </body>
 </html>
