@@ -1,4 +1,4 @@
-<?php
+<?php //not in use
 	include '../init.php';
 	include '../check_logged_in.php';
 ?>
