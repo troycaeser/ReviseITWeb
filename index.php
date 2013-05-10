@@ -60,5 +60,7 @@
 				</div>
 			</form>
 		</div>
+		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+		<script src="assets/js/bootstrap.js"></script>
 	</body>
 </html>
