@@ -1,11 +1,5 @@
 <?php
 
-	include '../getConnection.php';
-	require '../check_logged_in.php';
-
-	//to create subject you need SubjectID, SubjectCode(3char 5 num), SubjectName, UserID, Dateupdated
-
-	//this query selects teachers & coordinators, and displays only user id and names.
 	$query_teachers = $db->prepare("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
 	$query_teachers->execute();
 
