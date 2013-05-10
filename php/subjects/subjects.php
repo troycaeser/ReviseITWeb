@@ -193,7 +193,6 @@
 					//pass SubjectID in the url for each individual link.
 					while($row = $result->fetch(PDO::FETCH_ASSOC))
 					{
-	
 						//display subjects in a list style with anchor pointing to the subject's topics
 						echo "<a href='../topics/viewTopic.php?ID=".$row['SubjectID']."'>";
 							echo "<div name='subject_ID".$row['SubjectID']."' id='".$row['SubjectID']."' class='row-fluid'>";

@@ -5,9 +5,9 @@ try
 		
 	session_start();
 
-	$username 		= 	$_POST['username'];
-	$password 		= 	$_POST['password'];
-	$mdPassword 	= 	md5($password);
+	$username 	= 	$_POST['username'];
+	$password 	= 	$_POST['password'];
+	$mdPassword = 	md5($password);
 			
 	//get locked status from username
 	$query = $db->prepare("SELECT `locked` FROM `users` WHERE `username` = :userName");
@@ -57,6 +57,11 @@ try
 					//Login counter to determine if a person has attempted to login 3 times unsuccessfully
 					if(isset($_SESSION['loginCount']))
 					{
+						if($row['password'] != $password)
+						{
+							echo "Password is incorrect";
+						}
+						
 						$_SESSION['loginCount']++;
 						//If a person has been unable to login successfully 3 times
 						if($_SESSION['loginCount'] > 3)
@@ -82,6 +87,9 @@ try
 					{
 						$_SESSION['loginCount'] = 1;
 					}
+					
+					
+					header("Location: ../index.php");
 				}
 			}
 			else

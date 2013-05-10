@@ -21,14 +21,18 @@
 	?>
     
     <script type="text/javascript">
-		alert("Topic has been marked for deletion");
-		
-		var delete_IT = confirm("do you wish to view Topics?");
+		var delete_IT = confirm("Do you wish to view Topics?");
 		
 		if(delete_IT)
 		{
 			<?php	
 				echo "window.location.href = 'viewTopic.php?ID=".$topic_ID."'";
+			?>
+		}
+		else
+		{
+			<?php
+				echo "window.location.href";
 			?>
 		}
 	</script>
