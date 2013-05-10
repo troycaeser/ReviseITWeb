@@ -2,7 +2,8 @@
 	include '../getConnection.php';
 	require '../check_logged_in.php';
 
-	$subtopic_ID = $_GET['ID'];
+	$TopicID = $_GET["ID"];
+	
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -41,9 +42,9 @@
     	<div class="row-fluid">
         	<div class="span8">
             	<div class='row-fluid'>
-                    <div class='span4'><h4>Subtopic Name</h4></div>
-                    <div class='span4'><h4>Content</h4></div>
-                    <div class='span4'><h4>Date</h4></div>
+                    <div class='span5'><h4>Subtopic Name</h4></div>
+                    <!--<div class='span5'><h4>Description</h4></div>-->
+                    <div class='span2'><h4>Date</h4></div>
                     <!--<div class='span2'><h4>Coordinator</h4></div>-->
 				</div>           
 <?php	 
@@ -127,10 +128,6 @@
 ?>
 
 
-
-
-
-
 <?php	 
 
 	 $subtopic_ID = $_GET['ID'];
@@ -143,19 +140,24 @@
 			//in this case, it seemed like we have so many fields to pass and
 			//its kinda better if we'll label them and not use question marks
 			//like what we used here
+			date_default_timezone_set('Australia/Melbourne');
+			$date = date('Y-m-d', time());
 			
-			$query = "UPDATE subtopic SET SubtopicName=':subtopic_Name', Content=':Content', 
-				 			  DateUpdated=':DateUpdated' WHERE SubtopicID=':subtopic_ID'";
+			
+			$query = "UPDATE subtopic SET SubtopicName=:subtopic_Name, 
+				      DateUpdated=:date WHERE SubtopicID=:subtopic_ID";
 			
 			
 			//prepare query for excecution
 			$stmt = $db->prepare($query);
 			
 			//bind the parameters
+			$stmt->bindParam(':subtopic_ID', $subtopic_ID);
 			$stmt->bindParam(':subtopic_Name', $_POST['SubtopicName']);
-			$stmt->bindParam(':topic_ID', $_POST['TopicID']);
-			$stmt->bindParam(':Content', $_POST['Content']);
-			$stmt->bindParam(':DateUpdated', $_POST['DateUpdated']);
+			//$stmt->bindParam(':Description', $_POST['SubtopicBriefDescription']);
+			//$stmt->bindParam(':topic_ID', $_POST['TopicID']);
+			//$stmt->bindParam(':Content', $_POST['Content']);
+			$stmt->bindParam(':date', $date);
 		   
 			// Execute the query
 			$stmt->execute();
@@ -164,7 +166,7 @@
 			echo "Record was updated.";
 			
 			// return to all accounts page
-			header("Location: view.php?ID=':topic_ID'"); 
+			header("Location: view.php?ID=".$topic_ID.""); 
 			
 	   
 		}catch(PDOException $exception){ //to handle error
@@ -189,9 +191,10 @@
 			
 			//values to fill up in form
 			 $subtopic_Name = $row['SubtopicName'];
-			 $topic_ID = $row['TopicID'];
-			 $Content = $row['Content'];
-			 $DateUpdated = $row['DateUpdated'];
+			 //$Description = $row['Description'];
+			 //$topic_ID = $row['TopicID'];
+			 //$Content = $row['Content'];
+			 $date = $row['DateUpdated'];
 		   
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();
@@ -201,43 +204,20 @@
 
 ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <form action="" method="post">
- <input type="hidden" name="id" value="<?php echo $subtopic_ID; ?>"/>
+<input type="hidden" name="id" value="<?php echo $subtopic_ID; ?>"/>
        
 <table width="200" border="0">
 
-  
   <tr>
     <td>
     	<label>
-        	 <input type="text" name="SubtopicName" value="<?php echo $subtopic_Name; ?>"/>
+        	<input type="text" name="SubtopicName" value="<?php echo $subtopic_Name; ?>"/>
         </label>
     </td>
     <td>
     	<label>
-         	<span class="input-xlarge uneditable-input"><?php echo $Content; ?></span>
-        </label>
-    </td>
-    <td>
-    	<label>
-         	<input type="text" name="DateUpdated" value="<?php echo $DateUpdated; ?>"/>
+         	<input type="text" name="date" value="<?php echo $date; ?>"/>
         </label>
     </td>
   </tr>
@@ -245,7 +225,7 @@
   <tr align="Left">
     <td colspan="5" >
     <label>
-       <input type="submit" name="submit" value="Edit Record">
+       <button type="submit" name="submit">Edit Record</button>
     </label>
     </td>
   </tr>

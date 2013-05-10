@@ -3,6 +3,8 @@
 	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
+	$SubtopicID = $_GET['ID'];
+	
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -35,7 +37,6 @@
         // Get results from the database
         $result = $db->prepare("SELECT * FROM subtopic WHERE TopicID ='".$topic_ID."'") ;
         $result->execute();         
-		
                 
         // Display data in table
         //echo "<p><b>View All</b> | <a href='view-paginated.php?page=1'>View Paginated</a></p>";
@@ -58,27 +59,26 @@
     	<div class="row-fluid">
         	<div class="span8">
             	<div class='row-fluid'>
-                    <div class='span3'><h4>Subtopic Name</h4></div>
-                    <div class='span4'><h4>Content</h4></div>
-                    <div class='span2'><h4>Date</h4></div>
+                    <div class='span4'><h4>Subtopic Name</h4></div>
+                    <div class='span3'><h4>Description</h4></div>
+                    <div class='span3'><h4>Date</h4></div>
                     <!--<div class='span2'><h4>Coordinator</h4></div>-->
 				</div>
             
             
             <?php
-				while($row = $result->fetch(PDO::FETCH_ASSOC))
-
+				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
 				{	
 						$id=$row['SubtopicID'];
 						
 						//echo contents in divs
 						echo "<a href='../contents/content.php?ID=".$row['SubtopicID']."'>";
 							echo "<div id='".$row['SubtopicID']."' class='row-fluid'>";
-								echo "<div class='span3'>".$row['SubtopicName']."</div>";
-								echo "<div class='span4'>".$row['Content']."</div>";
-								echo "<div class='span2'>".$row['DateUpdated']."</div>";
-								echo "<div class='span1'>".'<button name="edit"><a href="edit.php?ID='.$row['SubtopicID'].'">Edit</a></button></div>';
-								echo "<div class='span1'>".'<button name="delete"><a href="delete.php?ID='.$row['SubtopicID'].'">Delete</a></button></div>';	
+								echo "<div class='span4'>".$row['SubtopicName']."</div>";
+								echo "<div class='span3'>".$row['SubtopicBriefDescription']."</div>";
+								echo "<div class='span3'>".$row['DateUpdated']."</div>";
+								echo "<div class='span1'>".'<a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></div>';
+								echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
 							echo "</div>";
 						echo "</a>";
 				} 
@@ -90,7 +90,7 @@
             <div class="span4">
                 <ul class="nav nav-list">
                     <li class="nav-header">Quick Access</li>
-                    <li class="active"><a href="new.php">Add Subtopic</a></li>
+                    <li class="active"><a href="new.php?ID=<?php echo $topic_ID; ?>">Add Subtopic</a></li>
                     <li><a href="#">Account details</a></li>
                     <li><a href="../account/my_account.php">My account</a></li>
                     <li class="divider"></li>

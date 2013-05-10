@@ -52,9 +52,6 @@
 	*/
 	
 	$SubtopicID = $_GET['ID'];
-	
-	if (isset($_POST['delete']))
-    {
 		
 		try {
 		
@@ -68,7 +65,6 @@
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();
 		}
-	}
 ?>
 </body>
 </html>

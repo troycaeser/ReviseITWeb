@@ -68,6 +68,7 @@
 	 { 
 		 // Get form data, making sure it is valid
 		 $SubtopicName = $_POST['SubtopicName'];
+		 $Topic_ID = $_POST['TopicID'];
 		 //$Content = $_POST['Content'];
 		 $DateUpdated = $_POST['DateUpdated'];
 		 
@@ -79,9 +80,12 @@
 		 //Topic -> Subtopic.
 
 		 // Save the data to the database
-		 $SQL = $db->prepare("INSERT INTO subtopic VALUES(NULL, :subName, :subDate, 0");
-		 $SQL->bindParam("subName", $SubtopicName);
-		 $SQL->bindParam("subDate", $DateUpdated);
+		 //$SQL = $db->prepare("INSERT INTO subtopic VALUES(NULL, :subName, :subDate, 0");
+		 //$SQL->bindParam("subName", $SubtopicName);
+		 //$SQL->bindParam("subDate", $DateUpdated);
+		 //$SQL->execute();
+		 
+		 $SQL = $db->prepare("INSERT INTO subtopic VALUES(NULL,'".$SubtopicName."','".$topic_ID."', NULL, NULL, NULL,'".$DateUpdated."')");
 		 $SQL->execute();
 		 
 	 
@@ -140,7 +144,7 @@
             <div class="span4">
                 <ul class="nav nav-list">
                     <li class="nav-header">Quick Access</li>
-                    <li class="active"><a href="new.php">Add Subtopic</a></li>
+                    <li class="active"><a href="new.php?ID=<?php echo $TopicID; ?>">Add Subtopic</a></li>
                     <li><a href="#">Account details</a></li>
                     <li><a href="#">My account</a></li>
                     <li class="divider"></li>
