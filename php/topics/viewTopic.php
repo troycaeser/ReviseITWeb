@@ -54,7 +54,7 @@
 								echo "</a>";
 	
 							}
-							echo '<br><a href="newtopic.html">Add New Topic</a>';
+							echo "<br><a href='newTopic.php?ID=".$subject_ID."'>Add New Topic</a>";
 							echo "</div>";
 					}
 					catch(PDOException $e)

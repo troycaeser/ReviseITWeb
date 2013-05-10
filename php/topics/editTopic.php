@@ -8,12 +8,10 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<?php
-		include '../header_container.php';
-	?>
-	<title>ReviseIT - Edit Topics</title>
-</head>
+<link rel="stylesheet" type="text/css" href="../../assets/css/bootstrap-wysihtml5-0.0.2.css"></link>
+<link rel="stylesheet" href="../../assets/css/version1.css">
+<link rel="stylesheet" href="../../assets/css/bootstro.css">
+<link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
 
 <body>
 <?php 
@@ -52,9 +50,10 @@
 		$topicName = htmlentities($_POST['topicName']);	
 		$subCode = htmlentities($_POST['SubjCode']);
 			
-		$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode WHERE TopicID = '".$topic_ID."'");
+		$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode, dateupdated = :date WHERE TopicID = '".$topic_ID."' ");
 		$stmt->bindParam("topicName", $topicName);
 		$stmt->bindParam("subCode", $subCode);
+		$stmt->bindParam("date", $date);
 		$stmt->execute();
 		
 		header("Location: viewTopic.php?ID=".$topic_ID);

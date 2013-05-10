@@ -35,53 +35,60 @@ $userName = "";
 
 if(isset($_POST["submitUser"]))
 {
-		if ($_POST["fName"] == NULL)
-			$setfName = 1;
-		else {
-			$fName = $_POST["fName"];
-			if (!isString($fName))
-			$setfName = 2;
-		}
-		if ($_POST["lName"] == NULL)
-			$setlName = 1;
-		else {
-			$lName = $_POST["lName"];
-			if (!isString($lName))
-			$setlName = 2;
-		}
-		if ($_POST["userName"] == NULL)
-			$setuserName = 1;
-		else {
-			$userName = $_POST["userName"];
-			if (!isAlphaNumeric($userName))
-			$setuserName = 2;
-		}
-					$lrole = ($_POST['listRole']);
-			switch ($lrole) 
-			{
-				case "Admin": $xrole = 1; break;
-				case "Coordinator": $xrole = 2; break;
-				case "Student": $xrole = 4; break;
-				case "Teacher (Non-coordinator)": $xrole = 3; break;
+	if($row['username'] == $userName && $row['password'] == $pass1 && $row['password'] == $pass2)
+	{
+		echo "Username & Password are already in use. Please new information";
+	}
+	else
+	{
+			if ($_POST["fName"] == NULL)
+				$setfName = 1;
+			else {
+				$fName = $_POST["fName"];
+				if (!isString($fName))
+				$setfName = 2;
 			}
-
-		$pass1 = $_POST["pass1"];
-		$pass2 = $_POST["pass2"];
-		if ($pass1 != $pass2)
-			echo ("<p class='errmsg'>Passwords do not match!</p>");
-		elseif (!verifyPassword($pass1))
-			echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
-		elseif (($setfName == 0) && ($setlName == 0) && ($setuserName == 0)){
-			$pass = $pass1; 
-			$error = "";
-			$error = createUser($userName, $pass, $fName, $lName, $xrole);
-			if($error === "error") echo "<p class='errmsg'>Username already exists</p>";
-			else{
-				$id = $error;
-				if ($xrole == "2") header("Location: assign_CoordinatorSubject.php?ID=".$id);
- 				echo "Account Created";
-				exit;
+			if ($_POST["lName"] == NULL)
+				$setlName = 1;
+			else {
+				$lName = $_POST["lName"];
+				if (!isString($lName))
+				$setlName = 2;
 			}
+			if ($_POST["userName"] == NULL)
+				$setuserName = 1;
+			else {
+				$userName = $_POST["userName"];
+				if (!isAlphaNumeric($userName))
+				$setuserName = 2;
+			}
+						$lrole = ($_POST['listRole']);
+				switch ($lrole) 
+				{
+					case "Admin": $xrole = 1; break;
+					case "Coordinator": $xrole = 2; break;
+					case "Student": $xrole = 4; break;
+					case "Teacher (Non-coordinator)": $xrole = 3; break;
+				}
+	
+			$pass1 = $_POST["pass1"];
+			$pass2 = $_POST["pass2"];
+			if ($pass1 != $pass2)
+				echo ("<p class='errmsg'>Passwords do not match!</p>");
+			elseif (!verifyPassword($pass1))
+				echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
+			elseif (($setfName == 0) && ($setlName == 0) && ($setuserName == 0)){
+				$pass = $pass1; 
+				$error = "";
+				$error = createUser($userName, $pass, $fName, $lName, $xrole);
+				if($error === "error") echo "<p class='errmsg'>Username already exists</p>";
+				else{
+					$id = $error;
+					if ($xrole == "2") header("Location: assign_CoordinatorSubject.php?ID=".$id);
+					echo "Account Created";
+					exit;
+				}
+		}
 	}
 }
 ?>
