@@ -24,7 +24,7 @@
 			</div>
 			
 			<div class='row-fluid'>
-				<form>
+				<form action="insertContent.php">
 					<textarea id="content_textarea" class="textarea" placeholder="Place your content here..."></textarea>
 					<br />
 					<input id='clickContent' type="button" class='btn btn-primary' value="submit" />
@@ -58,9 +58,17 @@
 				});
 			});
 			
-			$('#clickContent').click(function(){
-				$('#output').append($('#content_textarea').val());
-			});
+			$('#clickContent').click(function() {
+                var var_data = $('#content_textarea').val();
+                $.ajax({
+                    url: 'insertContent.php',
+                    type: 'GET',
+                    data: { var_PHP_data: var_data },
+                    success: function(data) {
+                    	window.location = 'insertContent.php?var_PHP_data=' + data;
+                    }
+                });
+            });
 
 		});
 		</script>
