@@ -1,5 +1,6 @@
 <?php
-	require('../init.php');
+	require '../getConnection.php';
+	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
 ?>
@@ -15,11 +16,8 @@
 <body>
 
 	<?php
-		
-		$query = 'UPDATE topic SET deletionStatus = 1 WHERE TopicID="'.$topic_ID.'"';
-		
-		$SQL = mysql_query($query)
-			or die("Problem executing query ".mysql_error());
+		$result = $db->prepare('UPDATE topic SET deletionStatus = 1 WHERE TopicID="'.$topic_ID.'"');
+		$result->execute();
 	?>
     
     <script type="text/javascript">
@@ -29,17 +27,13 @@
 		
 		if(delete_IT)
 		{
-			<?php
-				$id=$row['TopicID'];
-					
+			<?php	
 				echo "window.location.href = 'viewTopic.php?ID=".$topic_ID."'";
 			?>
 		}
-		
-		
 	</script>
 	
-	<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="../../assets/js/bootstrap.js"></script>
 </body>
 </html>

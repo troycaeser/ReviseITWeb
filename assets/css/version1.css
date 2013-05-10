@@ -76,7 +76,7 @@ a{
 }
 
 a:link{
-  color: #ffffff;
+  /*color: #ffffff;*/
 }
 
 a:focus {
@@ -175,6 +175,13 @@ input[type="search"]::-webkit-search-cancel-button {
 textarea {
   overflow: auto;
   vertical-align: top;
+  width: 200px; 
+  min-width:750px; 
+  max-height:1000px; 
+
+  height:200px; 
+  min-height:350px;  
+  max-height:500px;
 }
 
 @media print {
@@ -3180,6 +3187,10 @@ table th[class*="span"],
           transition: height 0.35s ease;
 }
 
+.collapse.div{
+  margin-top: 20px;
+}
+
 .collapse.in {
   height: auto;
 }
@@ -6152,7 +6163,7 @@ a.badge:focus {
   font-weight: 200;
   line-height: 30px;
   color: inherit;
-  background-color: #eeeeee;
+  background-color: #181818;
   -webkit-border-radius: 6px;
      -moz-border-radius: 6px;
           border-radius: 6px;
@@ -6217,3 +6228,14 @@ a.badge:focus {
   left:130px;
   bottom:10px;
 }*/
+
+.h4center{
+  display: table;
+  width: 100%;
+}
+
+.h4centerd{
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}

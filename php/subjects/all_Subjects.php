@@ -29,7 +29,14 @@
 				<?php
 					include 'subjects.php';
 				?>
-
+				<div class='span4'>
+					<a class="btn" data-toggle="collapse" data-target="#create_form">Create Subjects</a>
+					<div id="create_form" class='collapse div'>
+						<?php
+							include 'create_subject.php';
+						?>
+					</div>
+				</div>
 			</div>
 			
 			<!-- This drop down button isn't working, commented out for future use.-->
@@ -66,6 +73,35 @@
 				});
 				//$('#example').popover({trigger: "hover"});
 			});
+
+			$('html').click(function(e) {
+			    $('.popups').popover('hide');
+			});
+
+			$('.popups').popover({
+			    html: true,
+			    trigger: 'manual',
+			}).click(function(e) {
+			    $(this).popover('toggle');
+			    e.stopPropagation();
+			});
+  
+        	$(".collapse").collapse({
+        		toggle: false
+        	});
+
+		    /*$("a[rel=popover]")
+            .popover({
+                offset: 10,
+                trigger: 'manual',
+                animate: false,
+                html: true,
+                placement: 'right',
+                content: '<button class="btn btn-success" id="edit">Edit</button>' + '<button class="btn btn-danger" id="delete">delete</button>',
+                template: '<div class="popover" onmouseover="$(this).mouseleave(function() {$(this).hide(); });"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+            }).mouseenter(function(e) {
+                $(this).popover('show');
+            });*/
 		});
 		</script>
 	</body>

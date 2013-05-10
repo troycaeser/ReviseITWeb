@@ -69,29 +69,101 @@ function createUser($username, $password, $fName, $lName, $role){
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("username", $username);
 		$stmt->execute();
-		if ($row != NULL) return "error";		
+		if ($row=$stmt->fetch(PDO::FETCH_OBJ)) return "error";
+		else {		
+			$password = md5($password);
+			$sql = "INSERT INTO users (username, password, fName, lName, role, locked) VALUES ('".$username."', '".$password."', '".$fName."', '".$lName."', '".$role."', '0');"; 
+			$stmt=$dbh->prepare($sql);
+			$stmt->bindParam("username", $username);
+			$stmt->bindParam("password", $password);
+			$stmt->bindParam("fName", $fNname);
+			$stmt->bindParam("lName", $lName);
+			$stmt->bindParam("role", $role);
+			$stmt->execute();
+		$sql = "SELECT MAX(UserID) 'u' FROM users"; 
+		$stmt=$dbh->prepare($sql);
+		$stmt->execute();
+		$row=$stmt->fetch(PDO::FETCH_OBJ);
+			$dbh = null;
+			return $row->u;
+		}
 	}
 	catch (PDOException $e){
 		if($dbh != null) $dbh = null;
 		echo("Could not create Account: Error: - ".$e->getMessage());
 		return false;
 	}
-	
-	try {
-		$sql = "INSERT INTO users (username, password, fName, lName, role) VALUES ('".$username."', '".$password."', '".$fName."', '".$lName."', '".$role."');"; 
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("username", $username);
-		$stmt->bindParam("password", $password);
-		$stmt->bindParam("fName", $fNname);
-		$stmt->bindParam("lName", $lName);
-		$stmt->bindParam("role", $role);
-		$stmt->execute();
-		$dbh = null;
-		return true;
+}
+
+function editUser($fName, $lName, $username, $pass, $UserID){
+	try{		
+			$dbh = connectDB();
+			$password = md5($pass);
+			$sql = "UPDATE users SET fName = '".$fName."', lName = '".$lName."', username = '".$username."', password = '".$password."' WHERE UserID = '".$UserID."';"; 
+			$stmt=$dbh->prepare($sql);
+			$stmt->bindParam("UserID", $UserID);
+			$stmt->bindParam("username", $username);
+			$stmt->bindParam("password", $password);
+			$stmt->bindParam("fName", $fName);
+			$stmt->bindParam("lName", $lName);
+			$stmt->execute();
+			$dbh = null;
+			return true;
 	}
 	catch (PDOException $e){
 		if($dbh != null) $dbh = null;
-		echo("Could not create Account: Error: - ".$e->getMessage());
+		echo("Could not edit Account: Error: - ".$e->getMessage());
+		return false;
+	}
+}
+
+function getDetails($UserID){
+	try{		
+			$dbh = connectDB();
+			$sql = "SELECT fName, lName, username FROM users WHERE UserID = '".$UserID."';"; 
+			$stmt=$dbh->prepare($sql);
+			$stmt->bindParam("UserID", $UserID);
+			$stmt->execute();
+			$dbh = null;
+		return ($stmt->fetch(PDO::FETCH_OBJ)); 
+	}
+	catch (PDOException $e){
+		if($dbh != null) $dbh = null;
+		echo("Could not Retrieve Account: Error: - ".$e->getMessage());
+		return false;
+	}
+}
+
+function getSubjects(){
+	try{		
+			$dbh = connectDB();
+			$sql = "SELECT subjectID, subjectCode, subjectName FROM subject;"; 
+			$stmt=$dbh->prepare($sql);
+			$stmt->execute();
+			$dbh = null;
+		return ($stmt); 
+	}
+	catch (PDOException $e){
+		if($dbh != null) $dbh = null;
+		echo("Could not Retrieve Account: Error: - ".$e->getMessage());
+		return false;
+	}
+}
+
+function assignCoord($SubjectID, $UserID){
+	try{		
+			$dbh = connectDB();
+			$sql = "UPDATE subject SET UserID = '".$UserID."' WHERE SubjectID = '".$SubjectID."';"; 
+			$stmt=$dbh->prepare($sql);
+			$stmt->bindParam("UserID", $UserID);
+			$stmt->bindParam("SubjectID", $SubjectID);
+			$stmt->execute();
+			$dbh = null;
+		return ($stmt); 
+	}
+	catch (PDOException $e){
+		if($dbh != null) $dbh = null;
+		echo("Could not Update Account: Error: - ".$e->getMessage());
 		return false;
 	}
 }

@@ -24,6 +24,8 @@
 </div>
 <div class='row-fluid'> 
   <?php
+		if (isset($_GET["ROLE"])) $xrole = $_GET["ROLE"];
+		else $xrole = 5;
 		if (isset($_POST['newList']))
 		{
 			$lrole = ($_POST['listRole']);
@@ -36,16 +38,11 @@
 				case "Teacher (All)": $xrole = 6; break;
 				case "Teacher (Non-coordinator)": $xrole = 3; break;
 			}
-				header ("Location: all_Accounts.php?ROLE=".$xrole);
+				header("Location: all_Accounts.php?ROLE=".$xrole);
+
 		}
 		
-		if (isset($_POST['newAccnt']))
-		{
-			header ('Location: CreateUser.php');
-		}
-
-		if (isset($_GET["ROLE"])) $xrole = $_GET["ROLE"];
-		else $xrole = 5;
+ 
 		if ($xrole == 5 || $xrole == NULL)
 		{
 			$result = $db->prepare("SELECT * FROM users ORDER BY role ASC");
@@ -65,10 +62,12 @@
 ?>
   <div class='span8'>
     <div class='row-fluid'>
-    <form action='<?php echo $_SERVER["PHP_SELF"]; ?>' method='post'>
       <div class='span4'>
+    <form action='CreateUser.php' method='post'>
         <input type='submit' value='CREATE NEW ACCOUNT' name='newAccnt' class='btn' />
+	</form>
       </div>
+	<form action='<?php echo $_SERVER["PHP_SELF"]; ?>' method='post'>
       <div class='span4'>
         <select name='listRole'>
           <option <?php if ($xrole == 5) echo " selected='selected'"; ?>>All</option>
@@ -95,7 +94,7 @@
         <h4>Last Name</h4>
       </div>
       <div class='span2'>
-        <h4>Role</h4>
+       <h4>Role</h4>
       </div>
       <div class='span2'>
         <h4>Account Status</h4>
@@ -148,6 +147,11 @@
 			}
 			
 		echo "</div>";
+		if (isset($_POST['newAccnt']))
+		{
+			header("Location: CreateUser.php");
+			exit;
+			}
 ?>
 <!-- This is the same as the navigation bar at the top, except I used it for the footer.-->
 <div class="navbar navbar-fixed-bottom">

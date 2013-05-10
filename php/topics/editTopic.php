@@ -30,7 +30,8 @@
 	$result->execute();
 	
 	while($row = $result->fetch(PDO::FETCH_ASSOC))
-	{			
+	{
+		
 		if($result)
 		{
 			$topName = $row['TopicName'];
@@ -45,12 +46,18 @@
 	}
 	if(isset($_POST['submit']))
 	{
+		date_default_timezone_set('Australia/Melbourne');
+		$date = date('Y-m-d', time());
+	
+		$topicName = htmlentities($_POST['topicName']);	
+		$subCode = htmlentities($_POST['SubjCode']);
 			
-		$stmt = $db->prepare("UPDATE topic SET TopicName = ':topicName', SubjectCode = ':subCode' WHERE TopicID = '".$topic_ID."'");
+		$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode WHERE TopicID = '".$topic_ID."'");
+		$stmt->bindParam("topicName", $topicName);
+		$stmt->bindParam("subCode", $subCode);
 		$stmt->execute();
-		$stmt->bindParam("topicName", $topicName = $_POST['topicName']);
-		$stmt->bindParam("subCode", $subCode = $_POST['SubjCode']);
 		
+		header("Location: viewTopic.php?ID=".$topic_ID);
 		//renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
 	}
 ?>

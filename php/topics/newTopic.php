@@ -1,14 +1,7 @@
 <?php
-	require '../init.php';
-	require '../check_logged_in.php';
+	include '../getConnection.php';
+	include '../check_logged_in.php';
 
-	//get the current path
-	$current_url = $_SERVER['PHP_SELF'];
-
-	//process $current_url into bits using parthinfo();
-	$path_parts = pathinfo($current_url);
-
-	//$path_parts['filename'] echoes out the last part of the url.
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,41 +19,49 @@
 $topicName = $_POST["strtopicName"];
 $subjectCode = $_POST["strsubjectCode"];
 
+date_default_timezone_set('Australia/Melbourne');
+$date = date('Y-m-d', time());
+
 //SELECT SELECT topic.SubjectID from topic, subject WHERE subject.SubjectCode = topic.SubjectCode AND topic.SubjectCode = '$subjectCode';
 
 if(isset($_POST['Submit']))
 {
-	//This sql select query used to combine the SubjectID from the Subject Table to the Topic table	
-	$data = mysql_query("SELECT topic.SubjectID from topic, subject WHERE subject.SubjectCode = topic.SubjectCode AND topic.SubjectCode = '$subjectCode'");
-	$realData = mysql_result($data, 0, 'topic.SubjectID');
-	
-	//This sql query is used to insert the respective variable into the topic table
-	$SQL = "INSERT INTO topic VALUES(NULL, '".$topicName."', '".$realData."', '".$subjectCode."', 0)"
-		or die(mysql_error());
-		
-	$callSQL = mysql_query($SQL);
-	
-	//SQL query used to select all the records from the topic table	
-	$query = mysql_query($callSQL);
-	
-	$query2 = "SELECT * from topic";
-	$queryCall = mysql_query($query2, $dbhost);
-		
-	//While loop used to 'echo' the records from the topic table.
-	echo '<table border="1">';
-	echo '<th>Topic ID</th><th>Topic Name</th><th>Subject ID</th><th>Subject Code</th>';
-	while($row = mysql_fetch_array($queryCall))
+	try
 	{
-		$id=$row['TopicID'];
-		echo '<tr>';
-		echo '<td>'.$row['TopicID'].'</td>';
-		echo '<td><a href="viewsubtopic.php?id=$id">'.$row['TopicName'].'</a></td>';
-		echo '<td>'.$row['SubjectID'].'</td>';
-		echo '<td>'.$row['SubjectCode'].'</td>';
-		echo '</tr>';
-	}	
+		if(!empty($topicName) && !empty($subjectCode))
+		{
+			//This sql select query used to combine the SubjectID from the Subject Table to the Topic table	
+			$result = $db->prepare("SELECT topic.SubjectID from topic, subject WHERE subject.SubjectCode = topic.SubjectCode AND topic.SubjectCode = :subjCode");
+			$result->bindParam("subjCode", $subjectCode);
+			if($result->execute())
+			{
+				$comeback = $result->fetchColumn();
+				echo $comeback;	
+				
+				//This sql query is used to insert the respective variable into the topic table
+				$resultSQL = $db->prepare("INSERT INTO topic VALUES(NULL, ':topicName', :result , :subjCode, 0, :date");
+				$resultSQL->bindParam("topicName", $topicName);
+				$resultSQL->bindParam("result", $result);
+				$resultSQL->bindParam("subjCode", $subjectCode);
+				$resultSQL->bindParam("date", $date);
+				$resultSQL->execute();		
+				
+				while($row = $resultSQL->fetch(PDO::FETCH_ASSOC))
+				{
+					echo $row['TopicName'];
+				}
+			}
+		}
+		else
+		{
+			echo "Please enter Topic Name & Subject Code";
+		}
+	}
+	catch(PDOException $e)
+	{
+		echo $e->getMessage();
+	}
 }
-	mysql_close($dbhost);
 ?>
 </body>
 </html>

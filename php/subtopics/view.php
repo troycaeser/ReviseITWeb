@@ -66,11 +66,8 @@
             
             
             <?php
-<<<<<<< HEAD
 				while($row = $result->fetch(PDO::FETCH_ASSOC))
-=======
-				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
->>>>>>> origin/master
+
 				{	
 						$id=$row['SubtopicID'];
 						
@@ -80,8 +77,8 @@
 								echo "<div class='span3'>".$row['SubtopicName']."</div>";
 								echo "<div class='span4'>".$row['Content']."</div>";
 								echo "<div class='span2'>".$row['DateUpdated']."</div>";
-								echo "<div class='span1'>".'<button name="edit"><a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></button></div>';
-								echo "<div class='span1'>".'<button name="delete"><a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></button></div>';	
+								echo "<div class='span1'>".'<button name="edit"><a href="edit.php?ID='.$row['SubtopicID'].'">Edit</a></button></div>';
+								echo "<div class='span1'>".'<button name="delete"><a href="delete.php?ID='.$row['SubtopicID'].'">Delete</a></button></div>';	
 							echo "</div>";
 						echo "</a>";
 				} 
