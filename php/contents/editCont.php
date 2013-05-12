@@ -44,7 +44,6 @@
 				<!-- Displays All subjects -->
                 <div class='span8'>
                 	<div class='row-fluid'>
-						<div class='span2'><h4>Date</h4></div>
                         <div class='span6'><h4>Content</h4></div>
                 	</div>
                 
@@ -57,11 +56,11 @@
 							while($row = $result->fetch(PDO::FETCH_ASSOC))
 							{
 								echo "<div class='row-fluid'>";
-									echo "<div class='span2'>".$row['DateUpdated']."</div>";
-									echo "<div class='span6'><form method='post' action=''><input type='text' value='".$row['Content']."' name='newCont'/></div>";
-									echo "<div class='span2'><input type='submit' name='submit' value='Update Contents'/></form></div>";
+									echo "<div class='span6'><form method='post' action=''><textarea id='content_textarea' name='newCont' class='textarea' placeholder='Add Some Content...'>".$row['Content']."</textarea></div>";
 								echo "</div>";
 								echo "<br />"; 
+								echo "<div class='span6'><u>Last Updated: ".$row['DateUpdated']."</u></div>";
+								echo "<div class='span2'><input type='submit' name='submit' value='Update Contents'/></form></div>";
 							}
 							echo "</div>";
 						}
@@ -118,7 +117,37 @@
 		?>
 
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-		<script src="../../js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstro.min.js"></script>
+		<!-- wysihtml5 parser rules -->
+		<script src="../../assets/js/parser_rules/advanced.js"></script>
+		<!-- Library -->
+		<script src="../../assets/js/dist/wysihtml5-0.3.0.min.js"></script>
+		<script src="../../assets/js/bootstrap-wysihtml5-0.0.2.js"></script>
+        <script>
+		function imo()
+		{
+			alert("runnin");
+			$('#newCont').val();
+		}
+        </script>
+        <script>
+			var editor = new wysihtml5.Editor("wysihtml5-textarea", { // id of textarea element
+			  toolbar:      "wysihtml5-toolbar", // id of toolbar element
+			  parserRules:  wysihtml5ParserRules // defined in parser rules set 
+			});
+		</script>
+		<script type="text/javascript">
+			$('.textarea').wysihtml5({
+				"font-styles": true, //Font styling, e.g. h1, h2, etc. Default true
+				"emphasis": true, //Italics, bold, etc. Default true
+				"lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+				"html": false, //Button which allows you to edit the generated HTML. Default false
+				"link": true, //Button to insert a link. Default true
+				"image": true, //Button to insert an image. Default true,
+				"color": false //Button to change color of font  
+			});
+		</script>
 	</body>
 </html>
 
