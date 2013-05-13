@@ -4,7 +4,7 @@
 --
 -- Host: 127.0.0.1:3306
 
--- Generation Time: May 13, 2013 at 03:40 AM
+-- Generation Time: May 13, 2013 at 03:42 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.11
 
@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `image`
 --
 
+DROP TABLE IF EXISTS `image`;
 CREATE TABLE `image` (
   `ImageID` int(11) NOT NULL AUTO_INCREMENT,
   `ImageName` int(11) NOT NULL,
@@ -42,6 +43,7 @@ CREATE TABLE `image` (
 -- Table structure for table `multichoice`
 --
 
+DROP TABLE IF EXISTS `multichoice`;
 CREATE TABLE `multichoice` (
   `MultiChoiceID` int(11) NOT NULL AUTO_INCREMENT,
   `Question` text NOT NULL,
@@ -70,6 +72,7 @@ INSERT INTO `multichoice` (`MultiChoiceID`, `Question`, `Answer1`, `Answer2`, `A
 -- Table structure for table `results`
 --
 
+DROP TABLE IF EXISTS `results`;
 CREATE TABLE `results` (
   `resultid` int(11) NOT NULL,
   `userid` int(11) NOT NULL,
@@ -96,6 +99,7 @@ INSERT INTO `results` (`resultid`, `userid`, `testid`, `result`) VALUES
 -- Table structure for table `subject`
 --
 
+DROP TABLE IF EXISTS `subject`;
 CREATE TABLE `subject` (
   `SubjectID` int(11) NOT NULL AUTO_INCREMENT,
   `SubjectCode` varchar(50) NOT NULL,
@@ -104,7 +108,7 @@ CREATE TABLE `subject` (
   `Dateupdated` date NOT NULL,
   PRIMARY KEY (`SubjectID`),
   KEY `FK_subject` (`UserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `subject`
@@ -125,6 +129,7 @@ INSERT INTO `subject` (`SubjectID`, `SubjectCode`, `SubjectName`, `UserID`, `Dat
 -- Table structure for table `subtopic`
 --
 
+DROP TABLE IF EXISTS `subtopic`;
 CREATE TABLE `subtopic` (
   `SubtopicID` int(11) NOT NULL AUTO_INCREMENT,
   `SubtopicName` varchar(50) NOT NULL,
@@ -154,6 +159,7 @@ INSERT INTO `subtopic` (`SubtopicID`, `SubtopicName`, `TopicID`, `SubtopicBriefD
 -- Table structure for table `test`
 --
 
+DROP TABLE IF EXISTS `test`;
 CREATE TABLE `test` (
   `TestID` int(11) NOT NULL AUTO_INCREMENT,
   `SubtopicID` int(11) NOT NULL,
@@ -175,6 +181,7 @@ INSERT INTO `test` (`TestID`, `SubtopicID`, `Downloads`) VALUES
 -- Table structure for table `token`
 --
 
+DROP TABLE IF EXISTS `token`;
 CREATE TABLE `token` (
   `TokenID` int(11) NOT NULL AUTO_INCREMENT,
   `TokenCode` varchar(20) NOT NULL,
@@ -195,6 +202,7 @@ INSERT INTO `token` (`TokenID`, `TokenCode`, `TokenDate`) VALUES
 -- Table structure for table `topic`
 --
 
+DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic` (
   `TopicID` int(5) NOT NULL AUTO_INCREMENT,
   `TopicName` varchar(50) NOT NULL,
@@ -205,7 +213,7 @@ CREATE TABLE `topic` (
   PRIMARY KEY (`TopicID`),
   KEY `FK_topic` (`SubjectCode`),
   KEY `FK_topicsub` (`SubjectID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `topic`
@@ -231,6 +239,7 @@ INSERT INTO `topic` (`TopicID`, `TopicName`, `SubjectID`, `SubjectCode`, `deleti
 -- Table structure for table `truefalse`
 --
 
+DROP TABLE IF EXISTS `truefalse`;
 CREATE TABLE `truefalse` (
   `TrueFalseID` int(11) NOT NULL AUTO_INCREMENT,
   `Question` text NOT NULL,
@@ -254,6 +263,7 @@ INSERT INTO `truefalse` (`TrueFalseID`, `Question`, `correctAns`, `TestID`) VALU
 -- Table structure for table `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `fName` varchar(50) NOT NULL,
@@ -287,6 +297,7 @@ INSERT INTO `users` (`UserID`, `fName`, `lName`, `username`, `password`, `role`,
 -- Table structure for table `usersubject`
 --
 
+DROP TABLE IF EXISTS `usersubject`;
 CREATE TABLE `usersubject` (
   `userID` int(11) NOT NULL,
   `SubjectID` int(11) NOT NULL,
