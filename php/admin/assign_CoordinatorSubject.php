@@ -11,7 +11,7 @@
   include '../header_container.php';
 	$subjects = getSubjects();
 ?>
-<title>reviseIT - Assign Subject Coordinator</title>
+<title>reviseIT - Assign Subject To Coordinator</title>
 </head>
 
 <body>
@@ -31,12 +31,15 @@ if (isset($_POST['submitCoord'])){
 	$str = $_POST['subjects'];
 	$arr = explode(" ",$str);
 	$subjectID = $arr[0];
-	echo "Subject ID: ".$subjectID." ";
-	echo "User ID: ".$id;
 	assignCoord($subjectID, $id);
+	echo"<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Assign Coordinator' data-bootstro-content='Click on the link to view Accounts'>
+		<h3>View Accounts!</h3>
+		<p>View All Accounts!</p>
+		<a href='all_Accounts.php'>View Accounts</a><br />";
+	exit;
 }
 ?><div class="row-fluid">
-    <form class="form-horizontal" method="post" action='<?php echo($_SERVER["PHP_SELF"])."?ID=".$id; ?>'>
+    <form class="form-horizontal" method="post" action='<?php echo $_SERVER["PHP_SELF"]."?ID=".$id; ?>'>
       <div class="center">
         <fieldset>
           <div class="control-group">
@@ -44,7 +47,7 @@ if (isset($_POST['submitCoord'])){
             <div class="controls">
               <select name='subjects' id='subjects'>
                 <?php while ($row = $subjects->fetch(PDO::FETCH_OBJ)){
-                  echo "<option>".$row->subjectID.": ".$row->subjectCode." ".$row->subjectName."</option>";
+                  echo "<option>".$row->SubjectID." ".$row->SubjectCode." ".$row->SubjectName."</option>";
 				  }
 				  ?>
               </select>

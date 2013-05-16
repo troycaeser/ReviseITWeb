@@ -1,5 +1,5 @@
 <?php
-  include '../getConnection.php';
+  require '../getConnection.php';
   require '../check_logged_in.php';
 ?>
 
@@ -7,8 +7,8 @@
 <html>
 <head>
 <?php 
-  require_once("../../DAL/Verification.php"); 
-  require_once("../../DAL/DataAccessLayer.php");
+  require "../../DAL/Verification.php"; 
+  require "../../DAL/DataAccessLayer.php";
   include '../header_container.php';
 ?>
 </head>
@@ -35,60 +35,69 @@ $userName = "";
 
 if(isset($_POST["submitUser"]))
 {
-	if($row['username'] == $userName && $row['password'] == $pass1 && $row['password'] == $pass2)
-	{
-		echo "Username & Password are already in use. Please new information";
-	}
-	else
-	{
-			if ($_POST["fName"] == NULL)
-				$setfName = 1;
-			else {
-				$fName = $_POST["fName"];
-				if (!isString($fName))
-				$setfName = 2;
-			}
-			if ($_POST["lName"] == NULL)
-				$setlName = 1;
-			else {
-				$lName = $_POST["lName"];
-				if (!isString($lName))
-				$setlName = 2;
-			}
-			if ($_POST["userName"] == NULL)
-				$setuserName = 1;
-			else {
-				$userName = $_POST["userName"];
-				if (!isAlphaNumeric($userName))
-				$setuserName = 2;
-			}
-						$lrole = ($_POST['listRole']);
-				switch ($lrole) 
-				{
-					case "Admin": $xrole = 1; break;
-					case "Coordinator": $xrole = 2; break;
-					case "Student": $xrole = 4; break;
-					case "Teacher (Non-coordinator)": $xrole = 3; break;
-				}
-	
-			$pass1 = $_POST["pass1"];
-			$pass2 = $_POST["pass2"];
-			if ($pass1 != $pass2)
-				echo ("<p class='errmsg'>Passwords do not match!</p>");
-			elseif (!verifyPassword($pass1))
-				echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
-			elseif (($setfName == 0) && ($setlName == 0) && ($setuserName == 0)){
-				$pass = $pass1; 
-				$error = "";
-				$error = createUser($userName, $pass, $fName, $lName, $xrole);
-				if($error === "error") echo "<p class='errmsg'>Username already exists</p>";
-				else{
-					$id = $error;
-					if ($xrole == "2") header("Location: assign_CoordinatorSubject.php?ID=".$id);
-					echo "Account Created";
-					exit;
-				}
+		if ($_POST["fName"] == NULL)
+			$setfName = 1;
+		else {
+			$fName = $_POST["fName"];
+			if (!isString($fName))
+			$setfName = 2;
+			else $setfName = 0;
 		}
+		if ($_POST["lName"] == NULL)
+			$setlName = 1;
+		else {
+			$lName = $_POST["lName"];
+			if (!isString($lName))
+			$setlName = 2;
+			else $setlName = 0;
+		}
+		if ($_POST["userName"] == NULL)
+			$setuserName = 1;
+		else {
+			$userName = $_POST["userName"];
+			if (!isAlphaNumeric($userName))
+			$setuserName = 2;
+			else $setuserName = 0;
+		}
+			$lrole = ($_POST['listRole']);
+			switch ($lrole) 
+			{
+				case "Admin": $xrole = 1; break;
+				case "Coordinator": $xrole = 2; break;
+				case "Student": $xrole = 4; break;
+				case "Teacher (Non-coordinator)": $xrole = 3; break;
+			}
+
+		$pass1 = $_POST["pass1"];
+		$pass2 = $_POST["pass2"];
+		if ($pass1 != $pass2)
+			echo ("<p class='errmsg'>Passwords do not match!</p>");
+		elseif (!verifyPassword($pass1))
+			echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
+		elseif (($setfName == 0) && ($setlName == 0) && ($setuserName == 0)){
+			$pass = $pass1; 
+			$error = "";
+			$role = $xrole;
+			if($xrole == 2) $role = 3;			
+			$error = createUser($userName, $pass, $fName, $lName, $role);
+			if($error === "error") echo "<p class='errmsg'>Username already exists</p>";
+			else{
+				$id = $error;
+				if ($xrole == 2) {
+					echo"<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Assign Coordinator' data-bootstro-content='Click on the link to assign a Subject for the new Co-ordinator to control.'>
+		<h3>Assign Subject!</h3>
+		<p>Assign Subject to Coordinator!</p>
+		<a href='assign_CoordinatorSubject.php?ID=".$id."'>Assign Subject</a><br />";
+				exit;
+				}
+ 				else {
+				echo"<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Assign Coordinator' data-bootstro-content='Click on the link to view Accounts'>
+		<h3>View Accounts!</h3>
+		<p>View All Accounts!</p>
+		<a href='all_Accounts.php'>View Accounts</a><br />";
+				exit;
+				}
+			}
 	}
 }
 ?>
@@ -120,12 +129,13 @@ if(isset($_POST["submitUser"]))
             <?php if ($setuserName == 1) echo "<p class='errmsg'>Please enter a username!</p>";
 			elseif ($setuserName == 2) echo "<p class='errmsg'>Please enter a valid username!</p>"; ?>
             <div class="control-group">
-              <label class="control-label" for="listRole">Enter Account Type</label>
+              <label class="control-label" for="listRole">Select Account Type</label>
               <div class="controls">
                 <select name='listRole' id='listRole'>
                   <option <?php if ($xrole == 1) echo " selected='selected'"; ?>>Admin</option>
                   <option <?php if ($xrole == 2) echo " selected='selected'"; ?>>Coordinator</option>
-                  <option <?php if ($xrole == 3) echo " selected='selected'"; ?>>Teacher (Non-coordinator)                  <option <?php if ($xrole == 4) echo " selected='selected'"; ?>>Student</option>
+                  <option <?php if ($xrole == 3) echo " selected='selected'"; ?>>Teacher (Non-coordinator)</option>
+                  <option <?php if ($xrole == 4) echo " selected='selected'"; ?>>Student</option>
 </option>
                 </select>
               </div>

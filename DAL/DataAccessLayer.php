@@ -1,172 +1,179 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Untitled Document</title>
-</head>
-
-<body>
 <?php
 
-function connectDB() {
-	try{
-		$hostname = 'localhost';
-		$username = 'root';
-		$password = 'root';
-		$dbname = 'reviseit';
-		$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
-		return $dbh;
-	}
-	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		die("Could not connect to database: - ".$e->getMessage());
-	}
-}
-
 function enterToken($token){
-	try{
-		$dbh = connectDB();
+	try{ $db = getConnection();
 		$sql = "SELECT tokenCode from token ORDER BY tokenDate DESC LIMIT 1;"; 
-			$stmt=$dbh->prepare($sql);
+			$stmt=$db->prepare($sql);
 			$stmt->bindParam("tokenCode", $token);
 			$stmt->execute();
 			$row=$stmt->fetch(PDO::FETCH_OBJ);
-			$dbh = null;
 			if ($row->tokenCode == $token) return true; 
 			else return false;
 	}
 	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		echo("Could not verify token: Error: - ".$e->getMessage());
+		echo "Could not verify token";
 		return false;
 	}
 }
 
 function createToken($token){
-	try{
-		$dbh = connectDB();
+	try{ $db = getConnection();
 		date_default_timezone_set('Australia/Melbourne');
 		$datetime = date('Y/m/d H:i:s');
 		$sql = "INSERT INTO token (tokenCode, tokenDate) VALUES ('".$token."', '".$datetime."');"; 
-			$stmt=$dbh->prepare($sql);
+			$stmt=$db->prepare($sql);
 			$stmt->bindParam("tokenCode", $token);
 			$stmt->bindParam("tokenDate", $datetime);
 			$stmt->execute();
-			$dbh = null;
 			return true;
 	}
 	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		echo("Could not create token: Error: - ".$e->getMessage());
+		echo "Could not create token: Error";
 		return false;
 	}
 }
 
 function createUser($username, $password, $fName, $lName, $role){
-	try{
-		$dbh = connectDB();
+	try{ $db = getConnection();
 		$sql = "SELECT * FROM users WHERE username = '".$username."';"; 
-		$stmt=$dbh->prepare($sql);
+		$stmt=$db->prepare($sql);
 		$stmt->bindParam("username", $username);
 		$stmt->execute();
 		if ($row=$stmt->fetch(PDO::FETCH_OBJ)) return "error";
 		else {		
-			$password = md5($password);
-			$sql = "INSERT INTO users (username, password, fName, lName, role, locked) VALUES ('".$username."', '".$password."', '".$fName."', '".$lName."', '".$role."', '0');"; 
-			$stmt=$dbh->prepare($sql);
+			$pass = md5($password);
+			$sql = "INSERT INTO users (username, password, fName, lName, role, locked) VALUES ('".$username."', '".$pass."', '".$fName."', '".$lName."', '".$role."', '0');"; 
+			$stmt=$db->prepare($sql);
 			$stmt->bindParam("username", $username);
-			$stmt->bindParam("password", $password);
-			$stmt->bindParam("fName", $fNname);
+			$stmt->bindParam("password", $pass);
+			$stmt->bindParam("fName", $fName);
 			$stmt->bindParam("lName", $lName);
 			$stmt->bindParam("role", $role);
 			$stmt->execute();
-		$sql = "SELECT MAX(UserID) 'u' FROM users"; 
-		$stmt=$dbh->prepare($sql);
+		$sql = "SELECT MAX(UserID) 'uid' FROM users"; 
+		$stmt=$db->prepare($sql);
 		$stmt->execute();
 		$row=$stmt->fetch(PDO::FETCH_OBJ);
-			$dbh = null;
-			return $row->u;
+			return $row->uid;
 		}
 	}
 	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		echo("Could not create Account: Error: - ".$e->getMessage());
+		echo "Could not Create Account";
 		return false;
 	}
 }
 
-function editUser($fName, $lName, $username, $pass, $UserID){
-	try{		
-			$dbh = connectDB();
+function editUser($fName, $lName, $username, $pass, $role, $UserID){
+	try{ $db = getConnection();		
+			$sql = "SELECT role FROM users WHERE username = '".$username."';"; 
+			$stmt=$db->prepare($sql);
+			$stmt->bindParam("username", $username);
+			$stmt->execute();
+			$row=$stmt->fetch(PDO::FETCH_OBJ);
+			//$oldrole = $row->role;
+			//if ($oldrole == '2') downgradeCoord($UserID);
+						
 			$password = md5($pass);
-			$sql = "UPDATE users SET fName = '".$fName."', lName = '".$lName."', username = '".$username."', password = '".$password."' WHERE UserID = '".$UserID."';"; 
-			$stmt=$dbh->prepare($sql);
+			$sql = "UPDATE users SET fName = '".$fName."', lName = '".$lName."', username = '".$username."', password = '".$password."', role = '".$role."' WHERE UserID = '".$UserID."';"; 
+			$stmt=$db->prepare($sql);
 			$stmt->bindParam("UserID", $UserID);
 			$stmt->bindParam("username", $username);
 			$stmt->bindParam("password", $password);
 			$stmt->bindParam("fName", $fName);
 			$stmt->bindParam("lName", $lName);
+			$stmt->bindParam("role", $role);
 			$stmt->execute();
-			$dbh = null;
 			return true;
 	}
 	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		echo("Could not edit Account: Error: - ".$e->getMessage());
+		echo "Could not Edit Account";
 		return false;
 	}
 }
 
 function getDetails($UserID){
-	try{		
-			$dbh = connectDB();
-			$sql = "SELECT fName, lName, username FROM users WHERE UserID = '".$UserID."';"; 
-			$stmt=$dbh->prepare($sql);
+	try{ $db = getConnection();		
+			$sql = "SELECT fName, lName, username, role, locked FROM users WHERE UserID = '".$UserID."';"; 
+			$stmt=$db->prepare($sql);
 			$stmt->bindParam("UserID", $UserID);
 			$stmt->execute();
-			$dbh = null;
-		return ($stmt->fetch(PDO::FETCH_OBJ)); 
+			return ($stmt->fetch(PDO::FETCH_OBJ)); 
 	}
 	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		echo("Could not Retrieve Account: Error: - ".$e->getMessage());
+		echo "Could not Retrieve Account";
 		return false;
 	}
 }
 
 function getSubjects(){
-	try{		
-			$dbh = connectDB();
-			$sql = "SELECT subjectID, subjectCode, subjectName FROM subject;"; 
-			$stmt=$dbh->prepare($sql);
+	try{ $db = getConnection();		
+			$sql = "SELECT SubjectID, SubjectCode, SubjectName FROM subject;"; 
+			$stmt=$db->prepare($sql);
 			$stmt->execute();
-			$dbh = null;
-		return ($stmt); 
+			return ($stmt); 
 	}
 	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		echo("Could not Retrieve Account: Error: - ".$e->getMessage());
+		echo "Could not Retrieve Subjects";
 		return false;
 	}
 }
 
 function assignCoord($SubjectID, $UserID){
-	try{		
-			$dbh = connectDB();
+	try{ 
+			$db = getConnection();		
 			$sql = "UPDATE subject SET UserID = '".$UserID."' WHERE SubjectID = '".$SubjectID."';"; 
-			$stmt=$dbh->prepare($sql);
+			$stmt=$db->prepare($sql);
 			$stmt->bindParam("UserID", $UserID);
 			$stmt->bindParam("SubjectID", $SubjectID);
 			$stmt->execute();
-			$dbh = null;
-		return ($stmt); 
+			$sql = "UPDATE users SET role = '2' WHERE UserID = '".$UserID."';"; 
+			$stmt=$db->prepare($sql);
+			$stmt->bindParam("UserID", $UserID);
+			$stmt->execute();
+			return true; 
 	}
 	catch (PDOException $e){
-		if($dbh != null) $dbh = null;
-		echo("Could not Update Account: Error: - ".$e->getMessage());
+		echo "Could not Assign Coordinator!";
 		return false;
 	}
 }
+
+function downgradeCoord($UserID){
+	try{ 
+			$db = getConnection();		
+			$sql = "SELECT SubjectID FROM subject WHERE UserID = ".$UserID.";"; 
+			$stmt=$db->prepare($sql);
+			$stmt->bindParam("UserID", $UserID);
+			$stmt->execute();
+			$row=$stmt->fetch(PDO::FETCH_OBJ);
+			$SubjectID = $row->SubjectID;
+			$sql = "UPDATE subject SET UserID = '0' WHERE SubjectID = ".$SubjectID.";"; 
+			$stmt=$db->prepare($sql);
+			$stmt->bindParam("SubjectID", $SubjectID);
+			$stmt->execute();
+			return true; 
+	}
+	catch (PDOException $e){
+		echo "Could not Downgrade Account";
+		return false;
+	}
+}
+
+function getConnection(){
+	try{
+				$config['db'] = array(
+    'host'          =>'localhost',
+    'username'      =>'root',
+    'password'      =>'root',
+    'dbname'        =>'reviseit'
+);
+
+
+$db = new PDO('mysql:host='.$config['db']['host'].';dbname='.$config['db']['dbname'], $config['db']['username'], $config['db']['password']);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+return $db;
+	} catch(PDOException $e){
+		echo"Database Connection Error!";
+	}
+}
 ?>
-</body>
-</html>

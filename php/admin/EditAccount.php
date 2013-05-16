@@ -13,10 +13,11 @@
 ?>
 </head>
 <body>
-  <?php
+<?php
     include 'admin_menu_bar.php';
   ?>
-<br /><br />
+<br />
+<br />
 <div class="container">
   <div class="page-header">
     <h1>Revise IT - Edit User Account</h1>
@@ -32,6 +33,8 @@ $details = getDetails($UserID);
 $fName = $details->fName;
 $lName = $details->lName;
 $userName = $details->username;
+$xrole = $details->role;
+$locked = $details->locked;
 
 $setfName = 0;
 $setlName = 0;
@@ -40,7 +43,12 @@ $setuserName = 0;
 
 if(isset($_POST["submitUser"]))
 {
-		if ($_POST["fName"] == NULL)
+		if ($locked == "1"){
+			echo "<p class='errmsg'>Account is Locked! It cannot be edited!</p>";
+			exit;
+		}
+		else {
+			if ($_POST["fName"] == NULL)
 			$setfName = 1;
 		else {
 			$fName = $_POST["fName"];
@@ -61,6 +69,15 @@ if(isset($_POST["submitUser"]))
 			if (!isAlphaNumeric($userName))
 			$setuserName = 2;
 		}
+		$lrole = ($_POST['listRole']);
+			switch ($lrole) 
+			{
+				case "Admin": $xrole = 1; break;
+				case "Coordinator": $xrole = 2; break;
+				case "Student": $xrole = 4; break;
+				case "Teacher (Non-coordinator)": $xrole = 3; break;
+			}
+			
 		$pass1 = $_POST["pass1"];
 		$pass2 = $_POST["pass2"];
 		$UserID = $_POST["UserID"];
@@ -70,10 +87,25 @@ if(isset($_POST["submitUser"]))
 		elseif (!verifyPassword($pass1))
 			echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
 		elseif (($setfName == 0) && ($setlName == 0) && ($setuserName == 0)){
-			 { $pass = $pass1; 
-			editUser($fName, $lName, $userName, $pass, $UserID);
-			echo "Account Updated";
-			exit;
+			 { $pass = $pass1;
+			 $role = $xrole;
+			 if($xrole == 2) $role = 3; 
+			editUser($fName, $lName, $userName, $pass, $role, $UserID);
+			if ($xrole == 2) {
+					echo"<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Assign Coordinator' data-bootstro-content='Click on the link to assign a Subject for the new Co-ordinator to control.'>
+		<h3>Assign Subject!</h3>
+		<p>Assign Subject to Coordinator!</p>
+		<a href='assign_CoordinatorSubject.php?ID=".$UserID."'>Assign Subject</a><br />";
+				exit;
+				}
+ 				else {
+				echo"<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Assign Coordinator' data-bootstro-content='Click on the link to view Accounts'>
+		<h3>View Accounts!</h3>
+		<p>View All Accounts!</p>
+		<a href='all_Accounts.php'>View Accounts</a><br />";
+				exit;
+				}
+			 }
 		}
 	}
 }
@@ -103,6 +135,19 @@ if(isset($_POST["submitUser"]))
                 <input type="text" name="userName" id="userName" value='<?php echo $userName ?>' />
               </div>
             </div>
+                        <div class="control-group">
+              <label class="control-label" for="listRole">Select Account Type</label>
+              <div class="controls">
+                <select name='listRole' id='listRole'>
+                  <option <?php if ($xrole == 1) echo " selected='selected'"; ?>>Admin</option>
+                  <option <?php if ($xrole == 2) echo " selected='selected'"; ?>>Coordinator</option>
+                  <option <?php if ($xrole == 3) echo " selected='selected'"; ?>>Teacher (Non-coordinator)</option>
+                  <option <?php if ($xrole == 4) echo " selected='selected'"; ?>>Student</option>
+</option>
+                </select>
+              </div>
+            </div>
+
             <?php if ($setuserName == 1) echo "<p class='errmsg'>Please enter a username!</p>";
 			elseif ($setuserName == 2) echo "<p class='errmsg'>Please enter a valid username!</p>"; ?>
             <div class="control-group">
@@ -139,15 +184,15 @@ if(isset($_POST["submitUser"]))
 		$pass2 = "";
 	}
 ?>
-  <div class="span4">
-    <ul class="nav nav-list">
-      <li class="nav-header">Quick Access</li>
-      <li class="active"><a href="#">Help</a></li>
-      <li><a href="#">Contact Admin</a></li>
-      <li><a href="#">My Account</a></li>
-    </ul>
+    <div class="span4">
+      <ul class="nav nav-list">
+        <li class="nav-header">Quick Access</li>
+        <li class="active"><a href="#">Help</a></li>
+        <li><a href="#">Contact Admin</a></li>
+        <li><a href="#">My Account</a></li>
+      </ul>
+    </div>
   </div>
-</div>
 </div>
 <div class="navbar navbar-fixed-bottom">
   <div class="container">
