@@ -13,7 +13,7 @@
 		$result->bindParam("bind_SubjectID", $subjectID);
 		$result->execute();
 
-	 	header("Location: all_subjects.php");
+	 	header("Location: all_Subjects.php");
 	}
 	catch(PDOExcepiton $e)
 	{
