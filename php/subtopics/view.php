@@ -52,7 +52,7 @@
 ?>
 
 <!--<p><a href="new.php">Add a new record</a></p>--->
-	<p><b>View All</b> | <a href='view-paginated.php?page=1'>View Paginated</a></p>
+<!--<p><b>View All</b> | <a href='view-paginated.php?page=1'>View Paginated</a></p>-->
 
     
     <!-- subtopicname, content, date updated-->
@@ -60,9 +60,8 @@
         	<div class="span8">
             	<div class='row-fluid'>
                     <div class='span4'><h4>Subtopic Name</h4></div>
-                    <div class='span3'><h4>Description</h4></div>
-                    <div class='span3'><h4>Date</h4></div>
-                    <!--<div class='span2'><h4>Coordinator</h4></div>-->
+                     <!--<div class='span3'><h4>Description</h4></div>-->
+                    <div class='span2'><h4>Date</h4></div>
 				</div>
             
             
@@ -75,15 +74,19 @@
 						echo "<a href='../contents/content.php?ID=".$row['SubtopicID']."'>";
 							echo "<div id='".$row['SubtopicID']."' class='row-fluid'>";
 								echo "<div class='span4'>".$row['SubtopicName']."</div>";
-								echo "<div class='span3'>".$row['SubtopicBriefDescription']."</div>";
-								echo "<div class='span3'>".$row['DateUpdated']."</div>";
+								echo "<div class='span2'>".$row['DateUpdated']."</div>";
 								echo "<div class='span1'>".'<a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></div>';
 								echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
 							echo "</div>";
+								echo "<div>".$row['SubtopicBriefDescription']."</div>";
 						echo "</a>";
 				} 
-			?>
-           	
+			?>            
+            
+            
+            
+            
+            
             </div>
             
              <!-- Displays subtopics -->

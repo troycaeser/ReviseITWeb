@@ -131,7 +131,8 @@
 <?php	 
 
 	 $subtopic_ID = $_GET['ID'];
-
+	
+		
 	 if (isset($_POST['submit']))
 	 {
 		 
@@ -147,6 +148,8 @@
 			$query = "UPDATE subtopic SET SubtopicName=:subtopic_Name, 
 				      DateUpdated=:date WHERE SubtopicID=:subtopic_ID";
 			
+			// get topic id
+			$TopicID = $_GET["ID"];	
 			
 			//prepare query for excecution
 			$stmt = $db->prepare($query);
@@ -154,19 +157,22 @@
 			//bind the parameters
 			$stmt->bindParam(':subtopic_ID', $subtopic_ID);
 			$stmt->bindParam(':subtopic_Name', $_POST['SubtopicName']);
-			//$stmt->bindParam(':Description', $_POST['SubtopicBriefDescription']);
-			//$stmt->bindParam(':topic_ID', $_POST['TopicID']);
-			//$stmt->bindParam(':Content', $_POST['Content']);
 			$stmt->bindParam(':date', $date);
 		   
 			// Execute the query
 			$stmt->execute();
+			
+						
+			$stmt=$db->prepare ("SELECT TopicID FROM subtopic WHERE SubtopicID=:subtopic_ID");
+			$stmt->bindParam(':subtopic_ID', $subtopic_ID);
+			$stmt->execute();
+			$row = $stmt->fetchColumn();
 		    
 			//indicate record updated
 			echo "Record was updated.";
 			
 			// return to all accounts page
-			header("Location: view.php?ID=".$topic_ID.""); 
+			header("Location: view.php?ID=".$row."");
 			
 	   
 		}catch(PDOException $exception){ //to handle error
@@ -191,9 +197,7 @@
 			
 			//values to fill up in form
 			 $subtopic_Name = $row['SubtopicName'];
-			 //$Description = $row['Description'];
-			 //$topic_ID = $row['TopicID'];
-			 //$Content = $row['Content'];
+			 $description = $row['SubtopicBriefDescription'];
 			 $date = $row['DateUpdated'];
 		   
 		}catch(PDOException $exception){ //to handle error

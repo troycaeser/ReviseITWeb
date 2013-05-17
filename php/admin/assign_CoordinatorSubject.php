@@ -36,6 +36,7 @@ if (isset($_POST['submitCoord'])){
 		<h3>View Accounts!</h3>
 		<p>View All Accounts!</p>
 		<a href='all_Accounts.php'>View Accounts</a><br />";
+		include '../footer.php';
 	exit;
 }
 ?><div class="row-fluid">
