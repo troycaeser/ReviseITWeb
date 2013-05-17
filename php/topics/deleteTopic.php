@@ -16,25 +16,29 @@
 <body>
 
 	<?php
-		$result = $db->prepare('UPDATE topic SET deletionStatus = 1 WHERE TopicID="'.$topic_ID.'"');
+		date_default_timezone_set('Australia/Melbourne');
+		$date = date('Y-m-d', time());
+		
+		$result = $db->prepare('UPDATE topic SET deletionStatus = 1, dateupdated =:date WHERE TopicID="'.$topic_ID.'"');
+		$result->bindParam("date", $date);
 		$result->execute();
+		
+		$query = $db->prepare("SELECT SubjectID FROM topic WHERE TopicID = :top_ID");
+		$query->bindParam("top_ID", $topic_ID);
+		$query->execute();
+		$stuff = $query->fetchColumn();
 	?>
     
     <script type="text/javascript">
-		var delete_IT = confirm("Do you wish to view Topics?");
+	var delete_IT = confirm("Do you wish to view Topics?");
 		
-		if(delete_IT)
-		{
-			<?php	
-				echo "window.location.href = 'viewTopic.php?ID=".$topic_ID."'";
-			?>
-		}
-		else
-		{
-			<?php
-				echo "window.location.href";
-			?>
-		}
+	if(delete_IT)
+	{
+		<?php
+			echo "<script type='text/javascript'>alert('Topic has been marked for deletion')</script>";
+			echo "window.location.href = 'viewTopic.php?ID=".$stuff."'";
+		?>
+	}
 	</script>
 	
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
