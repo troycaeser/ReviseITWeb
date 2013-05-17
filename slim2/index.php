@@ -5,116 +5,34 @@ require 'Slim/Slim.php';
 $app = new \Slim\Slim();
 
 //Method Pointers
+$app->get('/getNewSub/:idSub','getSubNew');
 $app->get('/getAll/', 'getAll');
-$app->get('/getContent/:subid', 'getContent');
-$app->get('/getSubjects/', 'getSubjects');
-$app->get('/getTopic/:sub', 'getTopic');
-$app->get('/getSubtopic/:top', 'getSubtopic');
-$app->get('/getTest/:subid', 'getTest');
 $app->post('/token/', "verifyToken"); 
 $app->get('/date/subject/:id/', "getSubjectDate"); 
 $app->get('/date/topic/:id/', "getTopicDate"); 
 $app->get('/date/subtopic/:id/', "getSubtopicDate"); 
 $app->post('/testsummary/:userid/:testid/', "uploadTestSummary");
-$app->post('/login/', "login");
-$app->post('/signup/', "signup");
 
-//Gets entire table - subject
+
+
 function getAll()
-{
-	$sql = "SELECT * from subject";
+{ //Gets all subjects(to create list of them)
 	try
 	{
-		$dbh = getConnection();
+		$dbh = getConnection();		
+		$request = \Slim\Slim::getInstance()->request();
+		$q = json_decode($request->getBody());
+		$sql = "SELECT * FROM subject";
 		$stmt=$dbh->prepare($sql);
 		$stmt->execute();
 		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
-		$dbh=null;
-		echo '["subject"' . json_encode($rows) . ']' . getTopics();
+		$db=NULL;
+		
+		echo json_encode($rows);
 	}
-	catch(PDOException $e)
+	catch (PDOException $e)
 	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
-//Gets entire table - topic
-function getTopics()
-{
-	$sql = "SELECT * from topic";
-	try
-	{
-		$dbh = getConnection();
-		$stmt=$dbh->prepare($sql);
-		$stmt->execute();
-		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
-		$dbh=null;
-		echo '["topic"' . json_encode($rows) . ']' . getSubTopics();
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
-//Gets entire table - subtopic
-function getSubTopics()
-{
-	$sql = "SELECT * from subtopic";
-	try
-	{
-		$dbh = getConnection();
-		$stmt=$dbh->prepare($sql);
-		$stmt->execute();
-		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
-		$dbh=null;
-		echo '["subtopic"' . json_encode($rows) . ']' . getTests();
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
-//Gets entire table - test
-function getTests()
-{
-	$sql = "SELECT * from test";
-	try
-	{
-		$dbh = getConnection();
-		$stmt=$dbh->prepare($sql);
-		$stmt->execute();
-		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
-		$dbh=null;
-		echo '["test"' . json_encode($rows) . ']' . getMultichoice();
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
-//Gets entire table - multichoice
-function getMultichoice()
-{
-	$sql = "SELECT * from multichoice";
-	try
-	{
-		$dbh = getConnection();
-		$stmt=$dbh->prepare($sql);
-		$stmt->execute();
-		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
-		$dbh=null;
-		echo '["multichoice"' . json_encode($rows) . ']';
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
+		if($dbh != NULL) $dbh = NULL;
 		echo $e->getMessage();
 	}
 }
@@ -239,38 +157,6 @@ function uploadTestSummary($testid, $userid)
 	}
 }
 
-//Get testIDs, questions and answers
-//
-function getTest($subid)
-{
-	$sql = "SELECT * from test where SubtopicID=:subid";
-	try
-	{
-		$dbh = getConnection();
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("subid",$subid);
-		$stmt->execute();
-		$row=$stmt->fetch(PDO::FETCH_OBJ);
-		$dbh=null;
-		if($row!=null)
-		{
-			$idTest = $row->TestID; 
-			getMulti($idTest);
-			$dl = $row->Downloads;
-			downloads($idTest, $dl);
-		}
-		else
-		{
-			echo 'false';
-		}
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
 //Increment the download count per test
 //
 function downloads($idTest, $dl)
@@ -338,7 +224,283 @@ function getTf($idTest)
 	}
 }
 
-//Gets content(not used currently)
+//Phone calls this function and gives it an ID. everything below the subject(topic sub topic test 
+//etc etc is put into a JSON string and sent to the caller)
+function getSubNew($idSub)
+{
+	$sql = "SELECT * from subject where SubjectID=:idSub";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idSub",$idSub);
+		$stmt->execute();
+		$jsonSubjects = json_encode($stmt->fetch(PDO::FETCH_ASSOC));
+		$dbh=null;
+		
+		
+		echo '{"subject": ';
+		echo $jsonSubjects;
+		echo ',"topic": ';
+		echo getTopNew($idSub);
+		echo goTest($idSub);
+		echo '}';
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function goTest($idSub)
+{
+	$sql = "SELECT * from topic where SubjectID=:idSub";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idSub",$idSub);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();		
+
+		foreach ($rows as $r)
+		{
+		getTest($r['TopicID']);
+		}
+		
+		$dbh=null;
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getTest($idTop)
+{
+	$sql = "SELECT * from subtopic where TopicID=:idTop";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idTop",$idTop);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();		
+
+		foreach ($rows as $r)
+		{
+		getRelTest($r['SubtopicID']);
+		}
+		
+		$dbh=null;
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getRelTest($idSubid)
+{
+	$sql = "SELECT * from test where SubtopicID=:idSubid";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idSubid",$idSubid);
+		$stmt->execute();
+		$rows = $stmt->fetchAll();		
+
+		foreach ($rows as $r)
+		{
+		getRelMulti($r['TestID']);
+		}
+		
+		foreach ($rows as $r)
+		{
+		getRelTrueFalse($r['TestID']);
+		}
+			
+		$dbh=null;
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getRelTrueFalse($idTest)
+{
+	$sql = "SELECT * from truefalse where TestID=:idTest";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idTest",$idTest);
+		$stmt->execute();
+		$jsonTF = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));		
+		if($jsonTF == '[]')
+		{
+			
+		}
+		else
+		{
+		echo ',"truefalse": ';
+		echo $jsonTF;
+		}
+		
+		$dbh=null;
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getRelMulti($idTest)
+{
+	$sql = "SELECT * from multichoice where TestID=:idTest";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idTest",$idTest);
+		$stmt->execute();
+		$jsonMultis = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));		
+		
+		echo ',"multichoice": ';
+		echo $jsonMultis;
+			
+		$dbh=null;
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+
+
+function getTopNew($idSub)
+{
+	$sql = "SELECT * from topic where SubjectID=:idSub";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idSub",$idSub);
+		$stmt->execute();
+		$jsonTopics = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
+		
+		$dbh=null;
+		
+		echo $jsonTopics;
+		echo ',"subtopic": [';	
+		getTop($idSub);
+		echo ']';
+		
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getTop($idSub)
+{
+	$sql = "SELECT * from topic where SubjectID=:idSub";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idSub",$idSub);
+		$stmt->execute();
+		
+		$rows = $stmt->fetchAll();		
+		
+		$dbh=null;
+		$counts = 0;
+		foreach ($rows as $r)
+		{
+		$counts++;
+		$nume = 0;
+		$nume =	$r['TopicID'];
+		getSubTopNew($nume, $counts);
+		}
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function getSubTopNew($idTop, $counts)
+{
+	$sql = "SELECT * from subtopic where TopicID=:idTop";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idTop",$idTop);
+		$stmt->execute();
+		
+		while($re = $stmt->fetch(PDO::FETCH_ASSOC))
+		{
+			$jsonSubTop = json_encode($re);
+			if($counts==1)
+			{
+			
+			}
+			else
+			{
+			echo ',';
+			}
+			echo $jsonSubTop;
+			$counts = 2;
+			}				
+		$dbh=null;
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+//Create connention to the database
+//
+function getConnection() 
+{
+	try
+	{
+		$hostname="localhost"; 
+		$username="root";
+		$password="root";
+		$dbname="reviseit";
+		$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+		return $dbh;	
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+//runs the app
+$app->run();
+
+//Anything below here isnt in use, but is kept as reference
+
+/*//Gets content(not used currently)
 //
 function getContent($subid)
 {
@@ -372,6 +534,7 @@ function getSubjects()
 		$stmt->execute();
 		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
 		$dbh=null;
+		
 		echo json_encode($rows);
 	}
 	catch(PDOException $e)
@@ -423,93 +586,4 @@ function getSubtopic($top)
 		if($dbh != null) $dbh = null;
 		echo $e->getMessage();
 	}
-}
-
-//Logs in with user and pass (MOBILE)
-//
-function login() 
-{
-	try{
-		$dbh = getConnection();		
-		$request = \Slim\Slim::getInstance()->request();
-		$q = json_decode($request->getBody());
-		$sql = "SELECT UserID, fName, lName FROM users WHERE username = :username and password = :password;";
-		
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("username", $q->username);
-		$stmt->bindParam("password", $q->password);
-		$stmt->execute();
-		$row=$stmt->fetch(PDO::FETCH_OBJ);
-		$db=NULL;
-		
-		if($row != NULL)
-			echo '{"AKEY":"true", "UserID":"'.$row['UserID'].'"}';
-		else
-			echo '{"AKEY":"false, "UserID":"0"}';
-
-	}
-	catch (PDOException $e){
-		if($dbh != NULL) $dbh = NULL;
-		echo $e->getMessage();
-	}
-}
-
-//Allows for sign up on mobile
-//
-function signup() {
-	try{
-		$dbh = getConnection();		
-		$request = \Slim\Slim::getInstance()->request();
-		$q = json_decode($request->getBody());
-		
-		$sql = "INSERT INTO users (username, fName, lName, password, role) VALUES (:username, :fName, :lName, :password, '4');";		
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("username", $q->username);
-		$stmt->bindParam("fName", $q->fName);
-		$stmt->bindParam("lName", $q->lName);
-		$stmt->bindParam("password", $q->password);
-		$stmt->execute();
-				
-		$sql = "SELECT UserID FROM users WHERE username = :username AND password = :password;";		
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("username", $q->username);
-		$stmt->bindParam("password", $q->password);
-		$stmt->execute();
-		$row=$stmt->fetch(PDO::FETCH_OBJ);
-		$db=NULL;
-		
-		if($row != NULL)
-			echo '{"AKEY":"true", "UserID":"'.$row->UserID.'"}';
-		else
-			echo '{"AKEY":"false", "UserID":"0"}';
-
-	}
-	catch (PDOException $e){
-		if($dbh != NULL) $dbh = NULL;
-		echo $e->getMessage();
-	}
-}
-
-//Create connention to the database
-//
-function getConnection() 
-{
-	try
-	{
-		$hostname="localhost"; 
-		$username="root";
-		$password="root";
-		$dbname="reviseit";
-		$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
-		return $dbh;	
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
-//runs the app
-$app->run();
-
+}*/
