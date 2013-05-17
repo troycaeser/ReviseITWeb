@@ -35,7 +35,6 @@
 	if(delete_IT)
 	{
 		<?php
-			echo "<script type='text/javascript'>alert('Topic has been marked for deletion')</script>";
 			echo "window.location.href = 'viewTopic.php?ID=".$stuff."'";
 		?>
 	}
