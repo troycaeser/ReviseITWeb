@@ -38,7 +38,7 @@
 				case "Teacher (All)": $xrole = 6; break;
 				case "Teacher (Non-coordinator)": $xrole = 3; break;
 			}
-				header("Location: all_Accounts.php?ROLE=".$xrole);
+				//header("Location: all_Accounts.php?ROLE=".$xrole);
 
 		}
 		
@@ -147,11 +147,6 @@
 			}
 			
 		echo "</div>";
-		if (isset($_POST['newAccnt']))
-		{
-			header("Location: CreateUser.php");
-			exit;
-			}
 ?>
 <!-- This is the same as the navigation bar at the top, except I used it for the footer.-->
 <div class="navbar navbar-fixed-bottom">
