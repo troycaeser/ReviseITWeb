@@ -16,6 +16,13 @@
 		<a href="../subjects/all_Subjects.php">All Subjects</a>
 	</div>
 	<div class="span4 bootstro" data-bootstro-placement="bottom" data-bootstro-title="Tokens for students" data-bootstro-content="You must create a token for students to register their account. Make sure to make a new one every semester!">
+		<h3>See Downloads Report</h3>
+		<p>See Subjects, Topics, Subtopics and Downloads Report!</p>
+		<a href="downloadsReport.php">Downloads</a>
+	</div>
+    </div>
+    <div class="row-fluid">
+	<div class="span4 bootstro" data-bootstro-placement="bottom" data-bootstro-title="Tokens for students" data-bootstro-content="You must create a token for students to register their account. Make sure to make a new one every semester!">
 		<h3>Create a token</h3>
 		<p>Make a token for students to get access with their smart phones!</p>
 		<a href="admin_CreateToken.php">Token</a>

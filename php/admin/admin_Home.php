@@ -22,13 +22,10 @@
 			<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="The Help System" data-bootstro-content="Not sure what to do? No worries, just <b>click next</b> and we will walk you through the ReviseIT web app. Otherwise, click outside the box. You may use the arrow keys.">
 				<h1>What would you like to do?</h1>
 			</div>
-			
-			<div class='row-fluid'>
 				<!-- Displays Links -->
 				<?php
 					include'admin_container.php';
 				?>
-			</div>
 		</div>
 		
 		<!-- Footer -->

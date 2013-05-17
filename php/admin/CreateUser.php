@@ -88,6 +88,7 @@ if(isset($_POST["submitUser"]))
 		<h3>Assign Subject!</h3>
 		<p>Assign Subject to Coordinator!</p>
 		<a href='assign_CoordinatorSubject.php?ID=".$id."'>Assign Subject</a><br />";
+				include '../footer.php';
 				exit;
 				}
  				else {
@@ -95,6 +96,7 @@ if(isset($_POST["submitUser"]))
 		<h3>View Accounts!</h3>
 		<p>View All Accounts!</p>
 		<a href='all_Accounts.php'>View Accounts</a><br />";
+				include '../footer.php';
 				exit;
 				}
 			}
