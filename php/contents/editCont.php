@@ -98,17 +98,11 @@
 	}
 	
 	?>
-				<div class="span4">
-					<ul class="nav nav-list">
-						<li class="nav-header">Quick Access</li>
-						<li class="active"><a href="#">Create Accounts</a></li>
-						<li><a href="#">Subject Roles</a></li>
-						<li><a href="#">Account details</a></li>
-						<li><a href="#">My account</a></li>
-						<li class="divider"></li>
-						<li><a href="#">About Us</a></li>
-					</ul>
-				</div>
+				<br />
+                <br />
+                <br />
+                <br />
+                <br />
 			</div>
 		</div>
 		
