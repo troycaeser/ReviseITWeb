@@ -20,9 +20,4 @@
 		<p>Make a token for students to get access with their smart phones!</p>
 		<a href="admin_CreateToken.php">Token</a>
 	</div>
-	<div class="span4 bootstro">
-		<h3>Test Content</h3>
-		<p>Click here for the WYSIWYG</p>
-		<a href="testContent.php">test content</a>
-	</div>
 </div>
