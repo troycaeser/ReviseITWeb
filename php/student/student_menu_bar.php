@@ -11,7 +11,6 @@
           <li class="active"><a href="../home_page_director.php">Home</a></li>
           <li><a href="../subjects/all_Subjects.php">Subjects</a></li>
           <li><a href="#">Enrol</a></li>
-          <li><a href="#">Account</a></li>
         </ul>
       </div>
     </div>
