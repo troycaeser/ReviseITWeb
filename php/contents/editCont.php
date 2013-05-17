@@ -82,6 +82,12 @@
 		
 		//$newCont = "My Cont";
 		
+		if($newCont == "")
+		{
+			echo '<script>alert("Enter some content");</script>';
+		}
+		else
+		{
 		try
 		{
 		$stmt = $db->prepare("UPDATE subtopic SET Content=:newCont, DateUpdated=:date WHERE SubtopicID=:subtopic_ID");
@@ -95,6 +101,7 @@
 			echo "not working exceptions ";
 		}
 		header("Location: content.php?ID=".$subtopic_ID);
+		}
 	}
 	
 	?>

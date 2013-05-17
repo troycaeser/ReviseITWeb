@@ -59,7 +59,7 @@
 								echo "<div class='row-fluid'>";
 								if($row['Content'] == null)
 								{
-									echo "<div class='span12'>NO CONTENT IN SUBTOPIC = ".$row['SubtopicName']."<br />Would you like to add some now? echo <a href='editCont.php?ID=".$subtopic_ID."'>Yes</a><br />";
+									echo "<div class='span12'>NO CONTENT IN SUBTOPIC = ".$row['SubtopicName']."<br />Would you like to add some now? <a href='editCont.php?ID=".$subtopic_ID."'>Yes</a><br />";
 								}
 								else
 								{
