@@ -22,17 +22,15 @@
     //getConnection();
     
 
-$config['db'] = array(
-    'host'          =>'localhost',
-    'username'      =>'root',
-    'password'      =>'root',
-    'dbname'        =>'reviseit'
-);
+    $config['db'] = array(
+        'host'          =>'localhost',
+        'username'      =>'root',
+        'password'      =>'root',
+        'dbname'        =>'reviseit'
+    );
 
 
-$db = new PDO('mysql:host='.$config['db']['host'].';dbname='.$config['db']['dbname'], $config['db']['username'], $config['db']['password']);
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-//return new PDO('mysql:host='.$config['db']['host'].';dbname='.$config['db']['dbname'], $config['db']['username'], $config['db']['password']);
+    $db = new PDO('mysql:host='.$config['db']['host'].';dbname='.$config['db']['dbname'], $config['db']['username'], $config['db']['password']);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 ?>
