@@ -69,7 +69,14 @@
 								echo "<div class='row-fluid'>";
 									echo "<div class='span2'>Downloads = ".$row['Downloads']."</div>";
 									echo "<div class='span4'>Last Updated = ".$row['DateUpdated']."</div>";
-									echo "<div class='span1'>".'<a href="editCont.php?ID='.$row['SubtopicID'].'">Edit</a></div>';
+									if($row['Content'] == null)
+									{
+									echo "<div class='span1'>".'<a href="editCont.php?ID='.$row['SubtopicID'].'">Add</a></div>';
+									}
+									else
+									{
+										echo "<div class='span1'>".'<a href="editCont.php?ID='.$row['SubtopicID'].'">Edit</a></div>';
+									}
 									echo "<div class='span1'>".'<a href="deleteContent.php?ID='.$row['SubtopicID'].'">Delete</a></div>';
 								echo "</div>";
 								echo "<br />"; //Spaces them a little bit more apart as they are too close otherwise
