@@ -141,7 +141,12 @@
 								echo "<div class='span3'>".$row['SubjectName']."</div>";
 								echo "<div class='span2'>".$row['SubjectCode']."</div>";
 								echo "<div class='span2'>".$row['Dateupdated']."</div>";
-								echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>";
+								if($row['role'] == 2){
+									echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>";
+								}
+								else{
+									echo "<div class='span2'>Not assigned</div>";
+								}
 								echo "<div class='span2'><a href='delete_subject.php?ID=".$row['SubjectID']."'>Delete</a></div>";  
 							echo "</div>";
 						echo "</a>";
@@ -170,8 +175,7 @@
 								echo "<div class='span3'>".$row['SubjectName']."</div>";
 								echo "<div class='span2'>".$row['SubjectCode']."</div>";
 								echo "<div class='span2'>".$row['Dateupdated']."</div>";
-								echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>";
-								echo "<div class='span2'><a href='delete_subject.php?ID=".$row['SubjectID']."'>Delete</a></div>";  
+								echo "<div class='span2'>".$row['fName']." ".$row['lName']."</div>"; 
 							echo "</div>";
 						echo "</a>";
 					}
