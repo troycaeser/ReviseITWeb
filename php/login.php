@@ -2,7 +2,7 @@
 try
 {
 	include 'getConnection.php'; 
-		
+	
 	session_start();
 
 	$username 	= 	$_POST['username'];
@@ -54,20 +54,16 @@ try
 			}
 			else 
 			{
-				//echo "username or password is incorrect";
 				//Login counter to determine if a person has attempted to login 3 times unsuccessfully
 				if(isset($_SESSION['loginCount']))
 				{
+					
 					$sql = $db->prepare("SELECT `role` FROM `users` WHERE `username` = :userName");
 					$sql->bindParam('userName', $username);
 					$sql->execute();
 					$role = $sql->fetchColumn();
 						
-					if($role == 1)
-					{
-							
-					}
-					else
+					if($role != 1)
 					{
 						echo "username or password is incorrect";
 						$_SESSION['loginCount']++;
@@ -75,7 +71,8 @@ try
 						if($_SESSION['loginCount'] > 3)
 						{
 							//This alert javascript box will display notifying the person that their account has been locked
-							echo "<script type='text/javascript'>alert('Your account has been locked.\\nPlease contact administrator')</script>";
+							echo "Your account has been locked\\nPlease contact administrator";
+							echo "<meta http-equiv='refresh' content='2;url=../index.php' />";
 										
 							//This SQL statement updates their locked status from 0 to 1, depending on whether they entered the correct username and incorrect password, or vice versa
 							$statement = $db->prepare("UPDATE users SET locked = 1 WHERE username=:user OR password=:pass");
@@ -107,13 +104,19 @@ try
 	}	
 	else
 	{
-		echo "Access denied";	
+		echo "<script type='text/javascript'>alert('You cannot log in, when your account has been locked.\\nPlease try again later')</script>";	
 	}
 }
 catch(PDOException $e)
 {
 	//A message if the system is down
-	echo "The system is experiencing some problems\n.We will try and get things running as soon as possible";
+	?>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/css/version1.css">
+    <link rel="stylesheet" href="../assets/css/bootstro.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap-responsive.css">
+    
+	<?php
+	echo "<div class='alert alert-error' align='center'>The system is experiencing some problems.\nWe will try and get things running as soon as possible</div>";
 }
 ?>
-
