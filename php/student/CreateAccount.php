@@ -129,27 +129,6 @@ if(isset($_POST["submitUser"])){
 	$pass2 = "";
 }
 ?>
-  <div class="span4">
-    <ul class="nav nav-list">
-      <li class="nav-header">Quick Access</li>
-      <li class="active"><a href="#">Help</a></li>
-      <li><a href="#">Contact Admin</a></li>
-      <li><a href="#">My Account</a></li>
-    </ul>
-  </div>
-</div>
-</div>
-<div class="navbar navbar-fixed-bottom">
-  <div class="container">
-    <div class="nav-collapse collapse">
-      <ul class="nav pull-right">
-        <li><a href="#">Log out</a></li>
-        <li><a href="#">Contact Admin</a></li>
-        <li><a href="#">Help</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
 <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script> 
 <script src="../../js/bootstrap.js"></script>
 </body>
