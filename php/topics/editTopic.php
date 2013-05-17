@@ -44,7 +44,7 @@
 			$query->execute();
 			$stuff = $query->fetchColumn();
 			
-			header("Location: viewTopic.php?ID=".$stuff."");
+			header("Location: viewTopic.php?ID=".$stuff);
 		}
 		catch(PDOException $e)
 		{
