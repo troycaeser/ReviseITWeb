@@ -9,7 +9,7 @@
 <?php
 	include '../header_container.php';
 ?>
-<title>ReviseIT - Downloads</title>
+<title>ReviseIT - Dates</title>
 </head>
 <body>
 <?php
@@ -19,7 +19,7 @@
 <br />
 <div class="container">
     <div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Subjects" data-bootstro-content="Welcome to the subjects page!">
-      <h1>Report - Downloads</h1>
+      <h1>Report - Dates Last Updated</h1>
     </div>
 	<div class='row-fluid'> 
 <!-- Displays All subjects etc -->
@@ -39,11 +39,11 @@
 		echo "Database Error";
 	}
 
-	echo "<div class='span12 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of downloads' data-bootstro-content='Displays Number of Downloads for Subtopic Content'>";
+	echo "<div class='span12 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Dates Last Updated' data-bootstro-content='Displays dates Content or Details were Last Updated.'>";
 	echo "<div class='span5'><h4>Subject</h4></div>";
 	echo "<div class='span3'><h4>Topic</h4></div>";
 	echo "<div class='span3'><h4>Subtopic</h4></div>";
-	echo "<div class='span1'><h4>Downloads</h4></div>";
+	echo "<div class='span1'><h4>Date Updated</h4></div>";
 	
 	echo "<div class='row-fluid'>";
 	//display everything in a row-fluid/spans while looping the result.
@@ -65,8 +65,10 @@
 			catch (PDOException $e){
 				echo "Database Error";
 				}
+			$topFlag = false;
 			while($row1 = $topcResult->fetch(PDO::FETCH_OBJ))
 				{
+				$topFlag = true;
 				//display topics in a list style with anchor pointing to the topics's subtopics
 				//echo "<a href='../subtopics/view.php?ID=".$row1->TopicID."'>";
 				echo "<div class='span3'>".$row1->TopicName."</div>";
@@ -80,21 +82,25 @@
 				catch (PDOException $e){
 					echo "Database Error";
 					}
+				$subTFlag = false;
 				while($row2 = $sbtpResult->fetch(PDO::FETCH_OBJ))
 					{
+					$subTFlag = true;
 					//display subtopicss in a list style with anchor pointing to the subtopics
 					//echo "<a href='../contents/content.php?ID=".$row2->SubtopicID."'>";
 					echo "<div class='span3'>".$row2->SubtopicName."</div>";
 					//echo "</a>";
-					echo "<div class='span1'>".$row2->Downloads."</div>";																		
+					echo "<div class='span1'>".$row2->DateUpdated."</div>";																		
 					echo "</div><div class='row-fluid'>";
 					echo "<div class='span5'>&nbsp;</div>";
 					echo "<div class='span3'>&nbsp;</div>";
 
 					} // End Subtopics loop
+					if ($subTFlag == false) echo "<div class='span3'>&nbsp;</div><div class='span1'>".$row1->dateupdated."</div>";	
 				echo "</div><div class='row-fluid'>";
 				echo "<div class='span5'>&nbsp;</div>";
-				} // End Topics loop				
+				} // End Topics loop
+			if ($topFlag == false) echo "<div class='span3'>&nbsp;</div><div class='span3'>&nbsp;</div><div class='span1'>".$row->Dateupdated."</div>";				
 			echo "</div><div class='row-fluid'>";
 			} // End Subjects loop
 		echo "</div>";
