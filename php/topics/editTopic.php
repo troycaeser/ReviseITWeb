@@ -1,9 +1,8 @@
 <?php
 	require '../getConnection.php';
 	require '../check_logged_in.php';
-
+	
 	$topic_ID = $_GET['ID'];
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -14,50 +13,43 @@
 <link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
 
 <body>
-<?php 
-	
-	/*function renderForm($TopicID, $topName, $subCode, $error)
-	{
-		if($error !='')
-		{
-			echo '<div style="padding: 4px; border: 1px; solid red; color:red;">'.$error.'</div>';
-		}
-	}*/
-	
+<?php 	
 	$result= $db->prepare("SELECT TopicName, SubjectCode FROM topic WHERE TopicID = '".$topic_ID."'");
 	$result->execute();
 	
-	while($row = $result->fetch(PDO::FETCH_ASSOC))
-	{
-		
-		if($result)
-		{
-			$topName = $row['TopicName'];
-			$subCode = $row['SubjectCode'];
-				
-			//renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
-		}
-		else
-		{
-			echo "No Results";
-		}
-	}
+	$row = $result->fetch(PDO::FETCH_ASSOC);
+	$topName = $row['TopicName'];
+	$subCode = $row['SubjectCode'];
+	
 	if(isset($_POST['submit']))
 	{
-		date_default_timezone_set('Australia/Melbourne');
-		$date = date('Y-m-d', time());
-	
-		$topicName = htmlentities($_POST['topicName']);	
-		$subCode = htmlentities($_POST['SubjCode']);
-			
-		$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode, dateupdated = :date WHERE TopicID = '".$topic_ID."' ");
-		$stmt->bindParam("topicName", $topicName);
-		$stmt->bindParam("subCode", $subCode);
-		$stmt->bindParam("date", $date);
-		$stmt->execute();
+		try
+		{
+			date_default_timezone_set('Australia/Melbourne');
+			$date = date('Y-m-d', time());
 		
-		header("Location: viewTopic.php?ID=".$topic_ID);
-		//renderForm($TopicID, $TopicName, $SubjectCode, $error, '');
+			$topicName = htmlentities($_POST['topicName']);	
+			$subCode = htmlentities($_POST['SubjCode']);
+				
+			$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode, dateupdated = :date WHERE TopicID = :top_ID");
+			$stmt->bindParam("top_ID", $topic_ID);
+			$stmt->bindParam("topicName", $topicName);
+			$stmt->bindParam("subCode", $subCode);
+			$stmt->bindParam("date", $date);
+			$stmt->execute();
+			 
+			
+			$query = $db->prepare("SELECT SubjectID FROM topic WHERE TopicID = :top_ID");
+			$query->bindParam("top_ID", $topic_ID);
+			$query->execute();
+			$stuff = $query->fetchColumn();
+			
+			header("Location: viewTopic.php?ID=".$stuff);
+		}
+		catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}	
 	}
 ?>
 <form method="post" action="">
