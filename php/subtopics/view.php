@@ -61,7 +61,7 @@
             	<div class='row-fluid'>
                     <div class='span4'><h4>Subtopic Name</h4></div>
                      <!--<div class='span3'><h4>Description</h4></div>-->
-                    <div class='span2'><h4>Date</h4></div>
+                    <div class='span2'><h4>Last Updated</h4></div>
 				</div>
             
             

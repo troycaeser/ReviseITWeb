@@ -3,7 +3,7 @@
 	include '../getConnection.php';
 	require '../check_logged_in.php';
 
-	$topic_ID = $_GET['ID'];
+	$TopicID = $_GET["ID"];	
 
 ?>
 
@@ -51,7 +51,8 @@
 	 Deletes a specific entry from the 'user' table
 	*/
 	
-	$SubtopicID = $_GET['ID'];
+	$Subtopic_ID = $_GET['ID'];
+	$TopicID = $_GET["ID"];	
 		
 		try {
 		
@@ -60,7 +61,12 @@
 			$stmt->bindParam(":subtopic_ID", $SubtopicID);
 			$stmt->execute();
 			
-			header("Location: view.php?ID=".$topic_ID."");
+			$stmt=$db->prepare ("SELECT TopicID FROM subtopic WHERE SubtopicID=:subtopic_ID");
+			$stmt->bindParam(':subtopic_ID', $subtopic_ID);
+			$stmt->execute();
+			$row = $stmt->fetchColumn();
+			
+			header("Location: view.php?ID=".$row."");
 			
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();

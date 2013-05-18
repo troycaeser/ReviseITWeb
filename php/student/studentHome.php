@@ -36,7 +36,7 @@
         <div class="span3">
           <h3>View Content</h3>
           <p>Access Revision Content and Tests!</p>
-          <a>View Content</a> </div>
+          <a href="../subtopics/ViewTestQuestions.php">View Content</a> </div>
         <div class="span3">
           <h3>View Test Results</h3>
           <p>View Previous Test Results!</p>

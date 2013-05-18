@@ -43,8 +43,8 @@
         	<div class="span8">
             	<div class='row-fluid'>
                     <div class='span5'><h4>Subtopic Name</h4></div>
-                    <!--<div class='span5'><h4>Description</h4></div>-->
-                    <div class='span2'><h4>Date</h4></div>
+                    <div class='span5'><h4>Description</h4></div>
+                    <div class='span2'><h4>Last Updated</h4></div>
                     <!--<div class='span2'><h4>Coordinator</h4></div>-->
 				</div>           
 <?php	 
@@ -145,7 +145,7 @@
 			$date = date('Y-m-d', time());
 			
 			
-			$query = "UPDATE subtopic SET SubtopicName=:subtopic_Name, 
+			$query = "UPDATE subtopic SET SubtopicName=:subtopic_Name, SubtopicBriefDescription=:description,
 				      DateUpdated=:date WHERE SubtopicID=:subtopic_ID";
 			
 			// get topic id
@@ -157,6 +157,7 @@
 			//bind the parameters
 			$stmt->bindParam(':subtopic_ID', $subtopic_ID);
 			$stmt->bindParam(':subtopic_Name', $_POST['SubtopicName']);
+			$stmt->bindParam(':description', $_POST['SubtopicBriefDescription']);
 			$stmt->bindParam(':date', $date);
 		   
 			// Execute the query
@@ -219,9 +220,14 @@
         	<input type="text" name="SubtopicName" value="<?php echo $subtopic_Name; ?>"/>
         </label>
     </td>
+        <td>
+    	<label>
+        	<input type="text" name="SubtopicBriefDescription" value="<?php echo $description; ?>"/>
+        </label>
+    </td>
     <td>
     	<label>
-         	<input type="text" name="date" value="<?php echo $date; ?>"/>
+         	<span class="input-xlarge uneditable-input"><?php echo $date; ?></span>
         </label>
     </td>
   </tr>
