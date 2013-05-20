@@ -76,9 +76,10 @@
 								echo "<div class='span4'>".$row['SubtopicName']."</div>";
 								echo "<div class='span2'>".$row['DateUpdated']."</div>";
 								echo "<div class='span1'>".'<a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></div>';
-								echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
+                                echo "<div class='span1'></div>";
+								//echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
 							echo "</div>";
-								echo "<div>".$row['SubtopicBriefDescription']."</div>";
+								//echo "<div>".$row['SubtopicBriefDescription']."</div>";
 						echo "</a>";
 				} 
 			?>            
@@ -93,11 +94,7 @@
             <div class="span4">
                 <ul class="nav nav-list">
                     <li class="nav-header">Quick Access</li>
-                    <li class="active"><a href="new.php?ID=<?php echo $topic_ID; ?>">Add Subtopic</a></li>
-                    <li><a href="#">Account details</a></li>
-                    <li><a href="../account/my_account.php">My account</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">About Us</a></li>
+                    <li><a href="new.php?ID=<?php echo $topic_ID; ?>">Add Subtopic</a></li>
                 </ul>
             </div>
         </div>

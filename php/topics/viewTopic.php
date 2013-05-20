@@ -39,8 +39,10 @@
 							echo "<div class='span8'>";
 								echo"<div class='row-fluid'>";
 									echo "<div class='span3'><h4>Topic Name</h4></div>";
-									echo "<div class='span6'><h4>Edit Topic</h4></div>";
-									echo "<div class='span3'><h4>Delete Topic</h4></div>";
+									//echo "<div class='span6'><h4>Edit Topic</h4></div>";
+									echo "<div class='span6'></div>";
+									//echo "<div class='span3'><h4>Delete Topic</h4></div>";
+									echo "<div class='span3'></div>";
 								echo "</div>";
 	
 							while($row = $result->fetch(PDO::FETCH_ASSOC))
@@ -49,12 +51,14 @@
 								
 								echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
 										echo "<div class='span3'>".$row['TopicName']."</div>";
-										echo "<div class='span6'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
-										echo "<div class='span3'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";	
+										//echo "<div class='span6'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
+										echo "<div class='span6'></div>";
+										//echo "<div class='span3'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";
+										echo "<div class='span3'></div>";
 								echo "</a>";
 	
 							}
-							echo "<br><a href='newTopic.php?ID=".$subject_ID."'>Add New Topic</a>";
+							//echo "<br><a href='newTopic.php?ID=".$subject_ID."'>Add New Topic</a>";
 							echo "</div>";
 					}
 					catch(PDOException $e)
@@ -63,14 +67,6 @@
 					}
 					?>
                     
-					<div class="span4">
-						<ul class="nav nav-list">
-							<li class="nav-header">Quick Access</li>
-							<li><a href="../subjects/create_subject.php">Create Subjects</a></li>
-							<li><a href="#">Account details</a></li>
-							<li><a href="../account/my_account.php">My account</a></li>
-						</ul>
-					</div>
 				</div>
 			</div>
 
