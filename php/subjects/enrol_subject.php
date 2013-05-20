@@ -29,28 +29,14 @@
 					<form>
 						<fieldset>
 							<div class="control-group bootstro" data-bootstro-step="0" data-bootstro-placement="bottom" data-bootstro-title="The Subject Code" data-bootstro-content="Please enter the <b>subject code</b> in the textfield.">
-								<label class="control-label" for="student_firstName">Student First Name</label>
+								<label class="control-label" for="key_word">Enter Keyword</label>
 								<div class="controls">
-									<input type="text" name="student_firstName" id="student_firstName" />
-								</div>
-							</div>
-
-							<div class="control-group bootstro" data-bootstro-step="0" data-bootstro-placement="bottom" data-bootstro-title="The Subject Code" data-bootstro-content="Please enter the <b>subject code</b> in the textfield.">
-								<label class="control-label" for="student_surname">Student Surname</label>
-								<div class="controls">
-									<input type="text" name="student_surname" id="student_surname" value="" />
-								</div>
-							</div>
-
-							<div class="control-group bootstro" data-bootstro-step="1" data-bootstro-placement="bottom" data-bootstro-title="The Subject Name" data-bootstro-content="Please enter the <b>subject name</b> in the textfield.">
-								<label class="control-label" for="student_username">Student username</label>
-								<div class="controls">
-									<input type="text" name="student_username" id="student_username" value="" />
+									<input type="text" name="keyword" id="id_keyword" />
 								</div>
 							</div>
 
 							<div class="controls">
-								<button class="btn btn-primary bootstro" data-bootstro-step="4" data-bootstro-placement="right" data-bootstro-title="Submit" data-bootstro-content="Once everything in the textfield is entered, <b>click this button</b> to add a confirm adding the subject." type="button" name="submit" onclick='myCall();'>Search</button>
+								<button class="btn btn-primary bootstro" data-bootstro-step="4" data-bootstro-placement="right" data-bootstro-title="Submit" data-bootstro-content="Once everything in the textfield is entered, <b>click this button</b> to add a confirm adding the subject." type="button" onclick='myCall();'>Search</button>
 							</div>
 						</fieldset>
 					</form>
@@ -75,7 +61,6 @@
 				bootstro.start(".bootstro", {
 					finishButton: ''
 				});
-				//$('#example').popover({trigger: "hover"});
 			});
 		});
 		</script>
@@ -85,9 +70,7 @@
 		        var request = $.ajax({
 		            type: "POST",
 		            url: "search_student.php",
-		            data: {studentFNameValue: $('#student_firstName').val(),
-		            	   studentLNameValue: $('#student_surname').val(),
-		            	   studentUNameValue: $('#student_username').val() }
+		            data: {keywordValue: $('#id_keyword').val()}
 		        });
 		        request.done(function(msg) {
 		            $("#id_search_Result").html(msg);          

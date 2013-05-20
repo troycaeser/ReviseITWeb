@@ -29,7 +29,7 @@
 				<?php
 					include 'subjects.php';
 
-					if($_SESSION['Role'] != 4 || $_SESSION['Role'] != 3){
+					if($_SESSION['Role'] != 4 && $_SESSION['Role'] != 3){
 						echo "<div class='span4'>";
 							echo "<a class='btn' data-toggle='collapse' data-target='#create_form'>Create Subjects</a>";
 							echo "<div id='create_form' class='collapse div'>";
