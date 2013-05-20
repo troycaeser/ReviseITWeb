@@ -28,31 +28,17 @@
 				<!-- Displays All subjects -->
 				<?php
 					include 'subjects.php';
-				?>
-				<div class='span4'>
-					<a class="btn" data-toggle="collapse" data-target="#create_form">Create Subjects</a>
-					<div id="create_form" class='collapse div'>
-						<?php
-							include 'create_subject.php';
-						?>
-					</div>
-				</div>
-			</div>
-			
-			<!-- This drop down button isn't working, commented out for future use.-->
-			<!--
-			<div class="btn-group">
-			    <button class="btn dropdown-toggle" data-toggle="dropdown">
-			      Action
-			      <span class="caret"></span>
-			    </button>
-			    <ul class="dropdown-menu">
-			      <li><a href='delete_subject.php'>Delete</a></li>
-			      <li><a href='edit_subject.php'>Edit</a></li>
-			    </ul>
-			</div>
-			-->
 
+					if($_SESSION['Role'] != 4 || $_SESSION['Role'] != 3){
+						echo "<div class='span4'>";
+							echo "<a class='btn' data-toggle='collapse' data-target='#create_form'>Create Subjects</a>";
+							echo "<div id='create_form' class='collapse div'>";
+								include 'create_subject.php';
+							echo "</div>";
+						echo "</div>";
+					}
+				?>
+			</div>
 		</div>
 		
 		<!-- Footer -->

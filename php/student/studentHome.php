@@ -23,32 +23,12 @@
     <h1>Revise IT - Student Access</h1>
   </div>
   <div class="row-fluid">
-    <div class="span8">
-      <div class="row-fluid">
-        <div class="span3">
-          <h3>Create an Account!</h3>
-          <p>Enter a token and register an account!</p>
-          <a href="EnterToken.php" class="btn btn-primary" rel="popover" data-original-title="Register">Register</a> </div>
-        <div class="span3">
-          <h3>Enrol in Subject</h3>
-          <p>Obtain access to a subject and it's content!</p>
-          <a>Enrol</a> </div>
-        <div class="span3">
-          <h3>View Content</h3>
-          <p>Access Revision Content and Tests!</p>
-          <a href="../subtopics/ViewTestQuestions.php">View Content</a> </div>
-        <div class="span3">
-          <h3>View Test Results</h3>
-          <p>View Previous Test Results!</p>
-          <a>Results</a> </div>
+    <div class="row-fluid">
+      <div class="span6">
+        <h3>See All Subjects!</h3>
+        <p>See subjects</p>
+        <a href="../subjects/all_Subjects.php" class="btn btn-primary" rel="popover" data-original-title="All Subjects">All Subjects</a>
       </div>
-    </div>
-    <div class="span4">
-      <ul class="nav nav-list">
-        <li class="nav-header">Quick Access</li>
-        <li><a href="../account/my_account.php">My Account</a></li>
-        <li><a href="#">Contact Admin</a></li>
-      </ul>
     </div>
   </div>
 </div>
