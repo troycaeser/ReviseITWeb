@@ -11,8 +11,9 @@
 <body>
 <p align="right"><strong>Date: </strong><?php echo date("d/m/y") ?></p>
 <?php
+	
 
-	$query = $db->prepare("SELECT topic.SubjectID, TopicName, topic.SubjectCode FROM topic, subject WHERE subject.SubjectCode = topic.SubjectCode");
+	$query = $db->prepare("SELECT * FROM subject");
 	$query->execute();
 
 ?>
@@ -35,7 +36,7 @@
 				    echo "<select name='subject_code' id='subject_code' multiple='multiple'>";
 					    while($row = $query->fetch(PDO::FETCH_ASSOC))
 						{
-							echo("<option value = '" . $row['SubjectID'] . "'>". $row['TopicName'] ." ". $row['SubjectCode'] ."</option>");
+							echo("<option value ='".$row['SubjectID']."'>".$row['SubjectName']."</option>");
 						}
 					echo "</select>";
 				?>
