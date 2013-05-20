@@ -30,11 +30,30 @@
 	?>
     
     <script type="text/javascript">
+	alert("Topic has been marked for deletion");
 	var delete_IT = confirm("Do you wish to view Topics?");
 		
 	if(delete_IT)
 	{
 		<?php
+			echo "window.location.href = 'viewTopic.php?ID=".$stuff."'";
+		?>
+	}
+	else
+	{
+		<?php
+			date_default_timezone_set('Australia/Melbourne');
+			$date = date('Y-m-d', time());
+		
+			$noResult = $db->prepare('UPDATE topic SET deletionStatus = 0, dateupdated =:date WHERE TopicID="'.$topic_ID.'"');
+			$noResult->bindParam("date", $date);
+			$noResult->execute();
+			
+			$query = $db->prepare("SELECT SubjectID FROM topic WHERE TopicID = :top_ID");
+			$query->bindParam("top_ID", $topic_ID);
+			$query->execute();
+			$stuff = $query->fetchColumn();
+			
 			echo "window.location.href = 'viewTopic.php?ID=".$stuff."'";
 		?>
 	}

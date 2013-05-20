@@ -25,24 +25,24 @@
 			<div class="container">
 
 				<div class="page-header">
-					<h1>Topics Lists</h1>
+					<h1>List of Topics</h1>
 				</div>
 				
 				<div class="row-fluid">
 					<?php
+					$userRole = $_SESSION['Role'];
+					
 					try
 					{
-						//select topic accoding to subject id.
-						$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."'");
-						$result->execute();
+						if($userRole != 1)
+						{
+							//select topic accoding to subject id.
+							$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."' AND deletionStatus = 0");
+							$result->execute();
 						
 							echo "<div class='span8'>";
 								echo"<div class='row-fluid'>";
-									echo "<div class='span3'><h4>Topic Name</h4></div>";
-									//echo "<div class='span6'><h4>Edit Topic</h4></div>";
-									echo "<div class='span6'></div>";
-									//echo "<div class='span3'><h4>Delete Topic</h4></div>";
-									echo "<div class='span3'></div>";
+									echo "<div class='span12'><h4>Topic Name</h4></div>";
 								echo "</div>";
 	
 							while($row = $result->fetch(PDO::FETCH_ASSOC))
@@ -50,16 +50,39 @@
 								$id=$row['TopicID'];
 								
 								echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
-										echo "<div class='span3'>".$row['TopicName']."</div>";
-										//echo "<div class='span6'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
-										echo "<div class='span6'></div>";
-										//echo "<div class='span3'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";
-										echo "<div class='span3'></div>";
+										echo "<div class='span12'>".$row['TopicName']."</div>";
 								echo "</a>";
 	
 							}
-							//echo "<br><a href='newTopic.php?ID=".$subject_ID."'>Add New Topic</a>";
 							echo "</div>";
+						}
+						else
+						{
+							//select topic accoding to subject id.
+							$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."' AND deletionStatus = 0");
+							$result->execute();
+							
+								echo "<div class='span8'>";
+									echo"<div class='row-fluid'>";
+										echo "<div class='span3'><h4>Topic Name</h4></div>";
+										echo "<div class='span6'><h4>Edit Topic</h4></div>";
+										echo "<div class='span3'><h4>Delete Topic</h4></div>";
+									echo "</div>";
+		
+								while($row = $result->fetch(PDO::FETCH_ASSOC))
+								{
+									$id=$row['TopicID'];
+									
+									echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
+											echo "<div class='span3'>".$row['TopicName']."</div>";
+											echo "<div class='span6'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
+											echo "<div class='span3'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";
+									echo "</a>";
+		
+								}
+								echo "<br><a href='newTopic.php?ID=".$subject_ID."'>Add New Topic</a>";
+								echo "</div>";
+						}
 					}
 					catch(PDOException $e)
 					{

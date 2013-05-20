@@ -27,28 +27,35 @@
 			date_default_timezone_set('Australia/Melbourne');
 			$date = date('Y-m-d', time());
 			
-			if(empty($topicName))
+			if(!empty($topicName))
 			{
-				die("Topic name must be alphabetic");
+				if(!preg_match("/[A-Za-z]/", $topicName))	
+				{
+					echo "<div class='alert alert-error' align='center'>Topic name must be alphabetic</div>";
+				}
+				else
+				{
+					$topicName = htmlentities($_POST['topicName']);	
+					$subCode = htmlentities($_POST['SubjCode']);
+						
+					$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode, dateupdated = :date WHERE TopicID = :top_ID");
+					$stmt->bindParam("top_ID", $topic_ID);
+					$stmt->bindParam("topicName", $topicName);
+					$stmt->bindParam("subCode", $subCode);
+					$stmt->bindParam("date", $date);
+					$stmt->execute();
+					 
+					$query = $db->prepare("SELECT SubjectID FROM topic WHERE TopicID = :top_ID");
+					$query->bindParam("top_ID", $topic_ID);
+					$query->execute();
+					$stuff = $query->fetchColumn();
+					
+					header("Location: viewTopic.php?ID=".$stuff);
+				}
 			}
 			else
 			{
-				$topicName = htmlentities($_POST['topicName']);	
-				$subCode = htmlentities($_POST['SubjCode']);
-					
-				$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode, dateupdated = :date WHERE TopicID = :top_ID");
-				$stmt->bindParam("top_ID", $topic_ID);
-				$stmt->bindParam("topicName", $topicName);
-				$stmt->bindParam("subCode", $subCode);
-				$stmt->bindParam("date", $date);
-				$stmt->execute();
-				 
-				$query = $db->prepare("SELECT SubjectID FROM topic WHERE TopicID = :top_ID");
-				$query->bindParam("top_ID", $topic_ID);
-				$query->execute();
-				$stuff = $query->fetchColumn();
-				
-				header("Location: viewTopic.php?ID=".$stuff);
+				echo "<div class='alert alert-error' align='center'>Topic name must not be empty</div>";
 			}
 		}
 		catch(PDOException $e)
