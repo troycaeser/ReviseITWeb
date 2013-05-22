@@ -2,7 +2,6 @@
 	include '../getConnection.php';
 	require '../check_logged_in.php';
 
-	$topic_ID = $_GET['ID'];
 	$SubtopicID = $_GET['ID'];
 	
 ?>
@@ -14,121 +13,68 @@
 		include '../header_container.php';
 	?>
 	<title>ReviseIT - Subtopics</title>
+    
 </head>
 <body>
 	<?php
 		include 'subtopics_menu_bar.php';
 	?>
-
-	<br /><br />
-
+    
 <div class="container">
-
 	<div class="page-header">
         <h1>Test Questions</h1>
     </div>
-
-<?php
-/* 
-        VIEW.PHP
-        Displays all data from 'subtopic' table
-*/
-
-        // Get results from the database
-        $result = $db->prepare("SELECT * FROM subtopic WHERE TopicID ='".$topic_ID."'") ;
-        $result->execute();         
-                
-        // Display data in table
-        //echo "<p><b>View All</b> | <a href='view-paginated.php?page=1'>View Paginated</a></p>";
-        
-        //echo "<table border='1' cellpadding='10'>";
-        //echo "<tr> <th>Subtopic Name</th> <th>Content</th> <th>Date Updated</th> <th></th> <th></th></tr>";
-
-        // Loop through results of database query, displaying them in the table
-        
-        // Close table>
-        //echo "</table>";
-		
-?>
-
-<!--<p><a href="new.php">Add a new record</a></p>--->
-<!--<p><b>View All</b> | <a href='view-paginated.php?page=1'>View Paginated</a></p>-->
-
-    
-    <!-- subtopicname, content, date updated-->
-    	<div class="row-fluid">
-        	<div class="span8">
-            	<div class='row-fluid'>
-                    <div class='span12'><h4>Question</h4></div>
-                     <!--<div class='span3'><h4>Description</h4></div>-->
-                    <!--<div class='span2'><h4>Date</h4></div>-->
-				</div>
-            
-            
-            <?php
-				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-				{	
-						$id=$row['SubtopicID'];
-						
-						//echo contents in divs
-						echo "<a href='../contents/content.php?ID=".$row['SubtopicID']."'>";
-							echo "<div id='".$row['SubtopicID']."' class='row-fluid'>";
-								echo "<div class='span12'>".$row['Question']."</div>";
-							echo "</div>";
-						echo "</a>";
-						
-						echo "<div class='span1'>";
-							echo "<label class='checkbox'>";
-								echo "<input name='chk_group[]' value='".$row['Answer1']."' type='checkbox' />";
-							echo "</label>";
-						echo "</div>";
-						echo "<div class='span1'>";
-							echo "<label class='checkbox'>";
-								echo "<input name='chk_group[]' value='".$row['Answer2']."' type='checkbox' />";
-							echo "</label>";
-						echo "</div>";
-						echo "<div class='span1'>";
-							echo "<label class='checkbox'>";
-								echo "<input name='chk_group[]' value='".$row['Answer3']."' type='checkbox' />";
-							echo "</label>";
-						echo "</div>";
-						echo "<div class='span1'>";
-							echo "<label class='checkbox'>";
-								echo "<input name='chk_group[]' value='".$row['Answer4']."' type='checkbox' />";
-							echo "</label>";
-						echo "</div>";
-						
-						
+ 
+	<div class="row-fluid">
+   		<div class="span8">
+                    
+           <?php
+		   $query = $db->prepare("SELECT TopicID FROM subtopic WHERE SubtopicID = :subtop_ID");
+		   $query->bindParam("subtop_ID", $SubtopicID);
+		   $query->execute();
+		   $stuff = $query->fetchColumn();
+		   
+		   $resultTest = $db->prepare("SELECT * FROM multichoice WHERE TestID = '".$stuff."'");
+		   $resultTest->execute();
+		   while($row = $resultTest->fetch(PDO::FETCH_ASSOC)) 
+		   {
+			   /*for($i = 0; $i <= 10; $i++)
+			   {
+				   echo "<div class='span6'>Question: ".$row['Question'] + $i."</div>";	
+			   }*/
+			   echo "<div class='span12'>Question: ".$row['Question']."</div>";	
+			   
+			   echo "<div class='span3'>";
+			   	echo "<label class='radio'>";
+					echo "<input name='chk_group[]' type='radio'/>".$row['Answer1'];
+				echo "</label>";
+			   echo "</div>";
+			   
+			   echo "<div class='span3'>";
+			   	echo "<label class='radio'>";
+					echo "<input name='chk_group[]' type='radio'/>".$row['Answer2'];
+				echo "</label>";
+			   echo "</div>";
+			   
+			   echo "<div class='span3'>";
+			   	echo "<label class='radio'>";
+					echo "<input name='chk_group[]' type='radio'/>".$row['Answer3'];
+				echo "</label>";
+			   echo "</div>";
+			   
+			   echo "<div class='span2'>";
+			   	echo "<label class='radio'>";
+					echo "<input name='chk_group[]' type='radio'/>".$row['Answer4'];
+				echo "</label>";
+			   echo "</div>";		
 						
 				} 
 			?>            
-            
-            
-            
-            
-            
-            </div>
-            
-             <!-- Displays subtopics -->
-            <div class="span4">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Quick Access</li>
-                    <li class="active"><a href="new.php?ID=<?php echo $topic_ID; ?>">Add Subtopic</a></li>
-                    <li><a href="#">Account details</a></li>
-                    <li><a href="../account/my_account.php">My account</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">About Us</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    
-		
-    <!-- Footer -->
-		<?php
-			include '../footer.php';
-		?>
-    		
-                
+		</div>
+	</div>
+</div>
+<?php
+	include '../footer.php';
+?>          
 </body>
 </html> 
