@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
 
 <?php
+	$subject_ID = $_GET['ID'];
+
 	include '../getConnection.php';
 	
 	if(isset($_POST['Submit']))
@@ -45,8 +47,8 @@
 			}
 			else
 			{
-				echo "<div class='alert alert-error' align='center'>Topic name must not be empty</div>";
-				//header("Location: newTopic.php");
+				echo "<div class='alert alert-error' align='center'>Topic name must not be empty & Subject code must be selected</div>";
+				echo "<meta http-equiv='refresh' content='1;url=newTopic.php' />";
 			}
 			
 		}
