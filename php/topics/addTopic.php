@@ -3,7 +3,6 @@
 <link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
 
 <?php
-	$subject_ID = $_GET['ID'];
 
 	include '../getConnection.php';
 	
