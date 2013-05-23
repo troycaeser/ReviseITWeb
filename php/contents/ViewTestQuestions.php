@@ -48,21 +48,15 @@
 			   	echo "<label class='radio'>";
 					echo "<input name='rdo_group' type='radio'/>".$row['Answer1'];
 				echo "</label>";
-			   echo "</div>";
 			   
-			   echo "<div class='span3'>";
 			   	echo "<label class='radio'>";
 					echo "<input name='rdo_group' type='radio'/>".$row['Answer2'];
 				echo "</label>";
-			   echo "</div>";
 			   
-			   echo "<div class='span3'>";
 			   	echo "<label class='radio'>";
 					echo "<input name='rdo_group' type='radio'/>".$row['Answer3'];
 				echo "</label>";
-			   echo "</div>";
 			   
-			   echo "<div class='span2'>";
 			   	echo "<label class='radio'>";
 					echo "<input name='rdo_group' type='radio'/>".$row['Answer4'];
 				echo "</label>";
