@@ -71,7 +71,7 @@
 									echo "<div class='span4'>Last Updated = ".$row['DateUpdated']."</div>";
 									if($row['Content'] == null)
 									{
-									echo "<div class='span1'>".'<a href="editCont.php?ID='.$row['SubtopicID'].'">Add</a></div>';
+										echo "<div class='span1'>".'<a href="editCont.php?ID='.$row['SubtopicID'].'">Add</a></div>';
 									}
 									else
 									{
@@ -80,14 +80,17 @@
 									echo "<div class='span1'>".'<a href="deleteContent.php?ID='.$row['SubtopicID'].'">Delete</a></div>';
 								echo "</div>";
 								echo "<br />"; //Spaces them a little bit more apart as they are too close otherwise
+								echo "<div class='span1'>".'<a href="ViewTestQuestions.php?ID='.$row['SubtopicID'].'">Take Test</a></div>';
 							}
 							echo "</div><br /><br /><br /><br />";
+							
 						}
 				catch(PDOException $e)
 				{
 					echo "Not working";
 				}
 				?>
+                
 			</div>
 		</div>
 		
