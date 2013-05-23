@@ -70,7 +70,7 @@
 		        var request = $.ajax({
 		            type: "POST",
 		            url: "search_student.php",
-		            data: {keywordValue: $('#id_keyword').val()}
+		            data: {keywordValue: $('#id_keyword').val(), userID: <?php echo $_SESSION['UserID']?>}
 		        });
 		        request.done(function(msg) {
 		            $("#id_search_Result").html(msg);          

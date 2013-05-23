@@ -1,7 +1,6 @@
 <?php
 
 	include '../getConnection.php';
-
 ?>
 
 <div class="row-fluid">

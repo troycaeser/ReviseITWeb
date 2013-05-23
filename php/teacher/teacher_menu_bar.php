@@ -10,8 +10,7 @@
 				<ul class="nav pull-right">
 					<li class="active"><a href="../home_page/director.php">Home</a></li>
 					<li><a href="../subjects/all_Subjects.php">Subjects</a></li>
-					<li><a href="#">Enrol</a></li>
-					<li><a href="#">Account</a></li>
+					<li><a href="../subjects/enrol_subject.php">Enrol</a></li>
 				</ul>
 			</div>
 		</div>
