@@ -230,7 +230,7 @@
 					echo "</div>";
 			echo "</div>";
 		}
-		else
+		else if($userRole == 4)
 		{
 			echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
 				echo "<div class='row-fluid'>";
@@ -238,29 +238,35 @@
 					echo "<div class='span2'><h4>Code</h4></div>";
 					echo "<div class='span2'><h4>Date</h4></div>";
 				echo "</div>";
-	
-				echo "<form action='' method='post'>";
-					//display everything in a row-fluid/spans while looping the result.
-					//pass SubjectID in the url for each individual link.
-					while($row = $result->fetch(PDO::FETCH_ASSOC))
-					{
-						//after getting information from the usersubject table, then we generate the real data from the
-						//subjects table, and this will be looped each time with different ids (yay).
-						$statement = $db->prepare("SELECT * FROM subject WHERE SubjectID = :bind_SubID");
-						$statement->bindParam("bind_SubID", $row['SubjectID']);
-						$statement->execute();
+				
+				$countResult = $result->rowCount();
 
-						while($row1 = $statement->fetch(PDO::FETCH_ASSOC)){
-							echo "<a href='../topics/viewTopic.php?ID=".$row1['SubjectID']."'>";
-								echo "<div name='subject_ID".$row1['SubjectID']."' id='".$row['SubjectID']."' class='row-fluid'>";
-									echo "<div class='span5'>".$row1['SubjectName']."</div>";
-									echo "<div class='span2'>".$row1['SubjectCode']."</div>";
-									echo "<div class='span2'>".$row1['Dateupdated']."</div>";
-								echo "</div>";
-							echo "</a>";
+				if($countResult >= 1){
+					echo "<form action='' method='post'>";
+						//display everything in a row-fluid/spans while looping the result.
+						//pass SubjectID in the url for each individual link.
+						while($row = $result->fetch(PDO::FETCH_ASSOC))
+						{
+							//after getting information from the usersubject table, then we generate the real data from the
+							//subjects table, and this will be looped each time with different ids (yay).
+							$statement = $db->prepare("SELECT * FROM subject WHERE SubjectID = :bind_SubID");
+							$statement->bindParam("bind_SubID", $row['SubjectID']);
+							$statement->execute();
+
+							while($row1 = $statement->fetch(PDO::FETCH_ASSOC)){
+								echo "<a href='../topics/viewTopic.php?ID=".$row1['SubjectID']."'>";
+									echo "<div name='subject_ID".$row1['SubjectID']."' id='".$row['SubjectID']."' class='row-fluid'>";
+										echo "<div class='span5'>".$row1['SubjectName']."</div>";
+										echo "<div class='span2'>".$row1['SubjectCode']."</div>";
+										echo "<div class='span2'>".$row1['Dateupdated']."</div>";
+									echo "</div>";
+								echo "</a>";
+							}
 						}
-					}
-				echo "</form>";
+					echo "</form>";
+				}else{
+					echo "<h2>Woops, you're not enrolled in a subject yet!</h2>";
+				}
 			echo "</div>";
 		}
 	}
