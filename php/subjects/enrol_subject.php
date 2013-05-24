@@ -66,7 +66,7 @@
 		</script>
 		<script>
 
-		    function myCall() {
+		    function myCall(){
 		        var request = $.ajax({
 		            type: "POST",
 		            url: "search_student.php",
