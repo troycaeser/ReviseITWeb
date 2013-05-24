@@ -89,6 +89,7 @@
 							else
 							{
 								echo "<h2>Sorry, there are no topics available!</h2>";
+								echo '<a href="newtopic.html">Add New Topic</a>';
 							}
 						}
 					}
