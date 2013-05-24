@@ -65,13 +65,26 @@ try
 						
 					if($role != 1)
 					{
-						echo "username or password is incorrect";
-						$_SESSION['loginCount']++;
-						//If a person has been unable to login successfully 3 times
-						if($_SESSION['loginCount'] > 3)
+						echo $_SESSION['loginCount']++;
+						if($_SESSION['loginCount'] < 6)
 						{
+							echo "<meta http-equiv='refresh' content='3;URL=../index.php'>
+								<link rel='stylesheet' href='../assets/css/version1.css'>
+								<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>
+								<div class='container'>
+									<p class='text-center alert alert-error'>You have entered incorrect details</p>
+									<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
+								</div>";
+						}
+							
+						//If a person has been unable to login successfully 3 times
+						if($_SESSION['loginCount'] >= 6)
+						{
+							echo "<meta http-equiv='refresh' content='3;URL=../index.php'>
+								<link rel='stylesheet' href='../assets/css/version1.css'>
+								<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>";
 							//This alert javascript box will display notifying the person that their account has been locked
-							echo "Your account has been locked\\nPlease contact administrator";
+							echo "<div class='text-center alert alert-error'><h1>Your account has been <strong>locked</strong>. Please contact administrator</h1></div>";
 							echo "<meta http-equiv='refresh' content='2;url=../index.php' />";
 										
 							//This SQL statement updates their locked status from 0 to 1, depending on whether they entered the correct username and incorrect password, or vice versa
@@ -93,7 +106,7 @@ try
 				{
 					$_SESSION['loginCount'] = 1;
 				}
-				header("Location: ../index.php");
+				//header("Location: ../index.php");
 			}
 		}
 		else
@@ -104,7 +117,10 @@ try
 	}	
 	else
 	{
+		echo "<link rel='stylesheet' href='../assets/css/version1.css'>
+			  <link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>";
 		echo "<script type='text/javascript'>alert('You cannot log in, when your account has been locked.\\nPlease try again later')</script>";	
+		echo "<meta http-equiv='refresh' content='0;url=../index.php' />";
 	}
 }
 catch(PDOException $e)

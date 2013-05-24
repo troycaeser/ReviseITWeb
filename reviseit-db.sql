@@ -4,7 +4,7 @@
 --
 -- Host: 127.0.0.1:3306
 
--- Generation Time: May 24, 2013 at 01:25 AM
+-- Generation Time: May 24, 2013 at 04:45 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.11
 
@@ -27,7 +27,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `image`
 --
 
-DROP TABLE IF EXISTS `image`;
 CREATE TABLE `image` (
   `ImageID` int(11) NOT NULL AUTO_INCREMENT,
   `ImageName` int(11) NOT NULL,
@@ -43,7 +42,6 @@ CREATE TABLE `image` (
 -- Table structure for table `multichoice`
 --
 
-DROP TABLE IF EXISTS `multichoice`;
 CREATE TABLE `multichoice` (
   `MultiChoiceID` int(11) NOT NULL AUTO_INCREMENT,
   `Question` text NOT NULL,
@@ -73,14 +71,13 @@ INSERT INTO `multichoice` (`MultiChoiceID`, `Question`, `Answer1`, `Answer2`, `A
 -- Table structure for table `results`
 --
 
-DROP TABLE IF EXISTS `results`;
 CREATE TABLE `results` (
-  `resultid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
+  `ResultID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
   `TestID` int(11) DEFAULT NULL,
-  `result` int(11) DEFAULT NULL,
-  PRIMARY KEY (`resultid`),
-  KEY `userid` (`userid`),
+  `Result` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ResultID`),
+  KEY `userid` (`UserID`),
   KEY `testid` (`TestID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 CHECKSUM=1 DELAY_KEY_WRITE=1 ROW_FORMAT=DYNAMIC;
 
@@ -88,10 +85,10 @@ CREATE TABLE `results` (
 -- Dumping data for table `results`
 --
 
-INSERT INTO `results` (`resultid`, `userid`, `TestID`, `result`) VALUES
-(1, 1, 1, 50),
+INSERT INTO `results` (`ResultID`, `UserID`, `TestID`, `Result`) VALUES
+(1, 4, 1, 50),
 (2, 2, 2, 90),
-(3, 1, 2, 60),
+(3, 10, 2, 60),
 (4, 3, 3, 50);
 
 -- --------------------------------------------------------
@@ -100,7 +97,6 @@ INSERT INTO `results` (`resultid`, `userid`, `TestID`, `result`) VALUES
 -- Table structure for table `subject`
 --
 
-DROP TABLE IF EXISTS `subject`;
 CREATE TABLE `subject` (
   `SubjectID` int(11) NOT NULL AUTO_INCREMENT,
   `SubjectCode` varchar(50) NOT NULL,
@@ -130,7 +126,6 @@ INSERT INTO `subject` (`SubjectID`, `SubjectCode`, `SubjectName`, `UserID`, `Dat
 -- Table structure for table `subtopic`
 --
 
-DROP TABLE IF EXISTS `subtopic`;
 CREATE TABLE `subtopic` (
   `SubtopicID` int(11) NOT NULL AUTO_INCREMENT,
   `SubtopicName` varchar(50) NOT NULL,
@@ -170,7 +165,6 @@ INSERT INTO `subtopic` (`SubtopicID`, `SubtopicName`, `TopicID`, `TestID`, `Subt
 -- Table structure for table `test`
 --
 
-DROP TABLE IF EXISTS `test`;
 CREATE TABLE `test` (
   `TestID` int(11) NOT NULL AUTO_INCREMENT,
   `SubtopicID` int(11) NOT NULL,
@@ -193,7 +187,6 @@ INSERT INTO `test` (`TestID`, `SubtopicID`, `Downloads`) VALUES
 -- Table structure for table `token`
 --
 
-DROP TABLE IF EXISTS `token`;
 CREATE TABLE `token` (
   `TokenID` int(11) NOT NULL AUTO_INCREMENT,
   `TokenCode` varchar(20) NOT NULL,
@@ -214,7 +207,6 @@ INSERT INTO `token` (`TokenID`, `TokenCode`, `TokenDate`) VALUES
 -- Table structure for table `topic`
 --
 
-DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic` (
   `TopicID` int(5) NOT NULL AUTO_INCREMENT,
   `TopicName` varchar(50) NOT NULL,
@@ -258,7 +250,6 @@ INSERT INTO `topic` (`TopicID`, `TopicName`, `SubjectID`, `SubjectCode`, `deleti
 -- Table structure for table `truefalse`
 --
 
-DROP TABLE IF EXISTS `truefalse`;
 CREATE TABLE `truefalse` (
   `TrueFalseID` int(11) NOT NULL AUTO_INCREMENT,
   `Question` text NOT NULL,
@@ -282,7 +273,6 @@ INSERT INTO `truefalse` (`TrueFalseID`, `Question`, `correctAns`, `TestID`) VALU
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `fName` varchar(50) NOT NULL,
@@ -316,7 +306,6 @@ INSERT INTO `users` (`UserID`, `fName`, `lName`, `username`, `password`, `role`,
 -- Table structure for table `usersubject`
 --
 
-DROP TABLE IF EXISTS `usersubject`;
 CREATE TABLE `usersubject` (
   `userID` int(11) NOT NULL,
   `SubjectID` int(11) NOT NULL,
@@ -349,6 +338,13 @@ ALTER TABLE `multichoice`
   ADD CONSTRAINT `FK_multichoice` FOREIGN KEY (`TestID`) REFERENCES `test` (`TestID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `results`
+--
+ALTER TABLE `results`
+  ADD CONSTRAINT `FK_resultsTest` FOREIGN KEY (`TestID`) REFERENCES `test` (`TestID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_results` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `subject`
 --
 ALTER TABLE `subject`
@@ -358,8 +354,8 @@ ALTER TABLE `subject`
 -- Constraints for table `subtopic`
 --
 ALTER TABLE `subtopic`
-  ADD CONSTRAINT `FK_subtopicTest` FOREIGN KEY (`TestID`) REFERENCES `test` (`TestID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `FK_subtopic` FOREIGN KEY (`TopicID`) REFERENCES `topic` (`TopicID`);
+  ADD CONSTRAINT `FK_subtopic` FOREIGN KEY (`TopicID`) REFERENCES `topic` (`TopicID`),
+  ADD CONSTRAINT `FK_subtopicTest` FOREIGN KEY (`TestID`) REFERENCES `test` (`TestID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `test`

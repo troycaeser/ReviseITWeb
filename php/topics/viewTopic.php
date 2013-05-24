@@ -34,7 +34,7 @@
 					
 					try
 					{
-						if($userRole != 1)
+						if($userRole != 1 && $userRole != 2)
 						{
 							//select topic accoding to subject id.
 							$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."' AND deletionStatus = 0");
@@ -61,7 +61,10 @@
 							//select topic accoding to subject id.
 							$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."' AND deletionStatus = 0");
 							$result->execute();
+							$TopicResult = $result->rowCount();
 							
+							if($TopicResult >= 1)
+							{
 								echo "<div class='span8'>";
 									echo"<div class='row-fluid'>";
 										echo "<div class='span3'><h4>Topic Name</h4></div>";
@@ -80,8 +83,13 @@
 									echo "</a>";
 		
 								}
-								echo "<br><a href='newTopic.php?ID=".$subject_ID."'>Add New Topic</a>";
+								echo "<br><a class='btn' href='newTopic.php'>Add New Topic</a></input>";
 								echo "</div>";
+							}
+							else
+							{
+								echo "<h2>Sorry, there are no topics available!</h2>";
+							}
 						}
 					}
 					catch(PDOException $e)
