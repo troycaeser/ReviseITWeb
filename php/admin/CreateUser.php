@@ -1,6 +1,10 @@
 <?php
   require '../getConnection.php';
   require '../check_logged_in.php';
+  include '../check_role.php';
+  checkRoleCod($_SESSION['Role']);
+  checkRoleStudent($_SESSION['Role']);
+  checkRoleTeacher($_SESSION['Role']);
 ?>
 
 <!DOCTYPE html>
