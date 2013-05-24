@@ -146,12 +146,14 @@
 						$dateUpdated = $row['Dateupdated'];
 						$firstName = $row['fName'];
 						$lastName = $row['lName'];
+						$userID = $row['UserID'];
 
 						//select subject details according to their ids.
 						$subject_query = $db->prepare("SELECT * FROM subject WHERE SubjectID = '".$subjectID."'");
 						$subject_query->execute();
 
-						$user_query = $db->prepare("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
+						$user_query = $db->prepare("SELECT UserID, fName, lName FROM users WHERE UserID = :bind_userID");
+						$user_query->bindParam("bind_userID", $userID);
 						$user_query->execute();
 
 						echo "<div class='row-fluid'>";
@@ -188,14 +190,11 @@
 						        				echo "<input type='text' name='subject_name".$subjectID."' id='subject_name' value='".$subjectName."' />";
 						        			echo "</div>";
 						        		echo "</div>";
-
-						        		echo "<label class='control-label' for='subject_coodinator'>Coordinator</label>";
-					        			echo "<select name='subject_coordinator".$subjectID."' id='subject_coordinator' multiple='multiple'>";
 										    while($row = $user_query->fetch(PDO::FETCH_ASSOC))
 											{
-												echo("<option value='". $row['UserID'] ."' >". $row['fName'] ." ". $row['lName'] ."</option>");
+												echo "<label class='control-label' for='subject_coodinator'>Coordinator - ".$row['fName']." ".$row['lName']."</label>";
+												echo "<input type='hidden' name='subject_coordinator".$subjectID."' value='".$userID."' />";
 											}
-										echo "</select>";
 									echo "</fieldset>";
 
 						        		echo '<button type="submit" name="update_submit" class="btn">Update</button>';
