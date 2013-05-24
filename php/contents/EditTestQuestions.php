@@ -41,28 +41,38 @@
 		   
 		   $resultTest2 = $db->prepare("SELECT * FROM truefalse WHERE TestID = '".$stuff."'");
 		   $resultTest2->execute();
+		   echo "<form method='post' action='submiteditquestion.php?ID=".$stuff."'>";
 		   while($row = $resultTest1->fetch(PDO::FETCH_ASSOC)) 
 		   {
-			   echo "<div class='span12'>Question: ".$row['Question']."</div>";	
+			   echo "<div class='span12'>";
+			   echo "<label for='qmc".$row['MultiChoiceID']."'></label>";
+			   echo "<input name='qmc".$row['MultiChoiceID']."' id='qmc".$row['MultiChoiceID']."' type='text' value='".$row['Question']."' /></div>";	
 			   
 			   echo "<div class='span12'>";
 			   	echo "<label class='radio'>A: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer1'];
 				echo "</label>";
+					echo "<input type='text' name='qmca".$row['MultiChoiceID']."' value='".$row['MultiChoiceID']."' value='".$row['Answer1']."'/>";
+			   echo "</div>";							
 			   
+			   echo "<div class='span12'>";
 			   	echo "<label class='radio'>B: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer2'];
 				echo "</label>";
+					echo "<input type='text' name='qmcb".$row['MultiChoiceID']."' value='".$row['MultiChoiceID']."' value='".$row['Answer2']."'/>";
+			   echo "</div>";							
 			   
+			   echo "<div class='span12'>";
 			   	echo "<label class='radio'>C: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer3'];
 				echo "</label>";
+					echo "<input type='text' name='qmcc".$row['MultiChoiceID']."' value='".$row['MultiChoiceID']."' value='".$row['Answer3']."'/>";
+			   echo "</div>";							
 			   
-			   	echo "<label class='radio'>D: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer4'];
+			   echo "<div class='span12'>";
+			   	echo "<label class='radio'>A: ";
 				echo "</label>";
+					echo "<input type='text' name='qmcd".$row['MultiChoiceID']."' value='".$row['MultiChoiceID']."' value='".$row['Answer4']."'/>";
 			   echo "</div>";							
 		   } 
+		   
 		   while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
 		   {
 			   echo "<div class='span12'>Question: ".$row['Question']."</div>";	
@@ -77,7 +87,9 @@
 				echo "</label>";
 			   
 			   echo "</div>";				
-		   } 
+		   }
+		   echo "<input type='submit' value='UPDATE QUESTIONS' />";
+		   echo "</form>"; 
 			?>            
 		</div>
 	</div>
