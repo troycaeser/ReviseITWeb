@@ -2,7 +2,7 @@
 	include '../getConnection.php';
 	require '../check_logged_in.php';
 
-	$SubtopicID = $_GET['ID'];
+	$stuff = $_GET['ID'];
 	
 ?>
 
@@ -27,10 +27,6 @@
  
                     
            <?php
-		   $query = $db->prepare("SELECT TestID FROM subtopic WHERE SubtopicID = :subtop_ID");
-		   $query->bindParam("subtop_ID", $SubtopicID);
-		  	$query->execute();
-		   $stuff = $query->fetchColumn();
 		   
 		   $resultTest1 = $db->prepare("SELECT * FROM multichoice WHERE TestID = '".$stuff."'");
 		   $resultTest1->execute();
@@ -42,9 +38,10 @@
 		   while($row = $resultTest1->fetch(PDO::FETCH_ASSOC)) 
 		   {
 			   echo "<div class='row-fluid'>";
-			   echo "<div class='span12'>";
+			   echo "<div class='span10'>";
 			   echo "<label for='qmc".$row['MultiChoiceID']."'>Question (Multichoice)</label>";
-			   echo "<input class='input-xxlarge' name='qmc".$row['MultiChoiceID']."' id='qmc".$row['MultiChoiceID']."' type='text' value='".$row['Question']."' size='80'/></div></div>";	
+			   echo "<input class='input-xxlarge' name='qmc".$row['MultiChoiceID']."' id='qmc".$row['MultiChoiceID']."' type='text' value='".$row['Question']."' size='80'/></div>";
+			   echo "<div class='span2'><a class='btn' href='deletemulti.php?ID=".$row['MultiChoiceID']."&TID=".$row['TestID']."'>Delete From Test</a></div></div>";	
 			   
 			   echo "<div class='row-fluid'>";
 			   echo "<div class='span2'>";
@@ -92,9 +89,10 @@
 		   while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
 		   {
 			   echo "<div class='row-fluid'>";
-			   echo "<div class='span12'>";
+			   echo "<div class='span10'>";
 			   echo "<label for='qtf".$row['TrueFalseID']."'>Question (True/False)</label>";
-			   echo "<input class='input-xxlarge' name='qtf".$row['TrueFalseID']."' id='qtf".$row['MultiChoiceID']."' type='text' value='".$row['Question']."' size='80'/></div></div>";
+			   echo "<input class='input-xxlarge' name='qtf".$row['TrueFalseID']."' id='qtf".$row['MultiChoiceID']."' type='text' value='".$row['Question']."' size='80'/></div>";
+			   echo "<div class='span2'><a class='btn' href='deletetf.php?ID=".$row['TrueFalseID']."&TID=".$row['TestID']."'>Delete From Test</a></div></div>";
 			   
 			   echo "<div class='row-fluid'>";
 			   echo "<div class='span12'>";

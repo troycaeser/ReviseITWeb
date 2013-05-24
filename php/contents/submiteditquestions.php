@@ -10,7 +10,7 @@
 	<?php
 		include '../header_container.php';
 	?>
-	<title>ReviseIT - Test Questions</title>
+	<title>ReviseIT - Edit Test Questions</title>
     
 </head>
 <body>
@@ -71,33 +71,88 @@ if(isset($_POST['submittestedit'])){
 	
 	$sql = $sql."UPDATE truefalse SET Question = '".$question."', correctAns = '".$answer."' WHERE TrueFalseID = ".$tfid."; ";
 }
-    echo $sql;
 	
 	$query = $db->prepare($sql);
 	$query->execute(); 		
 	
 	echo"<div class='row-fluid'>
-	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='All the subjects' data-bootstro-content='View Test Question in Current Test.'>
-		<h3>View Test Question!</h3>
-		<p>View Test Questions</p>
+	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit Test Questions' data-bootstro-content='View Test Question in Current Test.'>
+		<h3>Edit Test Question!</h3>
+		<p>Edit Test Questions</p>
 		<a href='EditTestQuestions.php?ID=".$stuff."'>View Test</a>
 	</div>";
 	echo "	</div>
 </div>
-<?php
-	include '../footer.php';
-?>          
+	include '../footer.php';         
 </body>
 </html> ";
 exit;
 
 } elseif(isset($_POST['addnewmultichoice'])){
-
-echo "New Multichoice";	
+		echo "<form method='post' action='addnewmulti.php?ID=".$stuff."'>";
+			   echo "<div class='row-fluid'>";
+			   echo "<div class='span12'>";
+			   echo "<label for='qmc'>Question (Multichoice)</label>";
+			   echo "<input class='input-xxlarge' name='qmc' id='qmc' type='text' value=''/></div></div>";	
+			   
+			   echo "<div class='row-fluid'>";
+			   echo "<div class='span2'>";
+			   	echo "<label class='radio'>A: ";
+					echo "<input name='rdo_group' type='radio' value='1'/></label>";
+			   echo "</div><div class='span10'>";
+					echo "<input class='input-xxlarge' type='text' name='qmca' value=''/>";
+			   echo "</div></div>";							
+			   
+			   echo "<div class='row-fluid'>";
+			   echo "<div class='span2'>";
+			   	echo "<label class='radio'>B: ";
+					echo "<input name='rdo_group' type='radio' value='2'/></label>";
+			   echo "</div><div class='span10'>";
+					echo "<input class='input-xxlarge' type='text' name='qmcb' value=''/>";
+			   echo "</div></div>";							
+			   
+			   echo "<div class='row-fluid'>";
+			   echo "<div class='span2'>";
+			   	echo "<label class='radio'>C: ";
+					echo "<input name='rdo_group' type='radio' value='3'/></label>";
+			   echo "</div><div class='span10'>";
+					echo "<input class='input-xxlarge' type='text' name='qmcc' value='' size='80'/>";
+			   echo "</div></div>";							
+			   
+			   echo "<div class='row-fluid'>";
+			   echo "<div class='span2'>";
+			   	echo "<label class='radio'>D: ";
+					echo "<input name='rdo_group' type='radio' value='4'/></label>";
+			   echo "</div><div class='span10'>";
+					echo "<input class='input-xxlarge' type='text' name='qmcd' value=''/>";
+			   echo "</div>";							
+			   echo "</div><br />";
+			   echo "<input class='btn' type='submit' name='addnewmulti' value='ADD QUESTION TO TEST' />";
+		echo "</form>";			   							
 	
 } elseif(isset($_POST['addnewtruefalse'])){
-
-echo "New True False";	
+	
+	echo "<form method='post' action='addnewtf.php?ID=".$stuff."'>";
+			   echo "<div class='row-fluid'>";
+			   echo "<div class='span12'>";
+			   echo "<label for='qtf'>Question (True/False)</label>";
+			   echo "<input class='input-xxlarge' name='qtf' id='qtf' type='text' value='' size='80'/></div></div>";
+			   
+			   echo "<div class='row-fluid'>";
+			   echo "<div class='span12'>";
+			   	echo "<label class='radio'>";
+					echo "<input name='radio_group' type='radio' value='true'/>TRUE";
+				echo "</label>";
+			   echo "</div></div>";
+			   
+			   echo "<div class='row-fluid'>";
+			   echo "<div class='span12'>";
+			   	echo "<label class='radio'>";
+					echo "<input name='radio_group' type='radio' value='false'/>FALSE";
+				echo "</label>";
+			   echo "</div></div><br />";
+			   echo "<input class='btn' type='submit' name='addnewtf' value='ADD QUESTION TO TEST' />";
+			   echo "</form>";
 	
 } else echo "Error !";
 ?>
