@@ -1,6 +1,10 @@
 <?php
   include '../getConnection.php';
   require '../check_logged_in.php';
+  include '../check_role.php';
+  checkRoleCod($_SESSION['Role']);
+  checkRoleStudent($_SESSION['Role']);
+  checkRoleTeacher($_SESSION['Role']);
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
