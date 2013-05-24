@@ -80,7 +80,12 @@
 									echo "<div class='span1'>".'<a href="deleteContent.php?ID='.$row['SubtopicID'].'">Delete</a></div>';
 								echo "</div>";
 								echo "<br />"; //Spaces them a little bit more apart as they are too close otherwise
-								echo "<div class='span1'>".'<a href="ViewTestQuestions.php?ID='.$row['SubtopicID'].'">Take Test</a></div>';
+								if ($_SESSION['Role'] == "2") echo "<div class='row-fluid'>
+	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='All the subjects' data-bootstro-content='Click on the link to edit the test questions for this subtopic.'>
+		<h3>Edit Test For This Subtopic!</h3>
+		<p>Edit Test Questions!</p>
+		<a href='EditTestQuestions.php?ID=".$row['TestID']."'>Edit Test</a></div>";
+								else echo "<div class='span1'>".'<a href="ViewTestQuestions.php?ID='.$row['SubtopicID'].'">Take Test</a></div>';
 							}
 							echo "</div><br /><br /><br /><br />";
 							
