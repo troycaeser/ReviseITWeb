@@ -1,6 +1,9 @@
 <?php
 	include '../getConnection.php';
 	include '../check_logged_in.php';
+	include '../check_role.php';
+	checkRoleStudent($_SESSION['Role']);
+	checkRoleAdmin($_SESSION['Role']);
 ?>
 
 <!DOCTYPE html>

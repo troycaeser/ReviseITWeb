@@ -92,7 +92,7 @@
 		<h3>Edit Test For This Subtopic!</h3>
 		<p>Edit Test Questions!</p>
 		<a href='EditTestQuestions.php?ID=".$row['TestID']."'>Edit Test</a></div></div>
-</div>";
+</div><br /><br />";
 	include '../footer.php';          
 echo"</body>
 </html> ";

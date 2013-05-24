@@ -1,6 +1,8 @@
 <?php
 	include '../getConnection.php';
 	require '../check_logged_in.php';
+	include '../check_role.php';
+	checkRoleStudent($_SESSION['Role']);
 ?>
 
 <!DOCTYPE html>

@@ -115,7 +115,7 @@
 		   }
 		   echo "<input class='btn' type='submit' name='addnewtruefalse' value='ADD NEW TRUE/FALSE QUESTION' /><br />";
 		   if ($flag > 0) echo "<br /><input class='btn' name='submittestedit' type='submit' value='UPDATE QUESTIONS' /><br /><br />";
-		   echo "</form>"; 
+		   echo "</form><br /><br />"; 
 			?>            
 	</div>
 </div>

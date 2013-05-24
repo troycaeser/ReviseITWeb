@@ -35,7 +35,7 @@
 		<h3>Deleted Test Question!</h3>
 		<p>Edit Test Questions</p>
 		<a href='EditTestQuestions.php?ID=".$testID."'>View Test</a>
-	</div>";
+	</div><br /><br />";
 ?>
 </div>
 </div>

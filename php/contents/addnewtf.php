@@ -26,7 +26,22 @@ if(isset($_POST['addnewtf'])){
 
 	$testID = $_GET['ID'];	
 	$question = $_POST["qtf"];				
-	$answer = $_POST["radio_group"];				
+	$answer = $_POST["radio_group"];
+	
+	if ($question == ""){
+		echo"<div class='row-fluid'>
+	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit Test Questions' data-bootstro-content='View Test Question in Current Test.'>
+		<h3>Your Question has Blank Fields, Please Correct Them!</h3>
+		<p>Edit Test Questions</p>
+		<a href='EditTestQuestions.php?ID=".$stuff."'>View Test</a>
+	</div>";
+	echo "	</div>
+</div><br /><br />";
+	include '../footer.php';         
+echo"</body>
+</html> ";
+exit;
+	}
 	
 	$sql = "INSERT INTO truefalse (Question, correctAns, TestID) VALUES ('".$question."', '".$answer."', '".$testID."');";
 

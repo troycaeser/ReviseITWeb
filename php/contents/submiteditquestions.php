@@ -1,30 +1,26 @@
 <?php
 	include '../getConnection.php';
 	require '../check_logged_in.php';
-	
+	require '../../DAL/Verification.php';
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<?php
+<?php
 		include '../header_container.php';
 	?>
-	<title>ReviseIT - Edit Test Questions</title>
-    
+<title>ReviseIT - Edit Test Questions</title>
 </head>
 <body>
-	<?php
+<?php
 		include '../subtopics/subtopics_menu_bar.php';
 	?>
-    
 <div class="container">
-	<div class="page-header">
-        <h1>Edit Test Questions</h1>
-    </div>
- 
-                    
-<?php 
+  <div class="page-header">
+    <h1>Edit Test Questions</h1>
+  </div>
+  <?php 
 
 		   $stuff = $_GET["ID"];
 
@@ -36,7 +32,8 @@ if(isset($_POST['submittestedit'])){
 		   
 		   $resultTest2 = $db->prepare("SELECT * FROM truefalse WHERE TestID = '".$stuff."'");
 		   $resultTest2->execute();
-
+		   
+	$error = 0;
 			$sql ="";
 		   while($row = $resultTest1->fetch(PDO::FETCH_ASSOC)) 
 {
@@ -55,12 +52,15 @@ if(isset($_POST['submittestedit'])){
 	$answer3 = $_POST[$namec];		
 	$answer4 = $_POST[$named];
 	$answer = $_POST[$namevalue];
-		
+	
+	if (($question == "") || ($answer1 == "") || ($answer2 == "") || ($answer3 == "") || ($answer4 == "")) $error = 1;
+	
+	else
 	$sql = $sql."UPDATE multichoice SET Question = '".$question."', Answer1 = '".$answer1."', Answer2 = '".$answer2."', Answer3 = '".$answer3."', Answer4 = '".$answer4."', correctAns = '".$answer."' WHERE MultiChoiceID = ".$mcid."; ";
 }
-
-		   while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
-{
+	if ($error == 0){
+			   while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
+		{
 	$tfid = $row['TrueFalseID'];
 
 	$name = "qtf".$tfid;
@@ -68,26 +68,44 @@ if(isset($_POST['submittestedit'])){
 	
 	$question = $_POST[$name];
 	$answer = $_POST[$namevalue];		
+
+	if ($question == "") $error = 1;
 	
+	else	
 	$sql = $sql."UPDATE truefalse SET Question = '".$question."', correctAns = '".$answer."' WHERE TrueFalseID = ".$tfid."; ";
-}
-	
+		}
+	}
+	if ($error == 0) {
 	$query = $db->prepare($sql);
 	$query->execute(); 		
 	
 	echo"<div class='row-fluid'>
 	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit Test Questions' data-bootstro-content='View Test Question in Current Test.'>
-		<h3>Edit Test Question!</h3>
+		<h3>Upgraded Test Questions!</h3>
 		<p>Edit Test Questions</p>
 		<a href='EditTestQuestions.php?ID=".$stuff."'>View Test</a>
 	</div>";
 	echo "	</div>
-</div>
+</div>";
 	include '../footer.php';         
-</body>
+echo "</body>
+</html> ";
+exit; 
+		}
+		else {
+			echo"<div class='row-fluid'>
+	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit Test Questions' data-bootstro-content='View Test Question in Current Test.'>
+		<h3>Your Questions have Blank Fields, Please Correct Them!</h3>
+		<p>Edit Test Questions</p>
+		<a href='EditTestQuestions.php?ID=".$stuff."'>View Test</a>
+	</div>";
+	echo "	</div>
+</div><br /><br />";
+	include '../footer.php';         
+echo"</body>
 </html> ";
 exit;
-
+	}
 } elseif(isset($_POST['addnewmultichoice'])){
 		echo "<form method='post' action='addnewmulti.php?ID=".$stuff."'>";
 			   echo "<div class='row-fluid'>";
@@ -156,10 +174,10 @@ exit;
 	
 } else echo "Error !";
 ?>
-	</div>
+</div>
 </div>
 <?php
 	include '../footer.php';
-?>          
+?>
 </body>
-</html> 
+</html>
