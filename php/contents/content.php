@@ -46,8 +46,8 @@
 					
 					echo "<div class='span12'>";
 						echo"<div class='row-fluid'>";
-							echo "<div class='span12'><h4><u>Content</u></h4></div>";
-					echo "</div>";
+							echo "<div class='span2'><h4><u>Content</u></h4></div>";
+					//echo "</div>";
 					
 					try{			
 							$result = $db->prepare("SELECT * FROM subtopic WHERE SubtopicID =:id");
@@ -56,28 +56,35 @@
 							
 							while($row = $result->fetch(PDO::FETCH_ASSOC))
 							{
+								echo "<div class='span2'><h4><u>Downloads</u> = ".$row['Downloads']."</h4></div>";
+								echo "<div class='span4'><h4><u>Last Updated</u> = ".$row['DateUpdated']."</h4></div>";
+								
+								//here down is for non-students
+								if($_SESSION['Role'] == 1 || $_SESSION['Role'] == 2)
+								{
+								echo "<div class='row-fluid'>";
+									if($row['Content'] == null)
+									{
+										echo "<div class='span1'><a class='btn' href='editCont.php?ID=".$row['SubtopicID']."'>Add</a></div>";
+									}
+									else
+									{
+										echo "<div class='span1'><a class='btn' href='editCont.php?ID=".$row['SubtopicID']."'>Edit</a></div>";
+									}
+									echo "<div class='span1'><a class='btn' href='deleteContent.php?ID=".$row['SubtopicID']."'>Delete</a></div>";
+								echo "</div>";
+								}
+								//here up is for non students								
+								
 								echo "<div class='row-fluid'>";
 								if($row['Content'] == null)
 								{
-									echo "<div class='span12'>NO CONTENT IN SUBTOPIC = ".$row['SubtopicName']."<br />Would you like to add some now? <a href='editCont.php?ID=".$subtopic_ID."'>Yes</a><br />";
+									echo "<div class='span12'>NO CONTENT IN SUBTOPIC = ".$row['SubtopicName']."<br />Would you like to add some now? <a class='btn' href='editCont.php?ID=".$subtopic_ID."'>Yes</a><br />";
 								}
 								else
 								{
 									echo "<div class='span12'>".$row['Content']."</div>";
 								}
-								echo "</div>";
-								echo "<div class='row-fluid'>";
-									echo "<div class='span2'>Downloads = ".$row['Downloads']."</div>";
-									echo "<div class='span4'>Last Updated = ".$row['DateUpdated']."</div>";
-									if($row['Content'] == null)
-									{
-										echo "<div class='span1'>".'<a href="editCont.php?ID='.$row['SubtopicID'].'">Add</a></div>';
-									}
-									else
-									{
-										echo "<div class='span1'>".'<a href="editCont.php?ID='.$row['SubtopicID'].'">Edit</a></div>';
-									}
-									echo "<div class='span1'>".'<a href="deleteContent.php?ID='.$row['SubtopicID'].'">Delete</a></div>';
 								echo "</div>";
 								echo "<br />"; //Spaces them a little bit more apart as they are too close otherwise
 								if ($_SESSION['Role'] == "2") { echo "<div class='row-fluid'>

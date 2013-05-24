@@ -1,21 +1,12 @@
 <?php
 	include '../getConnection.php';
 	include '../check_logged_in.php';
-	include '../check_role.php';
-	checkRoleStudent($_SESSION['Role']);
-	checkRoleTeacher($_SESSION['Role']);
+	include '../header_container.php';
 	
 	$subtopic_ID = $_GET['ID'];
 ?>
-
 <!DOCTYPE html>
 <html>
-	<head>
-		<?php
-			include '../header_container.php';
-		?>
-		<title>ReviseIT - Edit Content</title>
-	</head>
 	<body>
 		
 		<?php
@@ -27,20 +18,24 @@
 		<div class="container">
 
 			<div class="page-header">
-				<h1>Edit content for  <?php  try{			
-			$result = $db->prepare("SELECT * FROM subtopic WHERE SubtopicID =:id");
-			$result->bindParam("id", $subtopic_ID);
-			$result->execute();   
-			
-			while($row = $result->fetch(PDO::FETCH_ASSOC))
-			{
-				echo $row['SubtopicName'];
-			}
-		}
-		catch(PDOException $e)
-		{
-			echo "error";
-		} ?></h1>
+				<h1>Edit content for 
+					<?php 
+                        try{			
+                            $result = $db->prepare("SELECT * FROM subtopic WHERE SubtopicID =:id");
+                            $result->bindParam("id", $subtopic_ID);
+                            $result->execute();   
+                            
+                            while($row = $result->fetch(PDO::FETCH_ASSOC))
+                            {
+                                echo $row['SubtopicName'];
+                            }
+                        }
+                        catch(PDOException $e)
+                        {
+                            echo "error";
+                        }
+                    ?>
+        		</h1>
 			</div>
 			
 			<div class='row-fluid'>
@@ -50,32 +45,15 @@
                         <div class='span6'><h4>Content</h4></div>
                 
                     <?php					
-					try
-					{			
-						$result = $db->prepare("SELECT * FROM subtopic WHERE SubtopicID =:id");
-						$result->bindParam("id", $subtopic_ID);
-						$result->execute();   
-						
-						while($row = $result->fetch(PDO::FETCH_ASSOC))
-						{
-							echo "<div class='span6'><u>Last Updated: ".$row['DateUpdated']."</u></div>";
-							echo "</div>";
-							echo "<div class='row-fluid'>";
-								echo "<div class='span6'><form method='post' action='editCont2.php?ID=".$subtopic_ID."'><textarea id='content_textarea' name='newCont' class='textarea' placeholder='Add Some Content...'>".$row['Content']."</textarea></div>";
-							echo "</div>"; 
-							echo "<div class='span3'><input class='btn' type='submit' name='submit' value='Update Contents'/></form></div>";
-						} 
 						echo "</div>";
-					}
-					catch(PDOException $e)
-					{
-						echo "Not working";
-					}
-			?>
+							echo "<div class='row-fluid'>";
+								echo "<div class='span6'>Data updated successfully</div>";
+							echo "</div>"; 
+							echo "<a href='content.php?ID=".$subtopic_ID."'>Click here to return to the content</a>";
+					?>
                 </div>
 	<?php
-	
-	/*if(isset($_POST['submit']))
+	if(isset($_POST['submit']))
 	{	
 		date_default_timezone_set('Australia/Melbourne');
 		$date = date('Y-m-d', time());
@@ -104,7 +82,7 @@
 			}
 		}
 		
-	}*/
+	}
 	?>
 				<br />
                 <br />
@@ -115,7 +93,6 @@
 		<?php
 			include '../footer.php';
 		?>
-
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 		<script src="../../assets/js/bootstrap.js"></script>
 		<script src="../../assets/js/bootstro.min.js"></script>
@@ -150,5 +127,3 @@
 		</script>
 	</body>
 </html>
-
-
