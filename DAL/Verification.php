@@ -10,7 +10,7 @@ function verifyPassword($password){
 }
 
 function isString($field){
-	if (preg_match('/[^a-zA-Z _]/', $field)) return false;
+	if (preg_match("/^[A-Za-z0-9_- \!\@\#\$\%\^\&\a*\(\)\+\=\{\}\[\]\:\;\"\'\<\>\,\.\?\/\|\\]+$/", $field)) return false;
 	else return true;
 }
 

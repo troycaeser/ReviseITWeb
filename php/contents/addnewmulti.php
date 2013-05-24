@@ -31,9 +31,22 @@ if(isset($_POST['addnewmulti'])){
 	$answer3 = $_POST["qmcc"];		
 	$answer4 = $_POST["qmcd"];
 	$answer = $_POST["rdo_group"];
-		
-		
-	
+				
+		if (($question == "") || ($answer1 == "") || ($answer2 == "") || ($answer3 == "") || ($answer4 == "")){
+			echo"<div class='row-fluid'>
+	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit Test Questions' data-bootstro-content='View Test Question in Current Test.'>
+		<h3>Your Question has Blank Fields, Please Correct Them!</h3>
+		<p>Edit Test Questions</p>
+		<a href='EditTestQuestions.php?ID=".$stuff."'>View Test</a>
+	</div>";
+	echo "	</div>
+</div><br /><br />";
+	include '../footer.php';         
+echo"</body>
+</html> ";
+exit;
+		}
+
 	$sql = "INSERT INTO multichoice (Question, Answer1, Answer2, Answer3, Answer4, correctAns, TestID) VALUES ('".$question."', '".$answer1."', '".$answer2."', '".$answer3."', '".$answer4."', '".$answer."', '".$testID."');";
 
 	$query = $db->prepare($sql);
