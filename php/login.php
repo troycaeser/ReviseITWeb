@@ -8,6 +8,16 @@ try
 	$username 	= 	$_POST['username'];
 	$password 	= 	$_POST['password'];
 	$mdPassword = 	md5($password);
+	
+	$_SESSION['oldusername'] = null;
+	
+	
+	if($_SESSION['oldusername'] != $username){
+		$_SESSION['oldusername'] == $username;
+	}
+	else{
+		$_SESSION['oldusername'] = null;
+	}
 			
 	//get locked status from username
 	$query = $db->prepare("SELECT `locked` FROM `users` WHERE `username` = :userName");
@@ -65,46 +75,57 @@ try
 						
 					if($role != 1)
 					{
-						echo $_SESSION['loginCount']++;
-						if($_SESSION['loginCount'] < 6)
+						if($_SESSION['oldUsername'] == $username)
 						{
-							echo "<meta http-equiv='refresh' content='3;URL=../index.php'>
-								<link rel='stylesheet' href='../assets/css/version1.css'>
-								<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>
-								<div class='container'>
-									<p class='text-center alert alert-error'>You have entered incorrect details</p>
-									<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
-								</div>";
+							$_SESSION['loginCount']++;
+							if($_SESSION['loginCount'] < 3)
+							{
+								echo "<meta http-equiv='refresh' content='3;URL=../index.php'>
+									<link rel='stylesheet' href='../assets/css/version1.css'>
+									<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>
+									<div class='container'>
+										<p class='text-center alert alert-error'>You have entered incorrect details</p>
+										<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
+									</div>";
+							}
+								
+							//If a person has been unable to login successfully 3 times
+							if($_SESSION['loginCount'] >= 3)
+							{
+								echo "<meta http-equiv='refresh' content='3;URL=../index.php'>
+									<link rel='stylesheet' href='../assets/css/version1.css'>
+									<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>";
+								//This alert javascript box will display notifying the person that their account has been locked
+								echo "<div class='text-center alert alert-error'><h1>Your account has been <strong>locked</strong>. Please contact administrator</h1></div>";
+								echo "<meta http-equiv='refresh' content='2;url=../index.php' />";
+											
+								//This SQL statement updates their locked status from 0 to 1, depending on whether they entered the correct username and incorrect password, or vice versa
+								$statement = $db->prepare("UPDATE users SET locked = 1 WHERE username=:user OR password=:pass");
+								$statement->bindParam("user", $username);
+								$statement->bindParam("pass", $password);
+								$statement->execute();
+								$_SESSION['loginCount'] = 0;
+								exit;
+							}
 						}
-							
-						//If a person has been unable to login successfully 3 times
-						if($_SESSION['loginCount'] >= 6)
+						else if($_SESSION['oldUsername'] != $username)
 						{
+							$_SESSION['oldUsername'] = $_POST['username'];
+							$_SESSION['loginCount'] = 1;
 							echo "<meta http-equiv='refresh' content='3;URL=../index.php'>
-								<link rel='stylesheet' href='../assets/css/version1.css'>
-								<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>";
-							//This alert javascript box will display notifying the person that their account has been locked
-							echo "<div class='text-center alert alert-error'><h1>Your account has been <strong>locked</strong>. Please contact administrator</h1></div>";
+									<link rel='stylesheet' href='../assets/css/version1.css'>
+									<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>
+									<div class='container'>
+										<p class='text-center alert alert-error'>You have entered incorrect details</p>
+										<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
+									</div>";
 							echo "<meta http-equiv='refresh' content='2;url=../index.php' />";
-										
-							//This SQL statement updates their locked status from 0 to 1, depending on whether they entered the correct username and incorrect password, or vice versa
-							$statement = $db->prepare("UPDATE users SET locked = 1 WHERE username=:user OR password=:pass");
-							$statement->bindParam("user", $username);
-							$statement->bindParam("pass", $password);
-							$statement->execute();
-							$_SESSION['loginCount'] = 0;
-							exit;
-						}
-						else
-						{
-							//Stores each login attempt as a session until their 3rd attempt
-							$_SESSION['loginCount'] = $_SESSION['loginCount'] + 1;
 						}
 					}
 				}
 				else
 				{
-					$_SESSION['loginCount'] = 1;
+					$_SESSION['loginCount'] = 0;
 				}
 				//header("Location: ../index.php");
 			}
