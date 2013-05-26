@@ -24,7 +24,7 @@
 
 <div class="container">
 
-	<div class="page-header">
+	<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Subtopics" data-bootstro-content="Welcome to the subtopics page. In here you'll find all the subtopics associated with the topics you've selected before.">
         <h1>Subtopic</h1>
     </div>
 
@@ -57,7 +57,7 @@
     
     <!-- subtopicname, content, date updated-->
     	<div class="row-fluid">
-        	<div class="span8">
+        	<div class="span8 bootstro" data-bootstro-placement="bottom" data-bootstro-title="List of subtopics" data-bootstro-content="This is the list of subtopics. You may click in to see its content and take tests.">
             	<div class='row-fluid'>
                     <div class='span4'><h4>Subtopic Name</h4></div>
                      <!--<div class='span3'><h4>Description</h4></div>-->
@@ -119,9 +119,25 @@
     
 		
     <!-- Footer -->
-		<?php
-			include '../footer.php';
-		?>
+	<?php
+		include '../footer.php';
+	?>
+
+	<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+	<script src="../../assets/js/bootstrap.js"></script>
+	<script src="../../assets/js/bootstro.min.js"></script>
+	<script>
+		$(document).ready(function()
+		{
+			$('#help').click(function()
+			{
+				bootstro.start(".bootstro", 
+				{
+					finishButton: ''
+				});
+			});
+		});
+	</script>
     	                        
 </body>
 </html> 
