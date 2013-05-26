@@ -20,7 +20,7 @@
 <br />
 <br />
 <div class="container">
-    <div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Subjects" data-bootstro-content="Welcome to the subjects page!">
+    <div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Dates Report" data-bootstro-content="Welcome to the dates report! This page shows all the dates updated for all subjects and their related contents!">
       <h1>Report - Dates Last Updated</h1>
     </div>
 	<div class='row-fluid'> 
@@ -41,7 +41,7 @@
 		echo "Database Error";
 	}
 
-	echo "<div class='span12 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Dates Last Updated' data-bootstro-content='Displays dates Content or Details were Last Updated.'>";
+	echo "<div class='span12 bootstro' data-bootstro-placement='top' data-bootstro-title='Dates Last Updated' data-bootstro-content='Displays dates Content or Details were Last Updated.'>";
 	echo "<div class='span5'><h4>Subject</h4></div>";
 	echo "<div class='span3'><h4>Topic</h4></div>";
 	echo "<div class='span3'><h4>Subtopic</h4></div>";
@@ -115,8 +115,20 @@
 <?php
 	include '../footer.php';
 ?>
-<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script> 
-<script src="../../assets/js/bootstrap.js"></script> 
-<script src="../../assets/js/bootstro.js"></script>
+		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+		<script src="../../assets/js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstro.min.js"></script>
+		<script>
+		$(document).ready(function()
+		{
+			$('#help').click(function()
+			{
+				bootstro.start(".bootstro", 
+				{
+					finishButton: ''
+				});
+			});
+		});
+		</script>
 </body>
 </html>
