@@ -22,7 +22,7 @@
 
 		<div class="container">
 
-			<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Subjects" data-bootstro-content="Welcome to the subjects page!">
+			<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Enolment" data-bootstro-content="Welcome to the enrolment page! In here you may <b><i>search</i></b> for a <b>student</b> and enrol them!">
 				<h1>Enrol</h1>
 			</div>
 			
@@ -30,7 +30,7 @@
 				<div class='span4'>
 					<form>
 						<fieldset>
-							<div class="control-group bootstro" data-bootstro-step="0" data-bootstro-placement="bottom" data-bootstro-title="The Subject Code" data-bootstro-content="Please enter the <b>subject code</b> in the textfield.">
+							<div class="control-group bootstro" data-bootstro-placement="bottom" data-bootstro-title="Key word" data-bootstro-content="Please Enter a keyword to search for the student you'd like to enrol, The keyword can vary from their <b>first name</b>, <b>last name</b> and <b>username</b>.">
 								<label class="control-label" for="key_word">Enter Keyword</label>
 								<div class="controls">
 									<input type="text" name="keyword" id="id_keyword" />
@@ -38,7 +38,7 @@
 							</div>
 
 							<div class="controls">
-								<button class="btn btn-primary bootstro" data-bootstro-step="4" data-bootstro-placement="right" data-bootstro-title="Submit" data-bootstro-content="Once everything in the textfield is entered, <b>click this button</b> to add a confirm adding the subject." type="button" onclick='myCall();'>Search</button>
+								<button class="btn btn-primary bootstro" data-bootstro-placement="right" data-bootstro-title="Search for a student" data-bootstro-content="Once everything in the textfield is entered, <b>click this button</b> to search for a student." type="button" onclick='myCall();'>Search</button>
 							</div>
 						</fieldset>
 					</form>

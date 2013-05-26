@@ -1,8 +1,8 @@
 <?php
 try
 {
-	include 'getConnection.php'; 
-	
+	ob_start();
+	include 'getConnection.php';
 	session_start();
 
 	$username 	= 	$_POST['username'];
@@ -59,15 +59,14 @@ try
 				$_SESSION['username'] = $username;
 				$_SESSION['Role'] = $role;
 		
-				header("Location: home_page_director.php");
-		
+				exit(header("Location: home_page_director.php"));
+				ob_get_flush();
 			}
 			else 
 			{
 				//Login counter to determine if a person has attempted to login 3 times unsuccessfully
 				if(isset($_SESSION['loginCount']))
 				{
-					
 					$sql = $db->prepare("SELECT `role` FROM `users` WHERE `username` = :userName");
 					$sql->bindParam('userName', $username);
 					$sql->execute();
@@ -119,7 +118,6 @@ try
 										<p class='text-center alert alert-error'>You have entered incorrect details</p>
 										<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
 									</div>";
-							echo "<meta http-equiv='refresh' content='2;url=../index.php' />";
 						}
 					}
 				}
@@ -127,13 +125,19 @@ try
 				{
 					$_SESSION['loginCount'] = 0;
 				}
-				//header("Location: ../index.php");
 			}
 		}
 		else
 		{
 			//Error message displays if the person has not entered a username and password
-			echo "please enter username and password";
+			echo "<meta http-equiv='refresh' content='2;URL=../index.php'>
+			<link rel='stylesheet' href='../assets/css/version1.css'>
+			<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>
+			<div class='container'>
+				<p class='text-center alert alert-error'>Please fill all fields!</p>
+				<p class='text-center alert alert-error'>Directing back to log in page in 2 seconds...</p>
+			</div>";
+			ob_get_flush();
 		}
 	}	
 	else
@@ -142,6 +146,7 @@ try
 			  <link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>";
 		echo "<script type='text/javascript'>alert('You cannot log in, when your account has been locked.\\nPlease try again later')</script>";	
 		echo "<meta http-equiv='refresh' content='0;url=../index.php' />";
+		ob_get_flush();
 	}
 }
 catch(PDOException $e)

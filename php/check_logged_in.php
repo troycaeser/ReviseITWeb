@@ -1,11 +1,12 @@
 <?php
-	
+	ob_start();
+	session_start();
 	include 'getConnection.php';
 	
-	session_start();
 
 	if (empty($_SESSION['UserID'])) {
 		session_destroy();
-		header("Location: ../access_denied_login.php");
+		exit(header("Location: ../access_denied_login.php"));
+		ob_get_flush();
 	}
 ?>

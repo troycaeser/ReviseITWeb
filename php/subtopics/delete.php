@@ -52,17 +52,17 @@
 	*/
 	
 	$SubtopicID = $_GET['ID'];
-	$TopicID = $_GET["ID"];	
-	
+	$TopicID = $_GET['ID'];		
 		
 		try {
-			
-			$stmt = $db->prepare("DELETE FROM subtopic WHERE SubtopicID=:subtopic_ID");
-			$stmt->bindParam(':subtopic_ID', $SubtopicID);
+		
+			$query = "DELETE FROM subtopic WHERE SubtopicID=:subtopic_ID";
+			$stmt = $db->prepare($query);
+			$stmt->bindParam(":subtopic_ID", $SubtopicID);
 			$stmt->execute();
-			
-			$stmt = $db->prepare("SELECT TopicID FROM subtopic WHERE SubtopicID=:subtopic_ID");
-			$stmt->bindParam(':subtopic_ID', $SubtopicID);
+
+			$stmt = $db->prepare("SELECT SubtopicID FROM subtopic WHERE TopicID=:topic_ID");
+			$stmt->bindParam(":topic_ID", $TopicID);
 			$stmt->execute();
 
 			header("Location: view.php?ID=".$TopicID);

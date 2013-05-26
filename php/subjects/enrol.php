@@ -1,5 +1,5 @@
 <?php
-
+	ob_start();
 	include '../getConnection.php';
 
 	if(isset($_POST['submit_enrol'])){
@@ -28,18 +28,28 @@
 		//count if there's any result with the matching enrolment details.
 		$check_enrol = $check_enrol_query->rowCount();
 
-		//if check_enrol is less than one, that means there's this user and subject are not bounded therefore
-		//proceed with enrolment, otherwise, display error message.
-		if($check_enrol < 1){
-			//enrol student.
-			$enrol_query = $db->prepare("INSERT INTO usersubject VALUES(:bind_userID, :bind_subjectID)");
-			$enrol_query->bindParam("bind_userID", $userID);
-			$enrol_query->bindParam("bind_subjectID", $subjectID);
-			$enrol_query->execute();
+		if((!empty($subjectID))){
+			//if check_enrol is less than one, that means there's this user and subject are not bounded therefore
+			//proceed with enrolment, otherwise, display error message.
+			if($check_enrol < 1){
+				//enrol student.
+				$enrol_query = $db->prepare("INSERT INTO usersubject VALUES(:bind_userID, :bind_subjectID)");
+				$enrol_query->bindParam("bind_userID", $userID);
+				$enrol_query->bindParam("bind_subjectID", $subjectID);
+				$enrol_query->execute();
 
-			header("Location: enrol_success.php");
-		}else{
-			header("Location: enrol_fail.php");
+				header("Location: enrol_success.php");
+			}else{
+				header("Location: enrol_fail.php");
+			}
+		}
+		else{
+			echo "<link rel='stylesheet' href='../../assets/css/version1.css'>";
+			echo "<link rel='stylesheet' href='../../assets/css/bootstrap-responsive.css'>";
+			echo "<div class='alert alert-error'>You have not yet selected a subject to enrol in!</div>";
+
+			exit(header( "refresh:2; url=enrol_subject.php" ));
+			ob_get_flush();
 		}
 	}
 ?>
