@@ -98,7 +98,7 @@ echo"</body>
 </html> ";
 exit;
 								}
-								else echo "<div class='span1'>".'<a href="ViewTestQuestions.php?ID='.$row['SubtopicID'].'">Take Test</a></div>';
+								//else echo "<div class='span1'>".'<a href="ViewTestQuestions.php?ID='.$row['SubtopicID'].'">Take Test</a></div>';
 							}
 							echo "</div><br /><br /><br /><br />";
 							
