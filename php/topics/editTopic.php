@@ -30,9 +30,9 @@
 			$topicName = htmlentities($_POST['topicName']);	
 			$subCode = htmlentities($_POST['SubjCode']);
 			
-			if(empty($topicName))
+			if(empty($topicName) && empty($subCode))
 			{
-				echo "<div class='alert alert-error' align='center'>Topic name must not be empty</div>";
+				echo "<div class='alert alert-error' align='center'>Topic name and Subject code must not be empty</div>";
 			}
 			else
 			{
@@ -41,10 +41,12 @@
 				{
 					echo "<div class='alert alert-error' align='center'>Topic name must be alphabetic</div>";
 				}
+				elseif(!preg_match("/[A-Za-z0-9]/", $subCode))
+				{
+					echo "<div class='alert alert-error' align='center'>Subject code must be alphanumeric</div>";
+				}
 				else
 				{
-					$topicName = htmlentities($_POST['topicName']);	
-					$subCode = htmlentities($_POST['SubjCode']);
 						
 					$stmt = $db->prepare("UPDATE topic SET TopicName = :topicName, SubjectCode = :subCode, dateupdated = :date WHERE TopicID = :top_ID");
 					$stmt->bindParam("top_ID", $topic_ID);
