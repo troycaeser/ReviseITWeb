@@ -22,7 +22,7 @@
 
 		<div class="container">
 
-			<div class="page-header">
+			<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Contents" data-bootstro-content="Welcome to the contents page. This is where the content related to the subtopic. In here you may review the content provided by the coordinator and take tests.">
 				<h1>View Content of <?php  try{			
 			$result = $db->prepare("SELECT * FROM subtopic WHERE SubtopicID =:id");
 			$result->bindParam("id", $subtopic_ID);
@@ -117,6 +117,19 @@ exit;
 		?>
 
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
-		<script src="../../js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstrap.js"></script>
+		<script src="../../assets/js/bootstro.min.js"></script>
+		<script>
+			$(document).ready(function()
+			{
+				$('#help').click(function()
+				{
+					bootstro.start(".bootstro", 
+					{
+						finishButton: ''
+					});
+				});
+			});
+		</script>
 	</body>
 </html>
