@@ -36,7 +36,7 @@
 					{
 						if($userRole != 1 && $userRole != 2)
 						{
-							//select topic accoding to subject id.
+							//SQL query used to display the topic(s) corresponding to the subject id
 							$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."' AND deletionStatus = 0");
 							$result->execute();
 						
@@ -63,6 +63,7 @@
 							$result->execute();
 							$TopicResult = $result->rowCount();
 							
+							//Checks whether there is at least 1 topic associated to a subject, if there is then display, otherwise display an error message
 							if($TopicResult >= 1)
 							{
 								echo "<div class='span8'>";
@@ -89,7 +90,7 @@
 							else
 							{
 								echo "<h2>Sorry, there are no topics available!</h2>";
-								echo '<a href="newtopic.html">Add New Topic</a>';
+								echo '<a href="newtopic.php">Add New Topic</a>';
 							}
 						}
 					}
