@@ -27,8 +27,16 @@
 			date_default_timezone_set('Australia/Melbourne');
 			$date = date('Y-m-d', time());
 			
-			if(!empty($topicName))
+			$topicName = htmlentities($_POST['topicName']);	
+			$subCode = htmlentities($_POST['SubjCode']);
+			
+			if(empty($topicName))
 			{
+				echo "<div class='alert alert-error' align='center'>Topic name must not be empty</div>";
+			}
+			else
+			{
+				 
 				if(!preg_match("/[A-Za-z]/", $topicName))	
 				{
 					echo "<div class='alert alert-error' align='center'>Topic name must be alphabetic</div>";
@@ -52,10 +60,6 @@
 					
 					header("Location: viewTopic.php?ID=".$stuff);
 				}
-			}
-			else
-			{
-				echo "<div class='alert alert-error' align='center'>Topic name must not be empty</div>";
 			}
 		}
 		catch(PDOException $e)
