@@ -103,10 +103,10 @@
 				$stmt=$db->prepare("SELECT TopicID FROM subtopic WHERE SubtopicID=:subtopic_ID");
 				$stmt->bindParam(':subtopic_ID', $subtopic_ID);
 				$stmt->execute();
-				$row = $stmt->fetchColumn();
+				$TopicID = $stmt->fetchColumn();
 	
 				// return to all accounts page
-				header("Location: view.php?ID=".$row);
+				header("Location: view.php?ID=".$TopicID);
 		}
 		catch (PDOException $e){
 			echo "Could not edit Subtopic";

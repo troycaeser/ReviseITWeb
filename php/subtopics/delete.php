@@ -51,22 +51,21 @@
 	 Deletes a specific entry from the 'user' table
 	*/
 	
-	$Subtopic_ID = $_GET['ID'];
+	$SubtopicID = $_GET['ID'];
 	$TopicID = $_GET["ID"];	
+	
 		
 		try {
-		
-			$query = "DELETE FROM subtopic WHERE SubtopicID=:subtopic_ID";
-			$stmt = $db->prepare($query);
-			$stmt->bindParam(":subtopic_ID", $SubtopicID);
+			
+			$stmt = $db->prepare("DELETE FROM subtopic WHERE SubtopicID=:subtopic_ID");
+			$stmt->bindParam(':subtopic_ID', $SubtopicID);
 			$stmt->execute();
 			
-			$stmt=$db->prepare ("SELECT TopicID FROM subtopic WHERE SubtopicID=:subtopic_ID");
-			$stmt->bindParam(':subtopic_ID', $subtopic_ID);
+			$stmt = $db->prepare("SELECT TopicID FROM subtopic WHERE SubtopicID=:subtopic_ID");
+			$stmt->bindParam(':subtopic_ID', $SubtopicID);
 			$stmt->execute();
-			$row = $stmt->fetchColumn();
-			
-			header("Location: view.php?ID=".$row."");
+
+			header("Location: view.php?ID=".$TopicID);
 			
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();

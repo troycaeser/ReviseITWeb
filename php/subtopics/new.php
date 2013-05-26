@@ -127,7 +127,6 @@
             <div class="span4">
                 <ul class="nav nav-list">
                     <li class="nav-header">Quick Access</li>
-                    <li class="active"><a href="new.php?ID=<?php echo $TopicID; ?>">Add Subtopic</a></li>
                     <li><a href="#">Account details</a></li>
                     <li><a href="#">My account</a></li>
                     <li class="divider"></li>

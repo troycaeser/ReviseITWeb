@@ -66,6 +66,31 @@
             
             
             <?php
+			
+			if($_SESSION['Role'] == 3 || $_SESSION['Role'] == 4)
+			{
+				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
+				{	
+						$id=$row['SubtopicID'];
+						
+						//echo contents in divs
+						echo "<div class='well'>";
+							echo "<a href='../contents/content.php?ID=".$row['SubtopicID']."'>";
+								echo "<div id='".$row['SubtopicID']."' class='row-fluid'>";
+									echo "<div class='span4'>".$row['SubtopicName']."</div>";
+									echo "<div class='span2'>".$row['DateUpdated']."</div>";
+								echo "</div>";
+									echo "<div>".$row['SubtopicBriefDescription']."</div>";
+							echo "</a>";
+						echo "</div>";
+						echo "</br>";
+				} 
+			}
+			
+			else{
+
+				echo "<a class='btn' href='new.php?ID=$topic_ID'>Add Subtopic</a>";
+				
 				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
 				{	
 						$id=$row['SubtopicID'];
@@ -82,13 +107,11 @@
 									echo "<div>".$row['SubtopicBriefDescription']."</div>";
 							echo "</a>";
 						echo "</div>";
-						echo "</br>";
-				} 
+						
+				}
+				
+			}
 			?>            
-            
-            
-            
-            
             
             </div>
             
@@ -96,7 +119,7 @@
             <div class="span4">
                 <ul class="nav nav-list">
                     <li class="nav-header">Quick Access</li>
-                    <li class="active"><a href="new.php?ID=<?php echo $topic_ID; ?>">Add Subtopic</a></li>
+                   
                     <li><a href="#">Account details</a></li>
                     <li><a href="../account/my_account.php">My account</a></li>
                     <li class="divider"></li>
@@ -111,7 +134,6 @@
 		<?php
 			include '../footer.php';
 		?>
-    		
-                
+    	                        
 </body>
 </html> 
