@@ -1,5 +1,4 @@
 <?php
-
 	include '../getConnection.php';
 
 	$userRole = $_SESSION['Role'];
