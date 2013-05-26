@@ -23,11 +23,11 @@
 <br />
 <br />
 <div class="container">
-  <div class="page-header">
+  <div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Create Accounts Page" data-bootstro-content="Welcome to the create accounts page. In here you may create accounts and their usernames.">
     <h1>Revise IT - Create New User Account</h1>
   </div>
   <div class='row-fluid'>
-    <div class='span8'>
+    <div class='span8 bootstro' data-bootstro-placement="right" data-bootstro-title="Accounts Form" data-bootstro-content="Enter the user's details in this form to create an account.">
       <?php
 $setfName = 0;
 $setlName = 0;
@@ -159,7 +159,7 @@ if(isset($_POST["submitUser"]))
               </div>
             </div>
             <div class="controls">
-              <input class="btn" type="submit" name="submitUser" value="SUBMIT" />
+              <input class="btn bootstro" data-bootstro-placement="right" data-bootstro-title="submit and Create" data-bootstro-content="Click this button to create the account. Remember, make sure all your fields are entered <b>correctly</b>!" type="submit" name="submitUser" value="SUBMIT" />
               <input class="btn" type="submit" name="reset" value="RESET" />
             </div>
           </fieldset>
@@ -179,28 +179,27 @@ if(isset($_POST["submitUser"]))
 		$pass2 = "";
 	}
 ?>
-    <div class="span4">
-      <ul class="nav nav-list">
-        <li class="nav-header">Quick Access</li>
-        <li class="active"><a href="#">Help</a></li>
-        <li><a href="#">Contact Admin</a></li>
-        <li><a href="#">My Account</a></li>
-      </ul>
-    </div>
   </div>
 </div>
-<div class="navbar navbar-fixed-bottom">
-  <div class="container">
-    <div class="nav-collapse collapse">
-      <ul class="nav pull-right">
-        <li><a href="../logout.php">Log out</a></li>
-        <li><a href="#">Contact Admin</a></li>
-        <li><a href="#">Help</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script> 
-<script src="../../assets/js/bootstrap.js"></script>
+    <!-- Footer -->
+    <?php
+      include '../footer.php';
+    ?>
+
+    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+    <script src="../../assets/js/bootstrap.js"></script>
+    <script src="../../assets/js/bootstro.min.js"></script>
+    <script>
+    $(document).ready(function()
+    {
+      $('#help').click(function()
+      {
+        bootstro.start(".bootstro", 
+        {
+          finishButton: ''
+        });
+      });
+    });
+    </script>
 </body>
 </html>
