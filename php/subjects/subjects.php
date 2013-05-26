@@ -296,7 +296,7 @@
 						echo "</form>";
 					echo "</div>";
 				}else{
-					echo "<h2>Woops, you're not enrolled in a subject yet!</h2>";
+					echo "<h2 class='bootstro' data-bootstro-placement='bottom' data-bootstro-title='Not enrolled' data-bootstro-content='You are not enrolled in a subject yet. Contact your teacher to enrol you into their subject.'>Woops, you're not enrolled in a subject yet!</h2>";
 				}
 		}
 	}

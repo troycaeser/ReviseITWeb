@@ -24,11 +24,11 @@
 
 			<div class="container">
 
-				<div class="page-header">
+				<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="The Topics" data-bootstro-content="This page contains all the topics associated with your subject.">
 					<h1>List of Topics</h1>
 				</div>
 				
-				<div class="row-fluid">
+				<div class="row-fluid bootstro" data-bootstro-placement="bottom" data-bootstro-title="Topic Lists" data-bootstro-content="This is the list of topics. You may click into one of these topics to see their associated subtopics.">
 					<?php
 					$userRole = $_SESSION['Role'];
 					
@@ -79,12 +79,12 @@
 									
 									echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
 											echo "<div class='span3'>".$row['TopicName']."</div>";
-											echo "<div class='span6'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
-											echo "<div class='span3'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";
+											echo "<div class='span6 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit' data-bootstro-content='Click on this link to edit this topic.'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
+											echo "<div class='span3 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Delete' data-bootstro-content='Click on this link to delete this topic'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";
 									echo "</a>";
 		
 								}
-								echo "<br><a class='btn' href='newTopic.php'>Add New Topic</a></input>";
+								echo "<br><a class='btn bootstro' data-bootstro-placement='bottom' data-bootstro-title='Create New Topic' data-bootstro-content='Create a new topic for this subject!' href='newTopic.php'>Add New Topic</a></input>";
 								echo "</div>";
 							}
 							else
@@ -107,5 +107,20 @@
 			<?php
 				include '../footer.php';
 			?>
+			<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+			<script src="../../assets/js/bootstrap.js"></script>
+			<script src="../../assets/js/bootstro.min.js"></script>
+			<script>
+			$(document).ready(function()
+			{
+				$('#help').click(function()
+				{
+					bootstro.start(".bootstro", 
+					{
+						finishButton: ''
+					});
+				});
+			});
+			</script>
 	</body>
 </html>
