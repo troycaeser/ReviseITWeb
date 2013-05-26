@@ -51,13 +51,12 @@
 		<script src="../../assets/js/bootstro.js"></script>
 		<script>
 		$(document).ready(function(){
-
-		
-			$('#help').click(function(){
-				bootstro.start(".bootstro", {
+			$('#help').click(function()
+			{
+				bootstro.start(".bootstro", 
+				{
 					finishButton: ''
 				});
-				//$('#example').popover({trigger: "hover"});
 			});
 
 			$('html').click(function(e) {
