@@ -12,7 +12,8 @@ try
 	$_SESSION['oldusername'] = null;
 	
 	
-	if($_SESSION['oldusername'] != $username){
+	if($_SESSION['oldusername'] != $username)
+	{
 		$_SESSION['oldusername'] == $username;
 	}
 	else{
@@ -119,6 +120,16 @@ try
 										<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
 									</div>";
 						}
+					}
+					else
+					{
+						echo "<meta http-equiv='refresh' content='3;URL=../index.php'>
+									<link rel='stylesheet' href='../assets/css/version1.css'>
+									<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>
+									<div class='container'>
+										<p class='text-center alert alert-error'>You have entered incorrect details</p>
+										<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
+									</div>";
 					}
 				}
 				else
