@@ -121,9 +121,9 @@
                     <li class="nav-header">Quick Access</li>
                    
                     <li><a href="#">Account details</a></li>
-                    <li><a href="../account/my_account.php">My account</a></li>
+                    <!--<li><a href="../account/my_account.php">My account</a></li>-->
                     <li class="divider"></li>
-                    <li><a href="#">About Us</a></li>
+                    <!--<li><a href="#">About Us</a></li>-->
                 </ul>
             </div>
         </div>

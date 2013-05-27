@@ -50,9 +50,7 @@
 	 DELETE.PHP
 	 Deletes a specific entry from the 'user' table
 	*/
-	
-	$SubtopicID = $_GET['ID'];
-	$TopicID = $_GET['ID'];		
+	$Topic_ID = $_GET["ID"];	
 		
 		try {
 		
@@ -61,15 +59,18 @@
 			$stmt->bindParam(":subtopic_ID", $SubtopicID);
 			$stmt->execute();
 
-			$stmt = $db->prepare("SELECT SubtopicID FROM subtopic WHERE TopicID=:topic_ID");
-			$stmt->bindParam(":topic_ID", $TopicID);
+			$stmt = $db->prepare("SELECT TopicID FROM subtopic WHERE SubtopicID=:bind_subtopic_ID");
+			$stmt->bindParam(":bind_subtopic_ID", $SubtopicID);
 			$stmt->execute();
+			$TopicID = $stmt->fetchColumn();
 
 			header("Location: view.php?ID=".$TopicID);
 			
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();
 		}
+		
+		
 ?>
 </body>
 </html>
