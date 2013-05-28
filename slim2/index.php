@@ -475,36 +475,16 @@ function getSubTopNew($idTop, $counts)
 	}
 }
 
-//Create connention to the database
-//
-// function getConnection() 
-// {
-// 	try
-// 	{
-// 		$hostname="localhost"; 
-// 		$username="root";
-// 		$password="root";
-// 		$dbname="reviseit";
-// 		$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
-// 		return $dbh;	
-// 	}
-// 	catch(PDOException $e)
-// 	{
-// 		if($dbh != null) $dbh = null;
-// 		echo $e->getMessage();
-// 	}
-// }
+Create connention to the database
 
-//Create connection to the database
-//
 function getConnection() 
 {
 	try
 	{
-		$hostname="reviseithg.db.11048397.hostedresource.com"; 
-		$username="reviseithg";
-		$password="ReviseIT!2013";
-		$dbname="reviseithg";
+		$hostname="localhost"; 
+		$username="root";
+		$password="root";
+		$dbname="reviseit";
 		$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
 		return $dbh;	
 	}
@@ -515,8 +495,28 @@ function getConnection()
 	}
 }
 
-//runs the app
-$app->run();
+// //Create connection to the database
+// //
+// function getConnection() 
+// {
+// 	try
+// 	{
+// 		$hostname="reviseithg.db.11048397.hostedresource.com"; 
+// 		$username="reviseithg";
+// 		$password="ReviseIT!2013";
+// 		$dbname="reviseithg";
+// 		$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+// 		return $dbh;	
+// 	}
+// 	catch(PDOException $e)
+// 	{
+// 		if($dbh != null) $dbh = null;
+// 		echo $e->getMessage();
+// 	}
+// }
+
+// //runs the app
+// $app->run();
 
 //Anything below here isnt in use, but is kept as reference
 
