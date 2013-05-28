@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
 
 <?php
+	ob_start();
 
 	include '../getConnection.php';
 	
@@ -41,7 +42,8 @@
 					$resultSQL->bindParam("bind_date", $date);
 					$resultSQL->execute();
 					
-					header("location: viewTopic.php?ID=".$subjectCode);	
+					exit(header("location: viewTopic.php?ID=".$subjectCode));	
+					ob_get_flush();
 				}
 			}
 			else
