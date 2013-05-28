@@ -130,6 +130,7 @@ try
 										<p class='text-center alert alert-error'>You have entered incorrect details</p>
 										<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
 									</div>";
+									ob_get_flush();
 					}
 				}
 				else
