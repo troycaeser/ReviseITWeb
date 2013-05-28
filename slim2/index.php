@@ -475,7 +475,7 @@ function getSubTopNew($idTop, $counts)
 	}
 }
 
-Create connention to the database
+//Create connention to the database
 
 function getConnection() 
 {
@@ -494,6 +494,8 @@ function getConnection()
 		echo $e->getMessage();
 	}
 }
+
+$app->run();
 
 // //Create connection to the database
 // //
