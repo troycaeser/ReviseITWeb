@@ -97,7 +97,7 @@
 						
 						//echo contents in divs
 						echo "<div class='well'>";
-							echo "<a href='../contents/content.php?ID=".$row['TopicID']."'>";
+							echo "<a href='../contents/content.php?ID=".$row['SubtopicID']."'>";
 								echo "<div id='".$row['SubtopicID']."' class='row-fluid'>";
 									echo "<div class='span4'>".$row['SubtopicName']."</div>";
 									echo "<div class='span2'>".$row['DateUpdated']."</div>";
