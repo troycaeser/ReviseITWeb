@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	include '../getConnection.php';
 	include '../check_logged_in.php';
 	
@@ -67,7 +68,8 @@
 		{
 			echo "not working exceptions for deleteion";
 		}
-		header("Location: content.php?ID=".$subtopic_ID);
+		exit(header("Location: content.php?ID=".$subtopic_ID));
+		ob_get_flush();
 	}
 	
 	?>
