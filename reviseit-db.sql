@@ -4,7 +4,7 @@
 --
 -- Host: 127.0.0.1:3306
 
--- Generation Time: May 31, 2013 at 02:24 AM
+-- Generation Time: May 31, 2013 at 02:27 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.11
 
@@ -171,7 +171,7 @@ CREATE TABLE `test` (
   `SubtopicID` int(11) NOT NULL,
   `Downloads` int(11) NOT NULL,
   PRIMARY KEY (`TestID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `test`
