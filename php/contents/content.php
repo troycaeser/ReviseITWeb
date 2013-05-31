@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	include '../getConnection.php';
 	include '../check_logged_in.php';
 
@@ -91,7 +92,7 @@
 	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='All the subjects' data-bootstro-content='Click on the link to edit the test questions for this subtopic.'>
 		<h3>Edit Test For This Subtopic!</h3>
 		<p>Edit Test Questions!</p>
-		<a href='EditTestQuestions.php?ID=".$row['TestID']."'>Edit Test</a></div></div>
+		<a href='EditTestQuestions.php?ID=".$row['SubtopicID']."'>Edit Test</a></div></div>
 </div><br /><br />";
 	include '../footer.php';          
 echo"</body>
@@ -101,11 +102,11 @@ exit;
 								else if ($_SESSION['Role'] == "4") echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Take Test' data-bootstro-content='Click on the link to take the test and answer questions for this subtopic's test.'>
 		<h3>Take Test For This Subtopic!</h3>
 		<p>Answer Test Questions!</p>
-".'<a href="TakeTest.php?ID='.$row['TestID'].'">Take Test</a></div>';
+".'<a href="TakeTest.php?ID='.$row['SubtopicID'].'">Take Test</a></div>';
 								else echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='View Test' data-bootstro-content='Click on the link to view the test questions for this subtopic's test.'>
 		<h3>View Test For This Subtopic!</h3>
 		<p>View Test Questions!</p>
-".'<a href="ViewTestQuestions.php?ID='.$row['TestID'].'">View Test</a></div>';
+".'<a href="ViewTestQuestions.php?ID='.$row['SubtopicID'].'">View Test</a></div>';
 							}
 							
 							echo "</div><br /><br /><br /><br />";
