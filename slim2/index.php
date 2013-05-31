@@ -287,43 +287,19 @@ function getTest($idTop)
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("idTop",$idTop);
 		$stmt->execute();
-		$rows = $stmt->fetchAll();		
-
+		$rows = $stmt->fetchAll();
+	
 		foreach ($rows as $r)
 		{
-		getRelTest($r['SubtopicID']);
-		}
-		
-		$dbh=null;
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
-function getRelTest($idSubid)
-{
-	$sql = "SELECT * from test where SubtopicID=:idSubid";
-	try
-	{
-		$dbh = getConnection();
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("idSubid",$idSubid);
-		$stmt->execute();
-		$rows = $stmt->fetchAll();		
-
-		foreach ($rows as $r)
-		{
-		getRelMulti($r['TestID']);
+		//echo "<h1>" . $r['SubtopicID'] . "</h1>";
+		getRelMulti($r['SubtopicID']);
 		}
 		
 		foreach ($rows as $r)
 		{
-		getRelTrueFalse($r['TestID']);
+		getRelTrueFalse($r['SubtopicID']);
 		}
-			
+		
 		$dbh=null;
 	}
 	catch(PDOException $e)
@@ -342,14 +318,14 @@ function getRelTrueFalse($idTest)
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("idTest",$idTest);
 		$stmt->execute();
-		$jsonTF = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));		
+		$jsonTF = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));	
+		echo ',"truefalse": ';
 		if($jsonTF == '[]')
 		{
 			
 		}
 		else
 		{
-		echo ',"truefalse": ';
 		echo $jsonTF;
 		}
 		
@@ -373,9 +349,16 @@ function getRelMulti($idTest)
 		$stmt->execute();
 		$jsonMultis = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));		
 		
+		if($jsonMultis == '[]')
+		{
+			
+		}
+		else
+		{
 		echo ',"multichoice": ';
 		echo $jsonMultis;
-			
+		}
+
 		$dbh=null;
 	}
 	catch(PDOException $e)
