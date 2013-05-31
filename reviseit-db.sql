@@ -4,7 +4,7 @@
 --
 -- Host: 127.0.0.1:3306
 
--- Generation Time: May 31, 2013 at 05:14 AM
+-- Generation Time: May 31, 2013 at 05:28 AM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.11
 
@@ -137,7 +137,7 @@ CREATE TABLE `subtopic` (
   `DateUpdated` date NOT NULL,
   PRIMARY KEY (`SubtopicID`),
   KEY `FK_subtopic` (`TopicID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `subtopic`
@@ -156,31 +156,7 @@ INSERT INTO `subtopic` (`SubtopicID`, `SubtopicName`, `TopicID`, `SubtopicBriefD
 (10, 'Input Types', 10, 'Learn about the different input types that are used within HTML5', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at magna eu orci laoreet rutrum. Vivamus ac venenatis nulla. Morbi arcu quam, faucibus quis blandit at, interdum eget velit. Ut congue viverra cursus. In ac sapien neque. Sed pharetra facilisis nisi, ut sollicitudin metus mollis nec. Suspendisse mollis scelerisque tortor at ullamcorper. Fusce non nisi arcu, iaculis consequat est. Maecenas eget consectetur sapien. Vivamus laoreet faucibus sodales. Aenean ultricies tempor lectus vitae aliquet.<linebreak/>\r\n\r\nDuis vitae augue est. Aliquam feugiat sem id ante tristique interdum. Nam a feugiat enim. In ac nulla sem. Nunc ultricies diam volutpat mauris feugiat a eleifend nisi pretium. Fusce eu metus in felis semper sagittis eget quis orci. Phasellus neque risus, eleifend pharetra tempor nec, vestibulum ac odio. Nunc ultrices, neque ut adipiscing vestibulum, elit purus condimentum est, ut accumsan magna leo sed sapien. Donec vitae pharetra odio.<linebreak/>\r\n\r\nVestibulum quis dignissim risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum tempus imperdiet nibh dictum sodales. Morbi quis dui erat. Sed pulvinar feugiat orci in lobortis. Aenean sit amet dui lectus, id pharetra justo. Aliquam metus ante, ullamcorper id consequat ac, blandit ac est. Pellentesque congue placerat sapien sit amet pretium. Nunc eu ultricies enim. Nam lobortis lacus id tellus posuere dictum. Praesent ut nibh erat. Donec dolor libero, lacinia in aliquam sed, feugiat nec mauris. Nunc varius porta lacus ut aliquam. <linebreak/>', 0, '2013-05-17'),
 (11, 'Functions', 11, 'Learn how to create functions and how to implement them within a form', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at magna eu orci laoreet rutrum. Vivamus ac venenatis nulla. Morbi arcu quam, faucibus quis blandit at, interdum eget velit. Ut congue viverra cursus. In ac sapien neque. Sed pharetra facilisis nisi, ut sollicitudin metus mollis nec. Suspendisse mollis scelerisque tortor at ullamcorper. Fusce non nisi arcu, iaculis consequat est. Maecenas eget consectetur sapien. Vivamus laoreet faucibus sodales. Aenean ultricies tempor lectus vitae aliquet.<linebreak/>\r\n\r\nDuis vitae augue est. Aliquam feugiat sem id ante tristique interdum. Nam a feugiat enim. In ac nulla sem. Nunc ultricies diam volutpat mauris feugiat a eleifend nisi pretium. Fusce eu metus in felis semper sagittis eget quis orci. Phasellus neque risus, eleifend pharetra tempor nec, vestibulum ac odio. Nunc ultrices, neque ut adipiscing vestibulum, elit purus condimentum est, ut accumsan magna leo sed sapien. Donec vitae pharetra odio.<linebreak/>\r\n\r\nVestibulum quis dignissim risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum tempus imperdiet nibh dictum sodales. Morbi quis dui erat. Sed pulvinar feugiat orci in lobortis. Aenean sit amet dui lectus, id pharetra justo. Aliquam metus ante, ullamcorper id consequat ac, blandit ac est. Pellentesque congue placerat sapien sit amet pretium. Nunc eu ultricies enim. Nam lobortis lacus id tellus posuere dictum. Praesent ut nibh erat. Donec dolor libero, lacinia in aliquam sed, feugiat nec mauris. Nunc varius porta lacus ut aliquam. <linebreak/>', 0, '2013-05-17'),
 (12, 'Incorporate PHP in Ajax', 12, 'Learn about how AJAX can be implemented to use PHP variables', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at magna eu orci laoreet rutrum. Vivamus ac venenatis nulla. Morbi arcu quam, faucibus quis blandit at, interdum eget velit. Ut congue viverra cursus. In ac sapien neque. Sed pharetra facilisis nisi, ut sollicitudin metus mollis nec. Suspendisse mollis scelerisque tortor at ullamcorper. Fusce non nisi arcu, iaculis consequat est. Maecenas eget consectetur sapien. Vivamus laoreet faucibus sodales. Aenean ultricies tempor lectus vitae aliquet.<linebreak/>\r\n\r\nDuis vitae augue est. Aliquam feugiat sem id ante tristique interdum. Nam a feugiat enim. In ac nulla sem. Nunc ultricies diam volutpat mauris feugiat a eleifend nisi pretium. Fusce eu metus in felis semper sagittis eget quis orci. Phasellus neque risus, eleifend pharetra tempor nec, vestibulum ac odio. Nunc ultrices, neque ut adipiscing vestibulum, elit purus condimentum est, ut accumsan magna leo sed sapien. Donec vitae pharetra odio.<linebreak/>\r\n\r\nVestibulum quis dignissim risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum tempus imperdiet nibh dictum sodales. Morbi quis dui erat. Sed pulvinar feugiat orci in lobortis. Aenean sit amet dui lectus, id pharetra justo. Aliquam metus ante, ullamcorper id consequat ac, blandit ac est. Pellentesque congue placerat sapien sit amet pretium. Nunc eu ultricies enim. Nam lobortis lacus id tellus posuere dictum. Praesent ut nibh erat. Donec dolor libero, lacinia in aliquam sed, feugiat nec mauris. Nunc varius porta lacus ut aliquam. <linebreak/>', 0, '2013-05-17'),
-(13, 'Post/Put/Delete/Insert', 1, 'Learn the different cURL commands that will be used', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at magna eu orci laoreet rutrum. Vivamus ac venenatis nulla. Morbi arcu quam, faucibus quis blandit at, interdum eget velit. Ut congue viverra cursus. In ac sapien neque. Sed pharetra facilisis nisi, ut sollicitudin metus mollis nec. Suspendisse mollis scelerisque tortor at ullamcorper. Fusce non nisi arcu, iaculis consequat est. Maecenas eget consectetur sapien. Vivamus laoreet faucibus sodales. Aenean ultricies tempor lectus vitae aliquet.\r\n\r\nDuis vitae augue est. Aliquam feugiat sem id ante tristique interdum. Nam a feugiat enim. In ac nulla sem. Nunc ultricies diam volutpat mauris feugiat a eleifend nisi pretium. Fusce eu metus in felis semper sagittis eget quis orci. Phasellus neque risus, eleifend pharetra tempor nec, vestibulum ac odio. Nunc ultrices, neque ut adipiscing vestibulum, elit purus condimentum est, ut accumsan magna leo sed sapien. Donec vitae pharetra odio.\r\n\r\nVestibulum quis dignissim risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum tempus imperdiet nibh dictum sodales. Morbi quis dui erat. Sed pulvinar feugiat orci in lobortis. Aenean sit amet dui lectus, id pharetra justo. Aliquam metus ante, ullamcorper id consequat ac, blandit ac est. Pellentesque congue placerat sapien sit amet pretium. Nunc eu ultricies enim. Nam lobortis lacus id tellus posuere dictum. Praesent ut nibh erat. Donec dolor libero, lacinia in aliquam sed, feugiat nec mauris. Nunc varius porta lacus ut aliquam. <br>', 2, '2013-05-24'),
-(14, 'sfdfsdf', 2, '', '', 0, '2013-05-01');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `test`
---
-
-CREATE TABLE `test` (
-  `TestID` int(11) NOT NULL AUTO_INCREMENT,
-  `SubtopicID` int(11) NOT NULL,
-  `Downloads` int(11) NOT NULL,
-  PRIMARY KEY (`TestID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `test`
---
-
-INSERT INTO `test` (`TestID`, `SubtopicID`, `Downloads`) VALUES
-(1, 1, 0),
-(2, 2, 3),
-(3, 13, 5),
-(4, 12, 0);
+(13, 'Post/Put/Delete/Insert', 1, 'Learn the different cURL commands that will be used', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at magna eu orci laoreet rutrum. Vivamus ac venenatis nulla. Morbi arcu quam, faucibus quis blandit at, interdum eget velit. Ut congue viverra cursus. In ac sapien neque. Sed pharetra facilisis nisi, ut sollicitudin metus mollis nec. Suspendisse mollis scelerisque tortor at ullamcorper. Fusce non nisi arcu, iaculis consequat est. Maecenas eget consectetur sapien. Vivamus laoreet faucibus sodales. Aenean ultricies tempor lectus vitae aliquet.\r\n\r\nDuis vitae augue est. Aliquam feugiat sem id ante tristique interdum. Nam a feugiat enim. In ac nulla sem. Nunc ultricies diam volutpat mauris feugiat a eleifend nisi pretium. Fusce eu metus in felis semper sagittis eget quis orci. Phasellus neque risus, eleifend pharetra tempor nec, vestibulum ac odio. Nunc ultrices, neque ut adipiscing vestibulum, elit purus condimentum est, ut accumsan magna leo sed sapien. Donec vitae pharetra odio.\r\n\r\nVestibulum quis dignissim risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum tempus imperdiet nibh dictum sodales. Morbi quis dui erat. Sed pulvinar feugiat orci in lobortis. Aenean sit amet dui lectus, id pharetra justo. Aliquam metus ante, ullamcorper id consequat ac, blandit ac est. Pellentesque congue placerat sapien sit amet pretium. Nunc eu ultricies enim. Nam lobortis lacus id tellus posuere dictum. Praesent ut nibh erat. Donec dolor libero, lacinia in aliquam sed, feugiat nec mauris. Nunc varius porta lacus ut aliquam. <br>', 2, '2013-05-24');
 
 -- --------------------------------------------------------
 
@@ -230,7 +206,7 @@ INSERT INTO `topic` (`TopicID`, `TopicName`, `SubjectID`, `SubjectCode`, `deleti
 (4, 'JSON Strings', 1, 'ICT33A', 0, '2013-05-17'),
 (5, 'SLIM Framework', 1, 'ICT31A', 0, '2013-05-28'),
 (6, 'Java', 3, 'ICA50712', 0, '2013-05-13'),
-(7, 'Eclipse', 1, 'ICA50711', 0, '2013-05-31'),
+(7, 'Eclipse', 1, 'ICA50711', 1, '2013-05-31'),
 (8, 'Architecture in Housing', 6, 'ICA123456', 0, '2013-05-05'),
 (9, 'PHP', 3, 'ICA50712', 0, '2013-05-16'),
 (10, 'HTML5', 2, 'ICT33A', 0, '2013-05-17'),
@@ -346,8 +322,8 @@ ALTER TABLE `multichoice`
 -- Constraints for table `results`
 --
 ALTER TABLE `results`
-  ADD CONSTRAINT `FK_results` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `FK_resultsTest` FOREIGN KEY (`TestID`) REFERENCES `test` (`TestID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `FK_resultsTest` FOREIGN KEY (`TestID`) REFERENCES `subtopic` (`SubtopicID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `FK_results` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `subject`
