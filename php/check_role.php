@@ -10,24 +10,28 @@
 	
 	function checkRoleStudent($role){
 		if($role == 4){
+			session_destroy();
 			exit(header("Location: ../access_denied_login.php"));
 		}
 	}
 	
 	function checkRoleTeacher($role){
 		if($role == 3){
+			session_destroy();
 			exit(header("Location: ../access_denied_login.php"));
 		}
 	}
 	
 	function checkRoleCod($role){
 		if($role == 2){
+			session_destroy();
 			exit(header("Location: ../access_denied_login.php"));
 		}
 	}
 	
 	function checkRoleAdmin($role){
 		if($role == 1){
+			session_destroy();
 			exit(header("Location: ../access_denied_login.php"));
 		}
 	}
