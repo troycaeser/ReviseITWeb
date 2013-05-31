@@ -10,7 +10,7 @@
 <?php
 		include '../header_container.php';
 	?>
-<title>ReviseIT - Edit Test Questions</title>
+<title>ReviseIT - Correct Test Questions</title>
 </head>
 <body>
 <?php
@@ -18,14 +18,11 @@
 	?>
 <div class="container">
   <div class="page-header">
-    <h1>Edit Test Questions</h1>
+    <h1>Correct Test Questions</h1>
   </div>
   <?php 
 	
-	$TestID = $_GET['ID'];	  
-
-if(isset($_POST['submitTest'])){
-
+	$TestID = $_GET['ID'];	
 		   
 		   $resultTest1 = $db->prepare("SELECT * FROM multichoice WHERE TestID = '".$TestID."'");
 		   $resultTest1->execute();
@@ -35,89 +32,87 @@ if(isset($_POST['submitTest'])){
 		   
 	$correct = 0;
 	$max = 0;
-	$arrCorr = NULL;
-	$arrAns = NULL;
-	$arrCorrAns = NULL;
-	$arrQuest = NULL;
+	$flag = 0;
 
 	while($row = $resultTest1->fetch(PDO::FETCH_ASSOC)) 
 {
 	$mcid = $row['MultiChoiceID'];
 	$namevalue = "rdo_group".$mcid;	
 	$answer = $_POST[$namevalue];
+	$answerInt = "Answer".$answer;
+	$answerStr = $row[$answerInt];
+	$correctAns = "Answer".$row['correctAns'];
+	$correctStr = $row[$correctAns];
+
+// echo '$mcid = '.$mcid.', $namevalue = '.$namevalue.', $answer = '.$answer.', $answerStr = '.$answerStr.', $correctAns = '.$correctAns.', $correctStr = '.$correctStr.'<br />';
 		
-	if ($answer = $row['correctAns']) {
-		$correct++;
-		$arrCorr[$max] = 'true';  
-		} else {
-			$arrCorr[$max] = 'false';
-			$arrAns[$max] = $answer;
-			$tempCol = "Answer" . $row['correctAns'];
-			$arrCorrAns[$max] = $Row[$tempCol];
-			$arrQuest = $row['Question'];
-		}
+	if ($answer == $row['correctAns']) {
+		$correct++; 
+	} else {
+		if ($flag == 0) echo "<h3>You answered the following questions incorrectly</h3>"; 
+		echo "<br /><p>Question: ".$row['Question'];
+		echo "</p><p>Your Answer: ".$answerStr;
+		echo "</p><p>Correct Answer: ".$correctStr;
+		echo "</p>";
+		 $flag++;
+	}	
 	
 	$max++;
 	
 }
-	$arr2Corr = NULL;
-	$arr2Ans = NULL;
-	$arr2Quest = NULL;
 	
 	while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
 		{
 	$tfid = $row['TrueFalseID'];
-
-	$name = "qtf".$tfid;
 	$namevalue = "radio_group".$tfid;
-	$answer = $_POST[$namevalue];		
-	if ($answer = $row['correctAns']) {
+	$answer = $_POST[$namevalue];
+	$answerStr = 'true';
+	if ($answer == 'false') $answerStr = 'false';
+			
+	if ($answerStr == $row['correctAns']) {
 		$correct++;
-		$arr2Corr[$max] = 'true';  
 		} else {
-			$arr2Corr[$max] = 'false';
-			$arr2Ans[$max] = $answer;
-			$arrQuest = $row['Question'];
-		}
+		if ($flag == 0) echo "<h3>You answered the following questions incorrectly</h3>"; 
+		echo "<br /><p>Question: ".$row['Question'];
+		echo "</p><p>Your Answer: ".$answerStr;
+		echo "</p><p>Correct Answer: ".$row['correctAns'];
+		echo "</p>";
+		 $flag++;
+		 }
 	
 	$max++;
 	}
 
-	$score = $correct / $max * 100;
+	$score = (int) $correct / $max * 100;
 	
+	$sql = $db->prepare("SELECT * FROM results WHERE TestID = '".$TestID."' AND UserID = '".$_SESSION['UserID']."';");
+		   $sql->execute();
+		   if ($row = $sql->fetch(PDO::FETCH_OBJ)){
+			   	$sql = $db->prepare("UPDATE results SET Result = ".$score." WHERE TestID = '".$TestID."' AND UserID = '".$_SESSION['UserID']."';");
+		   		$sql->execute();
+		   } else {
+				$sql = $db->prepare("INSERT INTO results (Result, TestID,  UserID) VALUES (".$score.", ".$TestID.", ".$_SESSION['UserID'].");");
+		   		$sql->execute();  
+		   }
+		   
+		   
 	echo"<div class='row-fluid'>
-	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Test Score Questions' data-bootstro-content='View Result for Questions in Current Test.'>
+	<div class='span12 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Test Score Questions' data-bootstro-content='View Result for Questions in Current Test.'>
 		<h3>Corrected Test Questions!</h3>
-		<p>Test Result: %".$score;
-	
-	for ($i = 0; $i < $arrCorr.length; $i++){
-		if ($arrCorr[i] != 'true'){
-			echo "<br /><p>Question: ".$arrQuest[i];
-			echo "</p><p>Your Answer: ".$arrAns[i];
-			echo "</p><p>Correct Answer: ".$arrCorrAns[i];
-			echo "</p>";
-			}
-		}
+		<p>Test Result: ".$score."%";
+				
+	if ($max == $correct) echo "<br /><br /><h3>Congratulations: Perfect Result!</h3><br />";
+	else echo "<br /><br /><h3>Sorry: You answered $flag questions incorrectly!</h3><br />";
 
-	for ($i = 0; $i < $arr2Corr.length; $i++){
-		if ($arrCorr[i] != 'true'){
-			echo "<br /><p>Question: ".$arr2Quest[i];
-			echo "</p><p>Your Answer: ".$arr2Ans[i];
-			echo "</p><p>Correct Answer: ";
-			if($arrAns[i] === 'true') echo "false";
-			else echo "true";
-			echo "</p>";
-			}
-		}
-	if ($arrCorr.length == 0 || $arr2Corr.length == 0) echo "<br /><h3>Congratulations: Perfect Result!</h3><br />";
-	}
 ?>
-	<div class='row-fluid'>
-	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Return to Home Page' data-bootstro-content='Return to Home Page.'>
-		<h3>Home Page</h3>
-		<p>Click To Return To Home Page!</p>
-        <a href="../student/studentHome.php">Click Here<a><br /><br />
-</div>
+  <div class='row-fluid'>
+    <div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Return to Home Page' data-bootstro-content='Return to Home Page.'>
+      <h3>Home Page</h3>
+      <p>Click To Return To Home Page!</p>
+      <a href="../home_page_director.php">Click Here<a><br />
+      <br />
+    </div>
+  </div>
 </div>
 <?php
 	include '../footer.php';

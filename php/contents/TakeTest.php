@@ -36,7 +36,7 @@
 		   $resultTest2 = $db->prepare("SELECT * FROM truefalse WHERE TestID = '".$TestID."'");
 		   $resultTest2->execute();
 		   
-		   echo "<form action='correctTest.php?ID=".$TestID."' method='post'>";
+		   echo "<form action='submitTest.php?ID=".$TestID."' method='post'>";
 		   while($row = $resultTest1->fetch(PDO::FETCH_ASSOC)) 
 		   {
 			   echo "<div class='span12'>Question: ".$row['Question']."</div>";	
@@ -46,16 +46,16 @@
 					echo "<input value='1' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer1'];
 				echo "</label>";
 			   
-			   	echo "<label value='2' class='radio'>B: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer2'];
+			   	echo "<label class='radio'>B: ";
+					echo "<input value='2' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer2'];
 				echo "</label>";
 			   
-			   	echo "<label value='3' class='radio'>C: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer3'];
+			   	echo "<label class='radio'>C: ";
+					echo "<input value='3' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer3'];
 				echo "</label>";
 			   
-			   	echo "<label value='4' class='radio'>D: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer4'];
+			   	echo "<label class='radio'>D: ";
+					echo "<input value='4' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer4'];
 				echo "</label>";
 			   echo "</div>";							
 		   } 
@@ -74,7 +74,7 @@
 			   
 			   echo "</div>";				
 		   }
-		   echo "<br /><input type='button' value='SUBMIT TEST' name='submitTest' /><br /><br />";
+		   echo "<br /><input class='btn' type='submit' value='SUBMIT TEST' name='submitTest' /><br /><br />";
 		   echo "</form>"; 
 			?>            
 		</div>
