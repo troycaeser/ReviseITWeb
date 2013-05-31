@@ -1,5 +1,5 @@
 <?php
-	
+	ob_start();
 	require '../getConnection.php';
     require "../../DAL/Verification.php"; 
 	require '../check_logged_in.php';
@@ -79,7 +79,8 @@
 					$SQL->execute();
 						
 					// Once saved, redirect back to the view page
-					header("Location: view.php?ID=".$TopicID);
+					exit(header("Location: view.php?ID=".$TopicID));
+					ob_get_flush();
 			}
 			catch (PDOException $e){
 				echo "Could not add record";

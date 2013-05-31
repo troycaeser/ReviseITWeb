@@ -1,9 +1,7 @@
 <?php
-
+	ob_start();
 	include '../getConnection.php';
 	require '../check_logged_in.php';
-
-	$TopicID = $_GET["ID"];	
 
 ?>
 
@@ -50,21 +48,18 @@
 	 DELETE.PHP
 	 Deletes a specific entry from the 'user' table
 	*/
-	$Topic_ID = $_GET["ID"];	
+	$Subtopic_ID = $_GET['ID'];	
+	$Topic_ID = $_GET['ID'];	
 		
 		try {
 		
-			$query = "DELETE FROM subtopic WHERE SubtopicID=:subtopic_ID";
-			$stmt = $db->prepare($query);
-			$stmt->bindParam(":subtopic_ID", $SubtopicID);
+			$stmt = $db->prepare("DELETE FROM subtopic WHERE SubtopicID=:subtopic_ID");
+			$stmt->bindParam(":subtopic_ID", $Subtopic_ID);
 			$stmt->execute();
 
-			$stmt = $db->prepare("SELECT TopicID FROM subtopic WHERE SubtopicID=:bind_subtopic_ID");
-			$stmt->bindParam(":bind_subtopic_ID", $SubtopicID);
-			$stmt->execute();
-			$TopicID = $stmt->fetchColumn();
 
-			header("Location: view.php?ID=".$TopicID);
+			exit(header("Location: view.php?ID=".$Topic_ID));
+			ob_get_flush();
 			
 		}catch(PDOException $exception){ //to handle error
 			echo "Error: " . $exception->getMessage();

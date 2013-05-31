@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	include '../getConnection.php';
 	require "../../DAL/Subtopic.php"; 
 	require "../../DAL/Verification.php"; 
@@ -106,7 +107,8 @@
 				$TopicID = $stmt->fetchColumn();
 	
 				// return to all accounts page
-				header("Location: view.php?ID=".$TopicID);
+				exit(header("Location: view.php?ID=".$TopicID));
+				ob_get_flush();
 		}
 		catch (PDOException $e){
 			echo "Could not edit Subtopic";
