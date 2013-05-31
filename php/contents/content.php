@@ -7,7 +7,7 @@
 
 <!DOCTYPE html>
 <html>
-	<head>z
+	<head>
 		<?php
 			include '../header_container.php';
 		?>
