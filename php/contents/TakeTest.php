@@ -39,29 +39,32 @@
 		   echo "<form action='submitTest.php?ID=".$TestID."' method='post'>";
 		   while($row = $resultTest1->fetch(PDO::FETCH_ASSOC)) 
 		   {
-			   echo "<div class='span12'>Question: ".$row['Question']."</div>";	
+			   echo "<div class='row-fluid'><div class='span12'>Question: ".$row['Question']."</div>";	
 			   
 			   echo "<div class='span12'>";
 			   	echo "<label class='radio'>A: ";
 					echo "<input value='1' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer1'];
-				echo "</label>";
+				echo "</label></div>";
 			   
+			   echo "<div class='span12'>";
 			   	echo "<label class='radio'>B: ";
 					echo "<input value='2' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer2'];
-				echo "</label>";
+				echo "</label></div>";
 			   
+			   echo "<div class='span12'>";
 			   	echo "<label class='radio'>C: ";
 					echo "<input value='3' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer3'];
-				echo "</label>";
+				echo "</label></div>";
 			   
+			   echo "<div class='span12'>";
 			   	echo "<label class='radio'>D: ";
 					echo "<input value='4' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer4'];
-				echo "</label>";
+				echo "</label></div>";
 			   echo "</div>";							
 		   } 
 		   while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
 		   {
-			   echo "<div class='span12'>Question: ".$row['Question']."</div>";	
+			   echo "<div class='row-fluid'><div class='span12'>Question: ".$row['Question']."</div>";	
 			   
 			   echo "<div class='span12'>";
 			   	echo "<label class='radio'>";
@@ -72,7 +75,7 @@
 					echo "<input value='false' name='radio_group".$row['TrueFalseID']."' type='radio'/>FALSE";
 				echo "</label>";
 			   
-			   echo "</div>";				
+			   echo "</div></div>";				
 		   }
 		   echo "<br /><input class='btn' type='submit' value='SUBMIT TEST' name='submitTest' /><br /><br />";
 		   echo "</form>"; 

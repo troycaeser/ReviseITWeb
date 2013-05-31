@@ -26,15 +26,11 @@
     </div>
  
 	<div class="row-fluid">
-   		<div class="span8">
+   		<div class="span12">
                     
            <?php
-		   //$query = $db->prepare("SELECT TestID FROM subtopic WHERE SubtopicID = :subtop_ID");
-		   //$query->bindParam("subtop_ID", $SubtopicID);
-		   //$query->execute();
-		   //$stuff = $query->fetchColumn();
 		   
-		   $stuff = 2; //remove when database is working
+		   $stuff = $_GET['ID']; 
 		   
 		   $resultTest1 = $db->prepare("SELECT * FROM multichoice WHERE TestID = '".$stuff."'");
 		   $resultTest1->execute();
@@ -43,40 +39,45 @@
 		   $resultTest2->execute();
 		   while($row = $resultTest1->fetch(PDO::FETCH_ASSOC)) 
 		   {
-			   echo "<div class='span12'>Question: ".$row['Question']."</div>";	
+			   echo "<div class='row-fluid'><div class='span12'>Question: ".$row['Question']."</div>";	
 			   
 			   echo "<div class='span12'>";
-			   	echo "<label class='radio'>A: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer1'];
-				echo "</label>";
-			   
-			   	echo "<label class='radio'>B: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer2'];
-				echo "</label>";
-			   
-			   	echo "<label class='radio'>C: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer3'];
-				echo "</label>";
-			   
-			   	echo "<label class='radio'>D: ";
-					echo "<input name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer4'];
-				echo "</label>";
+			   	echo "<p>A: ";
+					echo $row['Answer1'];
+				echo "</p>";
 			   echo "</div>";							
+			   echo "<div class='span12'>";
+			   	echo "<p>B: ";
+					echo $row['Answer2'];
+				echo "</p>";
+			   echo "</div>";							
+			   echo "<div class='span12'>";
+			   	echo "<p>C: ";
+					echo $row['Answer3'];
+				echo "</p>";
+			   echo "</div>";							
+			   echo "<div class='span12'>";			   
+			   	echo "<p>D: ";
+					echo $row['Answer4'];
+				echo "</p>";
+			   echo "</div></div>";							
 		   } 
 		   while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
 		   {
-			   echo "<div class='span12'>Question: ".$row['Question']."</div>";	
+			   echo "<div class='row-fluid'><div class='span12'>Question: ".$row['Question']."</div>";	
 			   
 			   echo "<div class='span12'>";
-			   	echo "<label class='radio'>";
-					echo "<input name='radio_group".$row['TrueFalseID']."' type='radio'/>TRUE";
-				echo "</label>";
+			   	echo "<p>";
+					echo "TRUE";
+				echo "</p>";
+			   echo "</div>";							
+			   echo "<div class='span12'>";
+			   	echo "<p>";
+					echo "FALSE";
+				echo "</p>";
+			   echo "</div>";							
 			   
-			   	echo "<label class='radio'>";
-					echo "<input name='radio_group".$row['TrueFalseID']."' type='radio'/>FALSE";
-				echo "</label>";
-			   
-			   echo "</div>";				
+			   echo "</div></div>";				
 		   } 
 			?>            
 		</div>

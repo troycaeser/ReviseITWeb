@@ -98,8 +98,16 @@ echo"</body>
 </html> ";
 exit;
 								}
-								//else echo "<div class='span1'>".'<a href="ViewTestQuestions.php?ID='.$row['SubtopicID'].'">Take Test</a></div>';
+								else if ($_SESSION['Role'] == "4") echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Take Test' data-bootstro-content='Click on the link to take the test and answer questions for this subtopic's test.'>
+		<h3>Take Test For This Subtopic!</h3>
+		<p>Answer Test Questions!</p>
+".'<a href="TakeTest.php?ID='.$row['TestID'].'">Take Test</a></div>';
+								else echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='View Test' data-bootstro-content='Click on the link to view the test questions for this subtopic's test.'>
+		<h3>View Test For This Subtopic!</h3>
+		<p>View Test Questions!</p>
+".'<a href="ViewTestQuestions.php?ID='.$row['TestID'].'">View Test</a></div>';
 							}
+							
 							echo "</div><br /><br /><br /><br />";
 							
 						}
