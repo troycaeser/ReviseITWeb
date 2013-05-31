@@ -77,7 +77,7 @@
 								//here up is for non students								
 								
 								echo "<div class='row-fluid'>";
-								if($row['Content'] == null)
+								if($row['Content'] == null && ($_SESSION['Role'] == 1 || $_SESSION['Role'] == 2))
 								{
 									echo "<div class='span12'>NO CONTENT IN SUBTOPIC = ".$row['SubtopicName']."<br />Would you like to add some now? <a class='btn' href='editCont.php?ID=".$subtopic_ID."'>Yes</a><br />";
 								}
