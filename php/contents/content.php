@@ -1,5 +1,4 @@
 <?php
-	ob_start();
 	include '../getConnection.php';
 	include '../check_logged_in.php';
 
