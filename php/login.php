@@ -95,7 +95,7 @@ try
 								echo "<meta http-equiv='refresh' content='3;URL=../index.php'>
 									<link rel='stylesheet' href='../assets/css/version1.css'>
 									<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>";
-								//This alert javascript box will display notifying the person that their account has been locked
+								//This message will notify the person that their account has been locked
 								echo "<div class='text-center alert alert-error'><h1>Your account has been <strong>locked</strong>. Please contact administrator</h1></div>";
 								echo "<meta http-equiv='refresh' content='2;url=../index.php' />";
 											
@@ -119,6 +119,7 @@ try
 										<p class='text-center alert alert-error'>You have entered incorrect details</p>
 										<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
 									</div>";
+									ob_get_flush();
 						}
 					}
 					else
