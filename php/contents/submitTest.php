@@ -39,14 +39,18 @@
 	$mcid = $row['MultiChoiceID'];
 	$namevalue = "rdo_group".$mcid;	
 	$answer = $_POST[$namevalue];
-	$answerInt = "Answer".$answer;
-	$answerStr = $row[$answerInt];
-	$correctAns = "Answer".$row['correctAns'];
-	$correctStr = $row[$correctAns];
+	if ($answer < 1 || $answer == NULL){
+		$answerStr = "None"; 
+	} else {
+		$answerInt = "Answer".$answer;
+		$answerStr = $row[$answerInt];
+	}
+		$correctAns = "Answer".$row['correctAns'];
+		$correctStr = $row[$correctAns];
 
 // echo '$mcid = '.$mcid.', $namevalue = '.$namevalue.', $answer = '.$answer.', $answerStr = '.$answerStr.', $correctAns = '.$correctAns.', $correctStr = '.$correctStr.'<br />';
 		
-	if ($answer == $row['correctAns']) {
+	if ($answerStr == $correctStr) {
 		$correct++; 
 	} else {
 		if ($flag == 0) echo "<h3>You answered the following questions incorrectly</h3>"; 
@@ -66,8 +70,9 @@
 	$tfid = $row['TrueFalseID'];
 	$namevalue = "radio_group".$tfid;
 	$answer = $_POST[$namevalue];
-	$answerStr = 'true';
+	$answerStr = 'none';
 	if ($answer == 'false') $answerStr = 'false';
+	if ($answer == 'true') $answerStr = 'true';
 			
 	if ($answerStr == $row['correctAns']) {
 		$correct++;

@@ -35,7 +35,7 @@
 		   
 		   $resultTest2 = $db->prepare("SELECT * FROM truefalse WHERE TestID = '".$TestID."'");
 		   $resultTest2->execute();
-		   
+		   $data = 0;
 		   echo "<form action='submitTest.php?ID=".$TestID."' method='post'>";
 		   while($row = $resultTest1->fetch(PDO::FETCH_ASSOC)) 
 		   {
@@ -60,7 +60,8 @@
 			   	echo "<label class='radio'>D: ";
 					echo "<input value='4' name='rdo_group".$row['MultiChoiceID']."' type='radio'/>".$row['Answer4'];
 				echo "</label></div>";
-			   echo "</div>";							
+			   echo "</div>";
+			   $data++;							
 		   } 
 		   while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
 		   {
@@ -75,10 +76,18 @@
 					echo "<input value='false' name='radio_group".$row['TrueFalseID']."' type='radio'/>FALSE";
 				echo "</label>";
 			   
-			   echo "</div></div>";				
+			   echo "</div></div>";
+			   $data++;				
 		   }
+		   		   if ($data == 0) echo "<div class='row-fluid'>
+	<div class='span12 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Test Score Questions' data-bootstro-content='There is no Test for This Subtopic.'>
+		<h3>There is no Test for This Subtopic!</h3>
+		<p>Click to go to Home Page!</p>
+		<a href='../home_page_director.php'>Home Page</a>";
+ else{
 		   echo "<br /><input class='btn' type='submit' value='SUBMIT TEST' name='submitTest' /><br /><br />";
 		   echo "</form>"; 
+ }
 			?>            
 		</div>
 	</div>
