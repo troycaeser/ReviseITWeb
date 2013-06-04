@@ -83,7 +83,7 @@
 								}
 								else
 								{
-									echo "<div class='span12'>".$row['Content']."</div>";
+									echo "<div class='span12 well'>".$row['Content']."</div>";
 								}
 								echo "</div>";
 								echo "<br />"; //Spaces them a little bit more apart as they are too close otherwise
