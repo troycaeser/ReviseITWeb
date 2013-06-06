@@ -11,7 +11,6 @@
 <body>
 <p align="right"><strong>Date: </strong><?php echo date("d/m/y") ?></p>
 <?php
-	
 
 	$query = $db->prepare("SELECT * FROM subject");
 	$query->execute();
@@ -44,9 +43,13 @@
     </tr>
     
     <tr>
-    	<td><label for="subTopic">Send Subject Topic</label></td>
+    	<td><label for="subTopic">Submit Topic</label></td>
         <td><input type="submit" value="Submit" name="Submit"/> <input type="reset" value="Clear" /></td>
 </table>
 </form>
+
+<?php
+	include '../footer.php';
+?>
 </body>
 </html>
