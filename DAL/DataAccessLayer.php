@@ -63,7 +63,7 @@ function createUser($username, $password, $fName, $lName, $role){
 	}
 }
 
-function editUser($fName, $lName, $username, $pass, $role, $UserID){
+function editUser($fName, $lName, $username, $role, $UserID){
 	try{ $db = getConnection();		
 			$sql = "SELECT role FROM users WHERE username = '".$username."';"; 
 			$stmt=$db->prepare($sql);
@@ -73,12 +73,10 @@ function editUser($fName, $lName, $username, $pass, $role, $UserID){
 			//$oldrole = $row->role;
 			//if ($oldrole == '2') downgradeCoord($UserID);
 						
-			$password = md5($pass);
-			$sql = "UPDATE users SET fName = '".$fName."', lName = '".$lName."', username = '".$username."', password = '".$password."', role = '".$role."' WHERE UserID = '".$UserID."';"; 
+			$sql = "UPDATE users SET fName = '".$fName."', lName = '".$lName."', username = '".$username."', role = '".$role."' WHERE UserID = '".$UserID."';"; 
 			$stmt=$db->prepare($sql);
 			$stmt->bindParam("UserID", $UserID);
 			$stmt->bindParam("username", $username);
-			$stmt->bindParam("password", $password);
 			$stmt->bindParam("fName", $fName);
 			$stmt->bindParam("lName", $lName);
 			$stmt->bindParam("role", $role);

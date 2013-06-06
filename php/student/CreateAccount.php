@@ -67,9 +67,15 @@ if(isset($_POST["submitUser"])){
 	elseif (!verifyPassword($pass1))
 		echo ("<p class='errmsg'>Password requires Capital, Small, Numeral and at least eight characters, No Special Characters!</p>");
 	else { $pass = $pass1;
-		createUser($userName, $pass, $fName, $lName, "4");
-		echo "Student Account Registered!";
+		if (createUser($userName, $pass, $fName, $lName, "4") === "error") {
+			echo "<br /><p class='errmsg'> Username already Exists!</p>";
+		} else {
+		echo"<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Account is Authorised' data-bootstro-content='Account Has been Registered!'>
+			<h3>Login!</h3>
+			<p>Login With Your New Account!</p>
+			<a href='../../index.php'>Login</a><br />";
 		exit;
+		}
 	}
 }
 ?>

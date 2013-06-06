@@ -48,8 +48,16 @@ $token = "";
 			if ($_POST["token"] == NULL)
 					$settoken = 1;
 			else { $token = $_POST["token"];
-				if (enterToken($token))
-				header("Location: CreateAccount.php");
+				if (enterToken($token)){
+					echo"<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Access is Authorised' data-bootstro-content='Access Has Been Authorised!'>
+			<h3>Access has been Authorised!</h3>
+			<p>Create an Account!</p>
+			<a href='CreateAccount.php'>Sign Up</a><br />";
+					exit;
+				}
+				else {
+					echo "<br /><p class='errmsg'>Invalid Token: - Please Enter The Correct Token For This Semester!</p>";
+				}
 			}
 		}
 	?>

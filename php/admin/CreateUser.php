@@ -43,7 +43,7 @@ if(isset($_POST["submitUser"]))
 			$setfName = 1;
 		else {
 			$fName = $_POST["fName"];
-			if (!isString($fName))
+			if ($fName != _clean($fName))
 			$setfName = 2;
 			else $setfName = 0;
 		}
@@ -51,7 +51,7 @@ if(isset($_POST["submitUser"]))
 			$setlName = 1;
 		else {
 			$lName = $_POST["lName"];
-			if (!isString($lName))
+			if ($lName != _clean($lName))
 			$setlName = 2;
 			else $setlName = 0;
 		}
@@ -59,7 +59,7 @@ if(isset($_POST["submitUser"]))
 			$setuserName = 1;
 		else {
 			$userName = $_POST["userName"];
-			if (!isAlphaNumeric($userName))
+			if ($userName != _clean($userName))
 			$setuserName = 2;
 			else $setuserName = 0;
 		}
