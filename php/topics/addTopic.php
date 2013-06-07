@@ -1,7 +1,3 @@
-<link rel="stylesheet" href="../../assets/css/version1.css">
-<link rel="stylesheet" href="../../assets/css/bootstro.css">
-<link rel="stylesheet" href="../../assets/css/bootstrap-responsive.css">
-
 <?php
 	ob_start();
 
@@ -17,6 +13,10 @@
 			{
 				if(!preg_match("/[A-Za-z]/", $topicName))	
 				{
+					echo "<link rel='stylesheet' href='../../assets/css/version1.css'>";
+					echo "<link rel='stylesheet' href='../../assets/css/bootstro.css'>";
+					echo "<link rel='stylesheet' href='../../assets/css/bootstrap-responsive.css'>";
+
 					echo "<div class='alert alert-error' align='center'>Topic name must be alphabetic</div>";
 				}
 				else
@@ -48,6 +48,9 @@
 			}
 			else
 			{
+				echo "<link rel='stylesheet' href='../../assets/css/version1.css'>";
+				echo "<link rel='stylesheet' href='../../assets/css/bootstro.css'>";
+				echo "<link rel='stylesheet' href='../../assets/css/bootstrap-responsive.css'>";
 				echo "<div class='alert alert-error' align='center'>Topic name must not be empty & Subject code must be selected</div>";
 				echo "<meta http-equiv='refresh' content='1;url=newTopic.php' />";
 			}
@@ -59,5 +62,3 @@
 		}
 	}
 ?>
-</body>
-</html>
