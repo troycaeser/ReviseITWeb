@@ -2,7 +2,7 @@
 	ob_start();
 	include '../getConnection.php';
 	require '../check_logged_in.php';
-	$User_ID = $_GET['UserID'];
+	$User_ID = $_GET['ID'];
 	
 ?>
 
@@ -43,8 +43,13 @@
         // Close table>
         //echo "</table>";
 		
-		//$result = $db->prepare("SELECT * FROM results WHERE UserID = '".$User_ID."'");
-		//$result->execute(); 
+		$result = $db->prepare("SELECT * FROM users WHERE UserID = '".$User_ID."'");
+		$result->execute(); 
+		$row = $result->fetch(PDO::FETCH_ASSOC);
+		$username = $row['username'];
+		$fName = $row['fName'];
+		$lName = $row['lName'];
+		
 		
 ?>
 
@@ -64,27 +69,39 @@
             
             
             <?php
-			
-			if($_SESSION['Role'] == 1|| $_SESSION['Role'] == 2)
-			{
 
-			}
-
-			else{
-				
-				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
-				{		
-						$Result = $row['Result'];
-						$User_ID = $row['UserID'];
 						//$firstName = $row['fName'];
 						//$lastName = $row['lName'];
 						
 						// Get results from the database
 						//$result = $db->prepare("SELECT * FROM results WHERE UserID = '".$User_ID."'");
 						//$result->execute();    
-						$result = $db->prepare("SELECT * FROM results WHERE UserID = '".$User_ID."'");
-						$result->execute(); 
-		
+						$Result2 = $db->prepare("SELECT * FROM results WHERE UserID = ".$User_ID);
+						$Result2->execute(); 
+						
+						while($row2 = $Result2->fetch(PDO::FETCH_ASSOC)){
+							
+							$Result = $row2['Result'];
+
+							$Result3 = $db->prepare("SELECT * FROM subtopic WHERE SubtopicID = ".$row2['TestID'].";");
+							$Result3->execute(); 
+							$row3 = $Result3->fetch(PDO::FETCH_ASSOC);
+							
+							$topicID = $row3['TopicID'];
+							$subtopic = $row3['SubtopicName'];
+							$subtopicID = $row3['SubtopicID'];								
+							
+							$Result4 = $db->prepare("SELECT * FROM topic WHERE TopicID = ".$topicID);
+							$Result4->execute(); 
+							$row4 = $Result4->fetch(PDO::FETCH_ASSOC);
+							$topic = $row4['TopicName'];
+							$subjectID = $row4['SubjectID'];
+							
+							$Result5 = $db->prepare("SELECT * FROM subject WHERE SubjectID = ".$subjectID);
+							$Result5->execute(); 
+							$row5 = $Result5->fetch(PDO::FETCH_ASSOC);	
+							$subject = $row5['SubjectName'];	
+						
 						//$user_query = $db->prepare("SELECT UserID, fName, lName FROM users WHERE UserID = :bind_userID");
 						//$user_query->bindParam("bind_userID", $User_ID);
 						//$user_query->execute();   
@@ -93,18 +110,16 @@
 						echo "<div class='well'>";
 							//echo "<a href='../contents/content.php?ID=".$row['UserID']."'>";
 								echo "<div class='row-fluid'>";
-									//echo "<div class='span3'>".$row['SubjectName']."</div>";
-									//echo "<div class='span3'>".$row['TopicName']."</div>";
-									//echo "<div class='span3'>".$row['SubtopicName']." ".$row['lName']."</div>";
-									echo "<div class='span3'>".$row['Result']."</div>";
+									echo "<div class='span3'>".$subject."</div>";
+									echo "<div class='span3'>".$topic."</div>";
+									echo "<div class='span3'>".$subtopic."</div>";
+									echo "<div class='span3'>".$Result."</div>";
 								echo "</div>";
 							echo "</a>";
 						echo "</div>";
 						echo "</br>";
-						
-				}
-				
-			}
+						}	
+
 			?>            
             
             </div>
