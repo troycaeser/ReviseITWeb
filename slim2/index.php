@@ -192,20 +192,44 @@ function getMulti($idTest)
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("idTest",$idTest);
 		$stmt->execute();
-		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC);
 		$dbh=null;
 				
 		global $counter;
 		
-		if($counter == 0)
-		{
-		echo '{"multichoice":' . json_encode($rows) . '}';
+		foreach ($rows as $r)
+		{		
+			if($r == null)
+			{
+				
+			}
+			else
+			{
+				if($counter == 0)
+				{
+					echo '{"MultiChoiceID": "' . $r['MultiChoiceID'] . '",';
+					echo '"Question": "' . $r['Question'] . '",';
+					echo '"Answer1": "' . $r['Answer1'] . '",';
+					echo '"Answer2": "' . $r['Answer2'] . '",';
+					echo '"Answer3": "' . $r['Answer3'] . '",';
+					echo '"Answer4": "' . $r['Answer4'] . '",';
+					echo '"TestID": "' . $r['TestID'] . '",';
+					echo '"correctAns": "' . $r['correctAns'] . '"}';
+				}
+				else
+				{
+					echo ', {"MultiChoiceID": "' . $r['MultiChoiceID'] . '",';
+					echo '"Question": "' . $r['Question'] . '",';
+					echo '"Answer1": "' . $r['Answer1'] . '",';
+					echo '"Answer2": "' . $r['Answer2'] . '",';
+					echo '"Answer3": "' . $r['Answer3'] . '",';
+					echo '"Answer4": "' . $r['Answer4'] . '",';
+					echo '"TestID": "' . $r['TestID'] . '",';
+					echo '"correctAns": "' . $r['correctAns'] . '"}';
+				}
+				$counter++;
+			}
 		}
-		else
-		{
-		echo ',{"multichoice":' . json_encode($rows) . '}';
-		}
-		$counter++;
 	}
 	catch(PDOException $e)
 	{
@@ -227,20 +251,34 @@ function getTf($idTest)
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("idTest",$idTest);
 		$stmt->execute();
-		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
+		$rows=$stmt->fetchAll(PDO::FETCH_ASSOC);
 		$dbh=null;
 		
 		global $counter1;
 		
-		if($counter1 == 0)
-		{
-		echo '{"test":' . json_encode($rows) . '}';
+		foreach ($rows as $r)
+		{		
+			if($r == null)
+			{
+				
+			}
+			else
+			{
+				if($counter1 == 0)
+				{
+					echo '{"TrueFalseID": "' . $r['TrueFalseID'] . '",';
+					echo '"Question": "' . $r['Question'] . '",';
+					echo '"TestID": "' . $r['TestID'] . '"}';
+				}
+				else
+				{
+					echo ', {"TrueFalseID": "' . $r['TrueFalseID'] . '",';
+					echo '"Question": "' . $r['Question'] . '",';
+					echo '"TestID": "' . $r['TestID'] . '"}';
+				}
+				$counter1++;
+			}
 		}
-		else
-		{
-		echo ',{"test":' . json_encode($rows) . '}';
-		}
-		$counter1++;
 	}
 	catch(PDOException $e)
 	{
@@ -473,19 +511,19 @@ function getConnection()
 {
 	try
 	{
-		// $hostname="localhost"; 
-		// $username="root";
-		// $password="root";
-		// $dbname="reviseit";
-		// $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
-		// return $dbh;	
+		 $hostname="localhost"; 
+		 $username="root";
+		 $password="root";
+		 $dbname="reviseit";
+		 $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+		 return $dbh;	
 
-		$hostname="reviseithg.db.11048397.hostedresource.com"; 
-		$username="reviseithg";
-		$password="ReviseIT!2013";
-		$dbname="reviseithg";
-		$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
-		return $dbh;	
+		//$hostname="reviseithg.db.11048397.hostedresource.com"; 
+		//$username="reviseithg";
+		//$password="ReviseIT!2013";
+		//$dbname="reviseithg";
+		//$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+		//return $dbh;	
 	}
 	catch(PDOException $e)
 	{
