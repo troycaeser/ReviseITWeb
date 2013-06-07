@@ -132,10 +132,7 @@ exit;
 			{
 				$('#help').click(function()
 				{
-					bootstro.start(".bootstro", 
-					{
-						finishButton: ''
-					});
+					bootstro.start(".bootstro");
 				});
 			});
 		</script>

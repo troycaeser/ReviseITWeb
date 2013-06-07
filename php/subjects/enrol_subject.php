@@ -60,14 +60,11 @@
 		<script>
 		$(document).ready(function(){
 			$('#help').click(function(){
-				bootstro.start(".bootstro", {
-					finishButton: ''
-				});
+				bootstro.start(".bootstro");
 			});
 		});
 		</script>
 		<script>
-
 		    function myCall(){
 		        var request = $.ajax({
 		            type: "POST",
