@@ -3,6 +3,10 @@
 	$query_teachers = $db->prepare("SELECT UserID, fName, lName FROM users WHERE role = 2 OR role = 3");
 	$query_teachers->execute();
 
+	$user_query = $db->prepare("SELECT UserID, fName, lName FROM users WHERE UserID = :bind_userID");
+	$user_query->bindParam("bind_userID", $_SESSION['UserID']);
+	$user_query->execute();
+
 ?>
 <form method="post" action="create_subjects.php">
 	<fieldset>
@@ -24,12 +28,20 @@
 			<label class="control-label" for="subject_coordinator">Coordinator</label>
 			<div class="controls">
 				<?php
-					//echo out the select table (this is for the user id.)
-				    echo "<select name='subject_coordinator' id='subject_coordinator' multiple='multiple'>";
-					    while($row = $query_teachers->fetch(PDO::FETCH_ASSOC)){
-							echo("<option value = '" . $row['UserID'] . "'>". $row['fName'] ." ". $row['lName'] ."</option>");
-						}
-					echo "</select>";
+					if($_SESSION['Role'] == 2){
+						//echo out the select table (this is for the user id.)
+						    while($row = $user_query->fetch(PDO::FETCH_ASSOC)){
+								echo "<label class='control-label' for='subject_coodinator'><b><i>".$row['fName']." ".$row['lName']."</i></b></label>";
+								echo "<input type='hidden' name='subject_coordinator' value='".$row['UserID']."' />";
+							}
+					}else{
+						//echo out the select table (this is for the user id.)
+					    echo "<select name='subject_coordinator' id='subject_coordinator' multiple='multiple'>";
+						    while($row = $query_teachers->fetch(PDO::FETCH_ASSOC)){
+								echo("<option value = '" . $row['UserID'] . "'>". $row['fName'] ." ". $row['lName'] ."</option>");
+							}
+						echo "</select>";
+					}
 				?>
 			</div>
 		</div>
