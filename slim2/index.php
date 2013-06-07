@@ -13,8 +13,6 @@ $app->get('/date/topic/:id/', "getTopicDate");
 $app->get('/date/subtopic/:id/', "getSubtopicDate"); 
 $app->post('/testsummary/:userid/:testid/', "uploadTestSummary");
 
-
-
 function getAll()
 { //Gets all subjects(to create list of them)
 	try
@@ -180,6 +178,7 @@ function downloads($idTest, $dl)
 	}
 }
 
+$counter = 0;
 //Get multichoice questions and answers(calls other methods and peice's them together within this one
 //
 function getMulti($idTest)
@@ -193,7 +192,18 @@ function getMulti($idTest)
 		$stmt->execute();
 		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
 		$dbh=null;
-		echo '{"Multi":' . json_encode($rows) . ', "Truefalse":' . getTf($idTest) . '}';
+		
+		global $counter;
+		
+		if($counter == 0)
+		{
+		echo '{"Multi":' . json_encode($rows) . ', ';
+		}
+		else
+		{
+		echo ',{"Multi":' . json_encode($rows) . ', ';
+		}
+		$counter++;
 	}
 	catch(PDOException $e)
 	{
@@ -215,13 +225,20 @@ function getTf($idTest)
 		$stmt->execute();
 		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
 		$dbh=null;
-		return json_encode($rows);
+		
+		echo '"Truefalse":' . json_encode($rows) . '}';
 	}
 	catch(PDOException $e)
 	{
 		if($dbh != null) $dbh = null;
 		echo $e->getMessage();
 	}
+}
+
+function getTest($testID)
+{
+	getMulti($testID);
+	getTf($testID);
 }
 
 //Phone calls this function and gives it an ID. everything below the subject(topic sub topic test 
@@ -243,8 +260,9 @@ function getSubNew($idSub)
 		echo $jsonSubjects;
 		echo ',"topic": ';
 		echo getTopNew($idSub);
-		echo goTest($idSub);
-		echo '}';
+		echo ',"test": [';
+		echo getTopIds($idSub);
+		echo ']}';
 	}
 	catch(PDOException $e)
 	{
@@ -253,7 +271,7 @@ function getSubNew($idSub)
 	}
 }
 
-function goTest($idSub)
+function getTopIds($idSub)
 {
 	$sql = "SELECT * from topic where SubjectID=:idSub";
 	try
@@ -262,13 +280,13 @@ function goTest($idSub)
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("idSub",$idSub);
 		$stmt->execute();
-		$rows = $stmt->fetchAll();		
-
-		foreach ($rows as $r)
+		$jsonTopics = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	
+	
+		foreach ($jsonTopics as $r)
 		{
-		getTest($r['TopicID']);
+		getSubIds($r['TopicID']);	
 		}
-		
 		$dbh=null;
 	}
 	catch(PDOException $e)
@@ -278,7 +296,7 @@ function goTest($idSub)
 	}
 }
 
-function getTest($idTop)
+function getSubIds($idTop)
 {
 	$sql = "SELECT * from subtopic where TopicID=:idTop";
 	try
@@ -287,20 +305,13 @@ function getTest($idTop)
 		$stmt=$dbh->prepare($sql);
 		$stmt->bindParam("idTop",$idTop);
 		$stmt->execute();
-		$rows = $stmt->fetchAll();
+		$jsonSubtopics = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$dbh=null;
 	
-		foreach ($rows as $r)
+		foreach ($jsonSubtopics as $r)
 		{
-		//echo "<h1>" . $r['SubtopicID'] . "</h1>";
-		getRelMulti($r['SubtopicID']);
+		getTest($r['SubtopicID']);
 		}
-		
-		foreach ($rows as $r)
-		{
-		getRelTrueFalse($r['SubtopicID']);
-		}
-		
-		$dbh=null;
 	}
 	catch(PDOException $e)
 	{
@@ -308,67 +319,6 @@ function getTest($idTop)
 		echo $e->getMessage();
 	}
 }
-
-function getRelTrueFalse($idTest)
-{
-	$sql = "SELECT * from truefalse where TestID=:idTest";
-	try
-	{
-		$dbh = getConnection();
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("idTest",$idTest);
-		$stmt->execute();
-		$jsonTF = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));	
-		echo ',"truefalse": ';
-		if($jsonTF == '[]')
-		{
-			
-		}
-		else
-		{
-		echo $jsonTF;
-		}
-		
-		$dbh=null;
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
-function getRelMulti($idTest)
-{
-	$sql = "SELECT * from multichoice where TestID=:idTest";
-	try
-	{
-		$dbh = getConnection();
-		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("idTest",$idTest);
-		$stmt->execute();
-		$jsonMultis = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));		
-		
-		if($jsonMultis == '[]')
-		{
-			
-		}
-		else
-		{
-		echo ',"multichoice": ';
-		echo $jsonMultis;
-		}
-
-		$dbh=null;
-	}
-	catch(PDOException $e)
-	{
-		if($dbh != null) $dbh = null;
-		echo $e->getMessage();
-	}
-}
-
-
 
 function getTopNew($idSub)
 {
@@ -480,45 +430,36 @@ function getConnection()
 
 $app->run();
 
-// //Create connection to the database
-// //
-// function getConnection() 
-// {
-// 	try
-// 	{
-// 		$hostname="reviseithg.db.11048397.hostedresource.com"; 
-// 		$username="reviseithg";
-// 		$password="ReviseIT!2013";
-// 		$dbname="reviseithg";
-// 		$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
-// 		return $dbh;	
-// 	}
-// 	catch(PDOException $e)
-// 	{
-// 		if($dbh != null) $dbh = null;
-// 		echo $e->getMessage();
-// 	}
-// }
-
-// //runs the app
-// $app->run();
-
-//Anything below here isnt in use, but is kept as reference
-
-/*//Gets content(not used currently)
-//
-function getContent($subid)
+/*
+function goTest($idSub)
 {
-	$sql = "SELECT Content from subtopic where SubtopicID=:subid";
+	$sql = "SELECT * from topic where SubjectID=:idSub";
 	try
 	{
 		$dbh = getConnection();
 		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("subid",$subid);
+		$stmt->bindParam("idSub",$idSub);
 		$stmt->execute();
-		$row=$stmt->fetch(PDO::FETCH_OBJ);
+		$rows = $stmt->fetchAll();		
+
+		foreach ($rows as $r)
+		{
+		getTest($r['TopicID']);
+		}
+		echo ', "truefalse":';
+		
+		$flag = 0;
+		
+		foreach ($rows as $r)
+		{
+		if($flag > 0)
+		{
+			echo ", ";
+		}
+		gett($r['TopicID']);
+		}
+		
 		$dbh=null;
-		echo json_encode($row);
 	}
 	catch(PDOException $e)
 	{
@@ -527,20 +468,23 @@ function getContent($subid)
 	}
 }
 
-//gets subject info
-//
-function getSubjects()
+function getTest($idTop)
 {
-	$sql = "SELECT * from subject";
+	$sql = "SELECT * from subtopic where TopicID=:idTop";
 	try
 	{
 		$dbh = getConnection();
 		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("idTop",$idTop);
 		$stmt->execute();
-		$rows=$stmt->fetchAll(PDO::FETCH_OBJ);
+		$rows = $stmt->fetchAll();
+		
 		$dbh=null;
 		
-		echo json_encode($rows);
+		foreach ($rows as $r)
+		{
+		getRelMulti($r['SubtopicID']);
+		}
 	}
 	catch(PDOException $e)
 	{
@@ -549,20 +493,28 @@ function getSubjects()
 	}
 }
 
-//Gets topic info in relativity to the selected subject
-//
-function getTopic($sub)
+function getRelMulti($idTest)
 {
-	$sql = "SELECT * from topic where subjectID=:sub";
+	$sql = "SELECT * from multichoice where TestID=:idTest";
 	try
 	{
 		$dbh = getConnection();
 		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("sub",$sub);
+		$stmt->bindParam("idTest",$idTest);
 		$stmt->execute();
-		$row=$stmt->fetch(PDO::FETCH_OBJ);
+		$jsonMultis = json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));		
+		
+		if($jsonMultis == '[]')
+		{
+			
+		}
+		else
+		{
+		echo ',"multichoice": ';
+		echo $jsonMultis;
+		}
+
 		$dbh=null;
-		echo json_encode($row);
 	}
 	catch(PDOException $e)
 	{
@@ -571,24 +523,36 @@ function getTopic($sub)
 	}
 }
 
-//Gets subtopic info in relativity to the selected topic
-//
-function getSubtopic($top)
+function gett($idTest)
 {
-	$sql = "SELECT * from Subtopic where topicID=:top";
+	$sql = "SELECT * from truefalse where TestID=:idTest";
 	try
 	{
 		$dbh = getConnection();
 		$stmt=$dbh->prepare($sql);
-		$stmt->bindParam("top",$top);
+		$stmt->bindParam("idTest",$idTest);
 		$stmt->execute();
-		$row=$stmt->fetch(PDO::FETCH_OBJ);
+		$jsonTf = $stmt->fetchAll(PDO::FETCH_ASSOC);		
+
+		foreach($jsonTf as $r)
+		{
+		if(json_encode($jsonTf) == '[]')
+		{
+			
+		}
+		else
+		{
+			echo '{"TrueFalseID":"' . $r['TrueFalseID'] . '","Question":"' . $r['Question'] . '","correctAns":"' . $r['correctAns']. '","TestID":"' . $r['TestID'] . '"}';
+			global $flag;
+		}
+		}
 		$dbh=null;
-		echo json_encode($row);
 	}
 	catch(PDOException $e)
 	{
 		if($dbh != null) $dbh = null;
 		echo $e->getMessage();
 	}
-}*/
+}
+
+*/
