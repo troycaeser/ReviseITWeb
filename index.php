@@ -28,40 +28,18 @@
 		<br /><br />
 		
 		<div class="container">
-			<div class="page-header text-center">
-				<h1>Log in</h1>
-			</div>
-			
-			<form id="form_login" class="form-horizontal" action="php/login.php" method="post">
-				<div class="center">
-					<fieldset>
-						<div class="control-group">
-							<label class="control-label" for="inputUsername">Username: </label>
-							<div class="controls">
-								<input type="text" id="inputUsername" name="username">
-							</div>
-						</div>
+			<form id="form_login" class="form-signin" action="php/login.php" method="post">
+				<h2>Please sign in</h2>
+				<input type="text" class="input-block-level" id="inputUsername" placeholder="Enter Username" name="username">
+				<input type="password" class="input-block-level" id="inputPassword" placeholder="Enter Password" name="password">
 
-						<div class="control-group">
-							<label class="control-label" for="inputPassword">Password: </label>
-							<div class="controls">
-								<input type="password" id="inputPassword" name="password">
-							</div>
-						</div>
-						
-						<div class="control-group">
-							<div class="controls">
-                            	<a href="php/admin/ResetPassword.php">Reset Password</a>
-                            	<!--<a href="#">Reset Password</a>-->
-								<button type="submit" class="btn">Sign in</button>
-							</div>
-						</div>
-					</fieldset>
-				</div>
+				<br /><br />
+
+				<button type="submit" class="btn btn-large btn-primary pull-left">Sign in</button>
+            	<a class="pull-right" href="php/admin/ResetPassword.php">Lost your password?</a>
 			</form>
 		</div>
 		<script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 		<script src="assets/js/bootstrap.js"></script>
-		<!-- HELLO JUST TESTING -->
 	</body>
 </html>
