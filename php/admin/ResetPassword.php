@@ -2,7 +2,6 @@
 	ob_start();
 	require '../getConnection.php';
     require "../../DAL/Verification.php"; 
-	require '../check_logged_in.php';
 	
 ?>
 
@@ -24,7 +23,7 @@
 <div class="container">
 
 	<div class="page-header">
-        <h1>Add Subtopic</h1>
+        <h1>Reset Password</h1>
     </div>
 
 	<!-- subtopicname, content, date updated-->
@@ -38,89 +37,53 @@
 
 <?php
 
-	$setEmail = 0;
+	$setUser=0;
 
-	// Check if the form has been submitted. If it has, start to process the form and save it to the database
 	if (isset($_POST['submit']))
-	{
-
-		if (empty($_POST["Email"]))
-			$setEmail = 1;
-			
-		else{
-			$SubtopicName = $_POST["SubtopicName"];
-			if (!isString($SubtopicName))
-			$setsName = 2;
-			else $setsName = 0;
-		}
-	
-		if (empty($_POST["briefDescription"]))
-			$setdesc = 1;
-	
-		else if(($setsName == 0) && ($setdesc == 0)){
-			
-			try{
-					// get topic id
-					$TopicID = $_GET["ID"];
-					$SubtopicName = $_POST['SubtopicName'];
-					$briefDescription = $_POST['briefDescription'];
-		
-					//get current date
-					date_default_timezone_set('Australia/Melbourne');
-					$date = date('Y-m-d', time());
+    {
+		try {
+	 
+	 		 $username = $_POST['username'];
+			 
+			 $query = $db->prepare("SELECT * FROM users WHERE username = :bind_username");
+			 $query->bindParam(':bind_username', $username);
+			 $query->execute();
+	 
+			 if ($query->rowCount() == 0) {
+				$setUser=1;
+			 }
+			 
+			 else {
+				$setUser=0;
+				exit(header("Location: NewPassword.php?ID=".$username));
+				ob_get_flush();
 				
-					// Check if the form has been submitted. If it has, start to process the form and save it to the database
-					$SQL = $db->prepare("INSERT INTO subtopic VALUES(NULL, :bind_subtopicName, :bind_topicID, :bind_briefDescription, ' ', 0, :bind_date)");
-					$SQL->bindParam("bind_subtopicName", $SubtopicName);
-					$SQL->bindParam("bind_topicID", $TopicID);
-					$SQL->bindParam("bind_briefDescription", $briefDescription);
-					$SQL->bindParam("bind_date", $date);
-					$SQL->execute();
-						
-					// Once saved, redirect back to the view page
-					exit(header("Location: view.php?ID=".$TopicID));
-					ob_get_flush();
 			}
-			catch (PDOException $e){
-				echo "Could not add record";
-				//return false;
-			}
+		} catch (PDOException $e) {
+			die ($e->getMessage());
 		}
+	
 	}
+
 ?> 
      
      <form class="form-horizontal" method="post" action="<?php $_SERVER['PHP_SELF'] ?>" >
         <div class="center">
           <fieldset>
             <div class="control-group">
-              <label class="control-label" for="Email">Enter Email Address</label>
+              <label class="control-label" for="username">Enter Username</label>
               <div class="controls">
-                <input type="text" id="Email" name="Email" />
+                <input type="text" id="username" name="username" />
               </div>
             </div>
-            <?php if ($setsName == 1) echo "<p class='errmsg'>Please ensure an Email Address has been entered!</p>";
-			else if ($setsName == 2) echo "<p class='errmsg'>Please enter a valid Email Address!</p>"; ?>
+            <?php if ($setUser == 1) echo "<p class='errmsg'>User does not exist!</p>";
+			//else if ($setsName == 2) echo "<p class='errmsg'>Please enter a valid Email Address!</p>"; ?>
             <div class="controls">
-              <input class="btn" type="submit" name="submit" value="Send" />
+              <input class="btn" type="submit" name="submit" value="Submit" />
             </div>
           </fieldset>
         </div>
       </form>
- 
-         </div>
-
-             <!-- Displays subtopics -->
-            <div class="span4">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Quick Access</li>
-                    <li><a href="#">Account details</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">About Us</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
     
 		
 <!-- Footer -->
