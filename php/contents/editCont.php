@@ -64,7 +64,7 @@
 								echo "<div class='span6'><form method='post' action='editCont2.php?ID=".$subtopic_ID."'>";
 									$str = $row['Content'];
 								
-									echo "<textarea id='content_textarea' name='newCont' class='textarea' placeholder='Add Some Content...'>".str_replace("\\\\","",$str);
+									echo "<textarea id='content_textarea' name='newCont' class='textarea' placeholder='Add Some Content...'>".str_replace("\\","",$str);
 									echo "</textarea>";
 								echo "</div>";
 							echo "</div>"; 
