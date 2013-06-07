@@ -100,15 +100,17 @@ exit;
 								}
 								else if ($_SESSION['Role'] == "4"){ echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Take Test' data-bootstro-content='Click on the link to take the test and answer questions for this subtopic's test.'>
 		<h3>Take Test For This Subtopic!</h3>
-		<p>Answer Test Questions!</p>
-		
-".'<a href="TestResult.php?ID='.$row['UserID'].'">View results</a></div>';
-echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='View test results' data-bootstro-content='Click on the link to take the test and answer questions for this subtopic's test.'>
+		<p>Answer Test Questions!</p>		
+".'<a href="TakeTest.php?ID='.$row['SubtopicID'].'">Take test</a></div>';
+
+echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='View test results' data-bootstro-content='Click on the link to view previous test results'>
 		<h3>View test results</h3>
-		<p>View all student test results!</p>
-		
-".'<a href="TakeTest.php?ID='.$row['SubtopicID'].'">Take Test</a></div>';
-								}else echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='View Test' data-bootstro-content='Click on the link to view the test questions for this subtopic's test.'>
+		<p>View previous test results!</p>	
+".'<a href="../student/TestResults.php?ID='.$_SESSION['UserID'].'">View Results</a></div>';
+
+}else 
+
+echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='View Test' data-bootstro-content='Click on the link to view the test questions for this subtopic's test.'>
 		<h3>View Test For This Subtopic!</h3>
 		<p>View Test Questions!</p>
 ".'<a href="ViewTestQuestions.php?ID='.$row['SubtopicID'].'">View Test</a></div>';
