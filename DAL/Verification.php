@@ -14,12 +14,17 @@ function verifyPassword($password){
 }
 
 function isString($field){
-		$int_options = array('options'=>array('regexp'=>'/[a-zA-Z0-9_-]+/'));
+		$int_options = array('options'=>array('regexp'=>'/[a-zA-Z0-9_-\s]+/'));
         return filter_var($field, FILTER_VALIDATE_REGEXP, $int_options);
 }
 
 function isAlphaNumeric($field){
 		$int_options = array('options'=>array('regexp'=>'/[a-zA-Z0-9]+/'));
+        return filter_var($field, FILTER_VALIDATE_REGEXP, $int_options);
+}
+
+function isAlpha($field){
+		$int_options = array('options'=>array('regexp'=>'/[a-zA-Z]'));
         return filter_var($field, FILTER_VALIDATE_REGEXP, $int_options);
 }
 
