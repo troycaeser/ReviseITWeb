@@ -17,9 +17,6 @@
 	mysql_select_db($dbname) or die($connect_error);
 
     */
-
-
-    //getConnection();
     
 
     $config['db'] = array(

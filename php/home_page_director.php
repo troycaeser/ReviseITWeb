@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	include 'getConnection.php';
 	
 	session_start();
@@ -8,22 +9,27 @@
 	$lock = $_SESSION['Lock'];
 	
 	if($lock == 1){
-		header("Location: ../access_denied_login.php");	
+		exit(header("Location: ../access_denied_login.php"));	
+		ob_get_flush();
 	}
 
 	else{
 
 		if($role == 1){
-			header("Location: admin/admin_Home.php");
+			exit(header("Location: admin/admin_Home.php"));
+			ob_get_flush();
 		}
 		else if ($role == 2){
-			header("Location: teacher/teacher_Home.php");
+			exit(header("Location: teacher/teacher_Home.php"));
+			ob_get_flush();
 		}
 		else if($role == 3){
-			header("Location: teacher/teacher_Home.php");
+			exit(header("Location: teacher/teacher_Home.php"));
+			ob_get_flush();
 		}
 		else if($role == 4){
-			header("Location: student/studentHome.php");
+			exit(header("Location: student/studentHome.php"));
+			ob_get_flush();
 		}
 	}
 
