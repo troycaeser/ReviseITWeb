@@ -61,7 +61,12 @@
 							echo "<div class='span6'><u>Last Updated: ".$row['DateUpdated']."</u></div>";
 							echo "</div>";
 							echo "<div class='row-fluid'>";
-								echo "<div class='span6'><form method='post' action='editCont2.php?ID=".$subtopic_ID."'><textarea id='content_textarea' name='newCont' class='textarea' placeholder='Add Some Content...'>".$row['Content']."</textarea></div>";
+								echo "<div class='span6'><form method='post' action='editCont2.php?ID=".$subtopic_ID."'>";
+									$str = $row['Content'];
+								
+									echo "<textarea id='content_textarea' name='newCont' class='textarea' placeholder='Add Some Content...'>".str_replace("\\\\","",$str);
+									echo "</textarea>";
+								echo "</div>";
 							echo "</div>"; 
 							echo "<div class='span3'><input class='btn' type='submit' name='submit' value='Update Contents'/></form></div>";
 						} 
