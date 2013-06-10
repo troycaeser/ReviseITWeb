@@ -83,7 +83,8 @@
 								}
 								else
 								{
-									echo "<div class='span12 well'>".$row['Content']."</div>";
+									$str = $row['Content'];
+									echo "<div class='span12 well'>".str_replace("\\","",$str)."</div>";
 								}
 								echo "</div>";
 								echo "<br />"; //Spaces them a little bit more apart as they are too close otherwise

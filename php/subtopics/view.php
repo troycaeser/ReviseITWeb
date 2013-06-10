@@ -18,6 +18,9 @@
 <body>
 
 <div class="container">
+	<?php
+		include 'subtopics_menu_bar.php';
+	?>
 
 	<div class="page-header bootstro" data-bootstro-placement="bottom" data-bootstro-title="Subtopics" data-bootstro-content="Welcome to the subtopics page. In here you'll find all the subtopics associated with the topics you've selected before.">
         <h1>Subtopic</h1>
