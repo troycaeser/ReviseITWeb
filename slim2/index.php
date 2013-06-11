@@ -511,12 +511,12 @@ function getConnection()
 {
 	try
 	{
-		 // $hostname="localhost"; 
-		 // $username="root";
-		 // $password="root";
-		 // $dbname="reviseit";
-		 // $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
-		 // return $dbh;	
+		  //$hostname="localhost"; 
+		  //$username="root";
+		  //$password="root";
+		  //$dbname="reviseit";
+		  //$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+		  //return $dbh;	
 
 		$hostname="reviseithg.db.11048397.hostedresource.com"; 
 		$username="reviseithg";
