@@ -306,9 +306,9 @@ function getSubNew($idSub)
 		echo $jsonSubjects;
 		echo ',"topic": ';
 		echo getTopNew($idSub);
-		echo ',"multichoice": [';
+		echo ', "multichoice": [';
 		echo getTopIds($idSub);
-		echo '],"test": [';
+		echo '], "test": [';
 		echo getTopIds1($idSub);
 		echo ']}';
 	}
@@ -495,8 +495,26 @@ function getSubTopNew($idTop, $counts)
 			}
 			echo $jsonSubTop;
 			$counts = 2;
+			incDown($re['SubtopicID']);
 			}				
 		$dbh=null;
+	}
+	catch(PDOException $e)
+	{
+		if($dbh != null) $dbh = null;
+		echo $e->getMessage();
+	}
+}
+
+function incDown($id)
+{
+	$sql = "UPDATE subtopic SET Downloads = Downloads + 1 WHERE SubtopicID=:id";
+	try
+	{
+		$dbh = getConnection();
+		$stmt=$dbh->prepare($sql);
+		$stmt->bindParam("id",$id);
+		$stmt->execute();
 	}
 	catch(PDOException $e)
 	{
@@ -511,12 +529,12 @@ function getConnection()
 {
 	try
 	{
-		  //$hostname="localhost"; 
-		  //$username="root";
-		  //$password="root";
-		  //$dbname="reviseit";
-		  //$dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
-		  //return $dbh;	
+	//	  $hostname="localhost"; 
+	//	  $username="root";
+	//	  $password="root";
+	//	  $dbname="reviseit";
+	//    $dbh = new PDO("mysql:host=$hostname;dbname=$dbname", $username, $password);
+	//	  return $dbh;	
 
 		$hostname="reviseithg.db.11048397.hostedresource.com"; 
 		$username="reviseithg";
