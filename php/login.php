@@ -66,6 +66,8 @@ try
 			else 
 			{
 				//Login counter to determine if a person has attempted to login 3 times unsuccessfully
+				$_SESSION['loginCount'] = null;
+				$_SESSION['loginCount']++;	
 				if(isset($_SESSION['loginCount']))
 				{
 					$sql = $db->prepare("SELECT `role` FROM `users` WHERE `username` = :userName");
@@ -75,6 +77,7 @@ try
 						
 					if($role != 1)
 					{
+						$_SESSION['oldusername'] = null;
 						if($_SESSION['oldUsername'] == $username)
 						{
 							$_SESSION['loginCount']++;
