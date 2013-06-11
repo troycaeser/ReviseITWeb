@@ -21,6 +21,13 @@ $result2->execute();
 $row2 = $result2->fetch(PDO::FETCH_ASSOC);
 									
 $coordCorrect = false;
+echo "topic id = ".$topicID;
+echo "<br />";
+echo "subject id = ".$subjectid;
+echo "<br />";
+echo "userid from subject = ".$row2['UserID'];
+echo "<br />";
+echo "session user id = ".$_SESSION['UserID'];
 									
 if($row2['UserID'] == $_SESSION['UserID'])
 {
