@@ -157,25 +157,25 @@ function downgradeCoord($UserID){
 	}
 }
 
-// function getConnection(){
-// 	try{
-// 				$config['db'] = array(
-//     'host'          =>'localhost',
-//     'username'      =>'root',
-//     'password'      =>'root',
-//     'dbname'        =>'reviseit'
-// );
+ function getConnection(){
+ 	try{
+ 				$config['db'] = array(
+     'host'      	=>'localhost',
+     'username'      =>'root',
+     'password'      =>'root',
+     'dbname'        =>'reviseit'
+ );
 
 
-// $db = new PDO('mysql:host='.$config['db']['host'].';dbname='.$config['db']['dbname'], $config['db']['username'], $config['db']['password']);
-// $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// return $db;
-// 	} catch(PDOException $e){
-// 		echo"Database Connection Error!";
-// 	}
-// }
+ $db = new PDO('mysql:host='.$config['db']['host'].';dbname='.$config['db']['dbname'], $config['db']['username'], $config['db']['password']);
+ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+ return $db;
+ 	} catch(PDOException $e){
+ 		echo"Database Connection Error!";
+ 	}
+ }
 
-function getConnection(){
+/*function getConnection(){
 	try{
 				$config['db'] = array(
     'host'          =>'reviseithg.db.11048397.hostedresource.com',
@@ -192,4 +192,5 @@ function getConnection(){
 // 		echo"Database Connection Error!";
 // 	}
 // }
+*/
 ?>

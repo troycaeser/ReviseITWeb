@@ -32,7 +32,7 @@ if(isset($_POST['addnewmulti'])){
 	$answer4 = $_POST["qmcd"];
 	$answer = $_POST["rdo_group"];
 				
-		if (($question == "") || ($answer1 == "") || ($answer2 == "") || ($answer3 == "") || ($answer4 == "")){
+		if (($question == "") || ($answer1 == "") || ($answer2 == "") || ($answer3 == "") || ($answer4 == "") || ($answer != NULL){
 			echo"<div class='row-fluid'>
 	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit Test Questions' data-bootstro-content='View Test Question in Current Test.'>
 		<h3>Your Question has Blank Fields, Please Correct Them!</h3>
