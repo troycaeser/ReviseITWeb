@@ -74,12 +74,15 @@ if(isset($_POST['submittestedit'])){
 	$namevalue = "radio_group".$tfid;
 	
 	$question = $_POST[$name];
-	$answer = $_POST[$namevalue];		
+	$answer = $_POST[$namevalue];
+
+	$processed_question = str_replace(array('\"'), array('\\\"'), $question);
+	$processed_answer = str_replace(array('\"'), array('\\\"'), $answer);		
 
 	if ($question == "") $error = 1;
 	
 	else	
-	$sql = $sql."UPDATE truefalse SET Question = '".$question."', correctAns = '".$answer."' WHERE TrueFalseID = ".$tfid."; ";
+	$sql = $sql."UPDATE truefalse SET Question = '".$processed_question."', correctAns = '".$processed_answer."' WHERE TrueFalseID = ".$tfid."; ";
 		}
 	}
 	if ($error == 0) {
