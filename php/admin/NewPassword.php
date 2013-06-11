@@ -15,11 +15,6 @@
 		?>
 </head>
 <body>
-	<?php
-		include 'subtopics_menu_bar.php';
-	?>
-
-	<br /><br />
 
 <div class="container">
 
