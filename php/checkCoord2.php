@@ -1,5 +1,6 @@
 <?php
 //Checks to see if coord matches subject
+include 'getConnection.php';
 									
 $subjectid = $subject_ID;
 									

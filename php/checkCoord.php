@@ -1,5 +1,6 @@
 <?php
 //Checks to see if coord matches subject
+include 'getConnection.php';
 
 $result0 = $db->prepare("SELECT TopicID FROM subtopic WHERE SubtopicID=:id");
 $result0->bindParam("id", $subtopic_ID);

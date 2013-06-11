@@ -91,7 +91,7 @@
 								
 				if($coordCorrect == true)
 				{
-				echo "<a class='btn' href='new.php?ID=$topic_ID'>Add Subtopic</a>";
+					echo "<a class='btn' href='new.php?ID=$topic_ID'>Add Subtopic</a>";
 				}
 				
 				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
@@ -106,9 +106,8 @@
 									echo "<div class='span2'>".$row['DateUpdated']."</div>";
 									if($coordCorrect == true)
 									{
-									echo "<div class='span1'>".'<a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></div>';
-									
-									//echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
+										echo "<div class='span1'>".'<a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></div>';
+										//echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
 									}
 								echo "</div>";
 									echo "<div>".$row['SubtopicBriefDescription']."</div>";
