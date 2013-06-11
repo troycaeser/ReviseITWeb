@@ -3,7 +3,7 @@
 	require '../check_logged_in.php';
 
 	$subject_ID = $_GET['ID'];
-
+	$userRole = $_SESSION['Role'];
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -34,7 +34,7 @@
 					
 					try
 					{
-						if($userRole != 1 && $userRole != 2)
+						if($userRole != 1)
 						{
 							//SQL query used to display the topic(s) corresponding to the subject id
 							$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."' AND deletionStatus = 0");
@@ -68,9 +68,9 @@
 							{
 								echo "<div class='span8'>";
 									echo"<div class='row-fluid'>";
-										echo "<div class='span3'><h4>Topic Name</h4></div>";
-										echo "<div class='span6'><h4>Edit Topic</h4></div>";
-										echo "<div class='span3'><h4>Delete Topic</h4></div>";
+										echo "<div class='span4'><h4>Topic Name</h4></div>";
+										echo "<div class='span4'><h4>Edit Topic</h4></div>";
+										echo "<div class='span4'><h4>Delete Topic</h4></div>";
 									echo "</div>";
 		
 								while($row = $result->fetch(PDO::FETCH_ASSOC))
@@ -78,13 +78,14 @@
 									$id=$row['TopicID'];
 									
 									echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
-											echo "<div class='span3'>".$row['TopicName']."</div>";
-											echo "<div class='span6 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit' data-bootstro-content='Click on this link to edit this topic.'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
-											echo "<div class='span3 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Delete' data-bootstro-content='Click on this link to delete this topic'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";
-									echo "</a>";
+											echo "<div class='span4'>".$row['TopicName']."</div>";
+											echo "</a>";
+											echo "<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit' data-bootstro-content='Click on this link to edit this topic.'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
+											echo "<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Delete' data-bootstro-content='Click on this link to delete this topic'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";
+									
 		
 								}
-								echo "<br><a class='btn bootstro' data-bootstro-placement='bottom' data-bootstro-title='Create New Topic' data-bootstro-content='Create a new topic for this subject!' href='newTopic.php'>Add New Topic</a></input>";
+								echo "<a class='btn bootstro' data-bootstro-placement='bottom' data-bootstro-title='Create New Topic' data-bootstro-content='Create a new topic for this subject!' href='newTopic.php'>Add New Topic</a>";
 								echo "</div>";
 							}
 							else

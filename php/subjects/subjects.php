@@ -126,7 +126,7 @@
 		}
 		else if($userRole == 2)
 		{		
-			echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
+			echo "<div class='span12 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
 				echo "<div class='row-fluid'>";
 					echo "<div class='span4'><h4>Subject</h4></div>";
 					echo "<div class='span2'><h4>Code</h4></div>";
