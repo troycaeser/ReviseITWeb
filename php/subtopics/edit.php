@@ -7,6 +7,13 @@
 
 	$TopicID = $_GET["ID"];
 	
+		include '../checkCoord.php';
+								
+	if($coordCorrect != true)
+	{
+	exit(header('location: ../notCoord.php'));
+	ob_get_flush();
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

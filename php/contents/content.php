@@ -1,8 +1,9 @@
 <?php
 	include '../getConnection.php';
 	include '../check_logged_in.php';
-
+	
 	$subtopic_ID = $_GET['ID'];
+	$userRole = $_SESSION['Role'];
 ?>
 
 <!DOCTYPE html>
@@ -52,32 +53,35 @@
 					try{			
 							$result = $db->prepare("SELECT * FROM subtopic WHERE SubtopicID =:id");
 							$result->bindParam("id", $subtopic_ID);
-							$result->execute();   
+							$result->execute();  
+							
 							
 							while($row = $result->fetch(PDO::FETCH_ASSOC))
 							{
 								echo "<div class='span2'><h4><u>Downloads</u> = ".$row['Downloads']."</h4></div>";
 								echo "<div class='span4'><h4><u>Last Updated</u> = ".$row['DateUpdated']."</h4></div>";
 								
-								//here down is for non-students
-								if($_SESSION['Role'] == 1 || $_SESSION['Role'] == 2)
-								{
-								echo "<div class='row-fluid'>";
-									if($row['Content'] == null)
-									{
-										echo "<div class='span1'><a class='btn' href='editCont.php?ID=".$row['SubtopicID']."'>Add</a></div>";
-									}
-									else
-									{
-										echo "<div class='span1'><a class='btn' href='editCont.php?ID=".$row['SubtopicID']."'>Edit</a></div>";
-									}
-									echo "<div class='span1'><a class='btn' href='deleteContent.php?ID=".$row['SubtopicID']."'>Delete</a></div>";
-								echo "</div>";
-								}
+								//checks co-ord matches subject
+									include '../checkCoord.php';
+								
+										if($coordCorrect == true)
+										{
+										echo "<div class='row-fluid'>";
+											if($row['Content'] == null)
+											{
+												echo "<div class='span1'><a class='btn' href='editCont.php?ID=".$row['SubtopicID']."'>Add</a></div>";
+											}
+											else
+											{
+												echo "<div class='span1'><a class='btn' href='editCont.php?ID=".$row['SubtopicID']."'>Edit</a></div>";
+											}
+											echo "<div class='span1'><a class='btn' href='deleteContent.php?ID=".$row['SubtopicID']."'>Delete</a></div>";
+										echo "</div>";
+										}
 								//here up is for non students								
 								
 								echo "<div class='row-fluid'>";
-								if($row['Content'] == null && ($_SESSION['Role'] == 1 || $_SESSION['Role'] == 2))
+								if($row['Content'] == null && ($_SESSION['Role'] != 1 || $_SESSION['Role'] != 2))
 								{
 									echo "<div class='span12'>NO CONTENT IN SUBTOPIC = ".$row['SubtopicName']."<br />Would you like to add some now? <a class='btn' href='editCont.php?ID=".$subtopic_ID."'>Yes</a><br />";
 								}
@@ -88,7 +92,7 @@
 								}
 								echo "</div>";
 								echo "<br />"; //Spaces them a little bit more apart as they are too close otherwise
-								if ($_SESSION['Role'] == "2") { echo "<div class='row-fluid'>
+								if ($coordCorrect == true) { echo "<div class='row-fluid'>
 	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='All the subjects' data-bootstro-content='Click on the link to edit the test questions for this subtopic.'>
 		<h3>Edit Test For This Subtopic!</h3>
 		<p>Edit Test Questions!</p>

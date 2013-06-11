@@ -4,7 +4,7 @@
 
 	$topic_ID = $_GET['ID'];
 	$SubtopicID = $_GET['ID'];
-	
+	$subtopic_ID = $SubtopicID;
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -86,8 +86,13 @@
 			}
 			
 			else{
-
+				//checks co-ord matches subject
+				include '../checkCoord.php';
+								
+				if($coordCorrect == true)
+				{
 				echo "<a class='btn' href='new.php?ID=$topic_ID'>Add Subtopic</a>";
+				}
 				
 				while($row = $result->fetch(PDO::FETCH_ASSOC)) 
 				{	
@@ -99,8 +104,12 @@
 								echo "<div id='".$row['SubtopicID']."' class='row-fluid'>";
 									echo "<div class='span4'>".$row['SubtopicName']."</div>";
 									echo "<div class='span2'>".$row['DateUpdated']."</div>";
+									if($coordCorrect == true)
+									{
 									echo "<div class='span1'>".'<a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></div>';
+									
 									//echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
+									}
 								echo "</div>";
 									echo "<div>".$row['SubtopicBriefDescription']."</div>";
 							echo "</a>";

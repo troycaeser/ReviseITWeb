@@ -1,4 +1,5 @@
 <?php
+	ob_start();
 	include '../getConnection.php';
 	include '../check_logged_in.php';
 	include '../check_role.php';
@@ -6,6 +7,14 @@
 	checkRoleTeacher($_SESSION['Role']);
 	
 	$subtopic_ID = $_GET['ID'];
+	
+	include '../checkCoord.php';
+								
+	if($coordCorrect != true)
+	{
+	exit(header('location: ../notCoord.php'));
+	ob_get_flush();
+	}
 ?>
 
 <!DOCTYPE html>
