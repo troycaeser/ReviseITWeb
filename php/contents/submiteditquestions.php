@@ -52,29 +52,11 @@ if(isset($_POST['submittestedit'])){
 	$answer3 = $_POST[$namec];		
 	$answer4 = $_POST[$named];
 	$answer = $_POST[$namevalue];
-
-	$processed_question = str_replace(array('\"'), array('\\\"'), $question);
-	$processed_question = str_replace(array('\''), array('\\\''), $question);
-
-	$processed_answer1 = str_replace(array('\"'), array('\\\"'), $answer1);
-	$processed_answer1 = str_replace(array('\''), array('\\\''), $answer1);
-
-	$processed_answer2 = str_replace(array('\"'), array('\\\"'), $answer2);
-	$processed_answer2 = str_replace(array('\''), array('\\\''), $answer2);
-
-	$processed_answer3 = str_replace(array('\"'), array('\\\"'), $answer3);
-	$processed_answer3 = str_replace(array('\''), array('\\\''), $answer3);
-
-	$processed_answer4 = str_replace(array('\"'), array('\\\"'), $answer4);
-	$processed_answer4 = str_replace(array('\''), array('\\\''), $answer4);
-
-	$processed_answer = str_replace(array('\"'), array('\\\"'), $answer);
-	$processed_answer = str_replace(array('\''), array('\\\''), $answer);
 	
 	if (($question == "") || ($answer1 == "") || ($answer2 == "") || ($answer3 == "") || ($answer4 == "")) $error = 1;
 	
 	else
-	$sql = $sql."UPDATE multichoice SET Question = '".$processed_question."', Answer1 = '".$processed_answer1."', Answer2 = '".$processed_answer2."', Answer3 = '".$processed_answer3."', Answer4 = '".$processed_answer4."', correctAns = '".$processed_answer."' WHERE MultiChoiceID = ".$mcid."; ";
+	$sql = $sql."UPDATE multichoice SET Question = '".addslashes($question)."', Answer1 = '".addslashes($answer1)."', Answer2 = '".addslashes($answer2)."', Answer3 = '".addslashes($answer3)."', Answer4 = '".addslashes($answer4)."', correctAns = '".addslashes($answer)."' WHERE MultiChoiceID = ".$mcid."; ";
 }
 	if ($error == 0){
 			   while($row = $resultTest2->fetch(PDO::FETCH_ASSOC)) 
@@ -85,18 +67,12 @@ if(isset($_POST['submittestedit'])){
 	$namevalue = "radio_group".$tfid;
 	
 	$question = $_POST[$name];
-	$answer = $_POST[$namevalue];
-
-	$processed_question = str_replace(array('\"'), array('\\\"'), $question);
-	$processed_question = str_replace(array('\''), array('\\\''), $question);
-
-	$processed_answer = str_replace(array('\"'), array('\\\"'), $answer);
-	$processed_answer = str_replace(array('\''), array('\\\''), $answer);		
+	$answer = $_POST[$namevalue];	
 
 	if ($question == "") $error = 1;
 	
 	else	
-	$sql = $sql."UPDATE truefalse SET Question = '".$processed_question."', correctAns = '".$processed_answer."' WHERE TrueFalseID = ".$tfid."; ";
+	$sql = $sql."UPDATE truefalse SET Question = '".addslashes($question)."', correctAns = '".addslashes($answer)."' WHERE TrueFalseID = ".$tfid."; ";
 		}
 	}
 	if ($error == 0) {
