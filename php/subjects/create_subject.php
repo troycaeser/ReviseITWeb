@@ -47,7 +47,7 @@
 		</div>
 
 		<div class="controls">
-			<button class="btn bootstro" data-bootstro-placement="top" data-bootstro-title="Reset" data-bootstro-content="Click this button to reset the fields to <b>blank</b>." type="submit" name="reset">Reset</button>
+			<button class="btn bootstro" data-bootstro-placement="top" data-bootstro-title="Reset" data-bootstro-content="Click this button to reset the fields to <b>blank</b>." type="reset" name="reset">Reset</button>
 			<button class="btn btn-primary bootstro" data-bootstro-placement="top" data-bootstro-title="Submit" data-bootstro-content="Once everything in the textfield is entered, <b>click this button</b> to add a confirm adding the subject." type="submit" name="submit">Submit</button>
 		</div>
 	</fieldset>
