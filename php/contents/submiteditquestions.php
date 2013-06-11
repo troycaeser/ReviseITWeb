@@ -54,11 +54,22 @@ if(isset($_POST['submittestedit'])){
 	$answer = $_POST[$namevalue];
 
 	$processed_question = str_replace(array('\"'), array('\\\"'), $question);
+	$processed_question = str_replace(array('\''), array('\\\''), $question);
+
 	$processed_answer1 = str_replace(array('\"'), array('\\\"'), $answer1);
+	$processed_answer1 = str_replace(array('\''), array('\\\''), $answer1);
+
 	$processed_answer2 = str_replace(array('\"'), array('\\\"'), $answer2);
+	$processed_answer2 = str_replace(array('\''), array('\\\''), $answer2);
+
 	$processed_answer3 = str_replace(array('\"'), array('\\\"'), $answer3);
+	$processed_answer3 = str_replace(array('\''), array('\\\''), $answer3);
+
 	$processed_answer4 = str_replace(array('\"'), array('\\\"'), $answer4);
+	$processed_answer4 = str_replace(array('\''), array('\\\''), $answer4);
+
 	$processed_answer = str_replace(array('\"'), array('\\\"'), $answer);
+	$processed_answer = str_replace(array('\''), array('\\\''), $answer);
 	
 	if (($question == "") || ($answer1 == "") || ($answer2 == "") || ($answer3 == "") || ($answer4 == "")) $error = 1;
 	
@@ -77,7 +88,10 @@ if(isset($_POST['submittestedit'])){
 	$answer = $_POST[$namevalue];
 
 	$processed_question = str_replace(array('\"'), array('\\\"'), $question);
-	$processed_answer = str_replace(array('\"'), array('\\\"'), $answer);		
+	$processed_question = str_replace(array('\''), array('\\\''), $question);
+
+	$processed_answer = str_replace(array('\"'), array('\\\"'), $answer);
+	$processed_answer = str_replace(array('\''), array('\\\''), $answer);		
 
 	if ($question == "") $error = 1;
 	
