@@ -170,25 +170,6 @@
         </div>
       </form>
 
-    <?php 
-	
-	?>
-         </div>
-             <!-- Displays subtopics -->
-            <div class="span4">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Quick Access</li>
-                    <li class="active"><a href="new.php">Add Subtopic</a></li>
-                    <li><a href="#">Account details</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">About Us</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    
-		
     <!-- Footer -->
 		<?php
 			include '../footer.php';
