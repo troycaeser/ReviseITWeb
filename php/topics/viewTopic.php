@@ -81,7 +81,7 @@
 											echo "<div class='span4'>".$row['TopicName']."</div>";
 											echo "</a>";
 											echo "<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit' data-bootstro-content='Click on this link to edit this topic.'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
-											echo "<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Delete' data-bootstro-content='Click on this link to delete this topic'><a href='deleteTopic.php?ID=".$row['TopicID']."'>Delete</a></div>";
+											echo "<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Delete' data-bootstro-content='Click on this link to delete this topic'><a onclick='deleteTopic(".$row['TopicID'].");'>Delete</a></div>";
 									
 		
 								}
@@ -119,6 +119,22 @@
 					bootstro.start(".bootstro");
 				});
 			});
+			
+			function deleteTopic(id)
+			{
+				var delete_IT = confirm("Do you wish to mark topic for deletion?");
+			
+				if(delete_IT)
+				{
+					alert("Topic marked for deletion");
+					//the following page will only perform delete and header.
+					window.location.href = 'deleteTopic.php?ID=' + id;
+				}
+				else
+				{
+					location.reload();
+				}
+			}
 			</script>
 	</body>
 </html>
