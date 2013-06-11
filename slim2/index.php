@@ -268,12 +268,14 @@ function getTf($idTest)
 				{
 					echo '{"TrueFalseID": "' . $r['TrueFalseID'] . '",';
 					echo '"Question": "' . $r['Question'] . '",';
+					echo '"correctAns": "' . $r['correctAns'] . '",';
 					echo '"TestID": "' . $r['TestID'] . '"}';
 				}
 				else
 				{
 					echo ', {"TrueFalseID": "' . $r['TrueFalseID'] . '",';
 					echo '"Question": "' . $r['Question'] . '",';
+					echo '"correctAns": "' . $r['correctAns'] . '",';
 					echo '"TestID": "' . $r['TestID'] . '"}';
 				}
 				$counter1++;
