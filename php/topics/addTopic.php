@@ -3,6 +3,14 @@
 
 	include '../getConnection.php';
 	
+	include '../checkCoord.php';
+								
+	if($coordCorrect != true)
+	{
+	exit(header('location: ../notCoord.php'));
+	ob_get_flush();
+	}
+	
 	if(isset($_POST['Submit']))
 	{
 		try

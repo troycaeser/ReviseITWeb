@@ -34,7 +34,7 @@
 					
 					try
 					{
-						if($userRole != 1)
+						if($userRole != 2)
 						{
 							//SQL query used to display the topic(s) corresponding to the subject id
 							$result = $db->prepare("SELECT * FROM topic WHERE SubjectID = '".$subject_ID."' AND deletionStatus = 0");
@@ -69,8 +69,13 @@
 								echo "<div class='span8'>";
 									echo"<div class='row-fluid'>";
 										echo "<div class='span4'><h4>Topic Name</h4></div>";
+										include '../checkCoord2.php';
+								
+										if($coordCorrect == true)
+										{
 										echo "<div class='span4'><h4>Edit Topic</h4></div>";
 										echo "<div class='span4'><h4>Delete Topic</h4></div>";
+										}
 									echo "</div>";
 		
 								while($row = $result->fetch(PDO::FETCH_ASSOC))
@@ -80,18 +85,33 @@
 									echo "<a href='../subtopics/view.php?ID=".$row['TopicID']."'>";	
 											echo "<div class='span4'>".$row['TopicName']."</div>";
 											echo "</a>";
+								
+										if($coordCorrect == true)
+										{
 											echo "<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Edit' data-bootstro-content='Click on this link to edit this topic.'><a href='editTopic.php?ID=".$row['TopicID']."'>Edit</a></div>";
 											echo "<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstro-title='Delete' data-bootstro-content='Click on this link to delete this topic'><a onclick='deleteTopic(".$row['TopicID'].");'>Delete</a></div>";
+										}
+										else
+										{
+											echo "<div class='span6'></div>";
+											echo "</a>";
+										}
 									
 		
 								}
+									if($coordCorrect == true)
+										{
 								echo "<a class='btn bootstro' data-bootstro-placement='bottom' data-bootstro-title='Create New Topic' data-bootstro-content='Create a new topic for this subject!' href='newTopic.php'>Add New Topic</a>";
 								echo "</div>";
+										}
 							}
 							else
 							{
 								echo "<h2>Sorry, there are no topics available!</h2>";
+									if($coordCorrect == true)
+										{
 								echo '<a href="newtopic.php">Add New Topic</a>';
+										}
 							}
 						}
 					}

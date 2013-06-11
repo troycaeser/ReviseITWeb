@@ -4,7 +4,15 @@
 	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
-
+	
+	include '../checkCoord.php';
+								
+	if($coordCorrect != true)
+	{
+	exit(header('location: ../notCoord.php'));
+	ob_get_flush();
+	}
+	
 	date_default_timezone_set('Australia/Melbourne');
 	$date = date('Y-m-d', time());
 	
