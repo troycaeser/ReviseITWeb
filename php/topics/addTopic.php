@@ -5,7 +5,7 @@
 	
 	$subject_ID = $_GET['ID'];
 	
-	include '../checkCoord.php';
+	include '../checkCoord2.php';
 								
 	if($coordCorrect != true)
 	{
