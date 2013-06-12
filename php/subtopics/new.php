@@ -4,13 +4,15 @@
     require "../../DAL/Verification.php"; 
 	require '../check_logged_in.php';
 	
-	include '../checkCoord.php';
+	//not working at the moment, this page does not pass $topic_ID thus making $coordCorrect always false.
+
+	//include '../checkCoordtop.php';
 								
-	if($coordCorrect != true)
-	{
-	exit(header('location: ../notCoord.php'));
-	ob_get_flush();
-	}
+	// if($coordCorrect != true)
+	// {
+	// exit(header('location: ../notCoord.php'));
+	// ob_get_flush();
+	// }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -129,19 +131,6 @@
           </fieldset>
         </div>
       </form>
- 
-         </div>
-             <!-- Displays subtopics -->
-            <div class="span4">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Quick Access</li>
-                    <li><a href="#">Account details</a></li>
-                    <li><a href="#">My account</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">About Us</a></li>
-                </ul>
-            </div>
-        </div>
     </div>
     
 		

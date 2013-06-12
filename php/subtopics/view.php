@@ -106,7 +106,7 @@
 									if($coordCorrect == true)
 									{
 										echo "<div class='span1'>".'<a href="edit.php?ID=' . $row['SubtopicID'] . '">Edit</a></div>';
-										//echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
+										echo "<div class='span1'>".'<a href="delete.php?ID=' . $row['SubtopicID'] . '">Delete</a></div>';	
 									}
 								echo "</div>";
 									echo "<div>".$row['SubtopicBriefDescription']."</div>";
