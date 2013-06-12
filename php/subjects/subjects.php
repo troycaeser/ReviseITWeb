@@ -265,11 +265,11 @@
 				$countResult = $result->rowCount();
 
 				if($countResult >= 1){
-					echo "<div class='span8 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
+					echo "<div class='span12 bootstro' data-bootstro-placement='bottom' data-bootstro-title='List of subjects' data-bootstro-content='You may click on one of these links to go to the topics page that is associated with the selected subject.'>";
 						echo "<div class='row-fluid'>";
-							echo "<div class='span5'><h4>Subject</h4></div>";
-							echo "<div class='span2'><h4>Code</h4></div>";
-							echo "<div class='span2'><h4>Date</h4></div>";
+							echo "<div class='span6'><h4>Subject</h4></div>";
+							echo "<div class='span3'><h4>Code</h4></div>";
+							echo "<div class='span3'><h4>Date</h4></div>";
 						echo "</div>";
 
 						echo "<form action='' method='post'>";
@@ -286,9 +286,9 @@
 								while($row1 = $statement->fetch(PDO::FETCH_ASSOC)){
 									echo "<a href='../topics/viewTopic.php?ID=".$row1['SubjectID']."'>";
 										echo "<div name='subject_ID".$row1['SubjectID']."' id='".$row['SubjectID']."' class='row-fluid'>";
-											echo "<div class='span5'>".$row1['SubjectName']."</div>";
-											echo "<div class='span2'>".$row1['SubjectCode']."</div>";
-											echo "<div class='span2'>".$row1['Dateupdated']."</div>";
+											echo "<div class='span6'>".$row1['SubjectName']."</div>";
+											echo "<div class='span3'>".$row1['SubjectCode']."</div>";
+											echo "<div class='span3'>".$row1['Dateupdated']."</div>";
 										echo "</div>";
 									echo "</a>";
 								}

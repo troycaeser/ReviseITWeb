@@ -5,7 +5,6 @@
 	$User_ID = $_GET['ID'];
 	
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -15,9 +14,8 @@
 </head>
 <body>
 	<?php
-		include 'subtopics_menu_bar.php';
+		include 'student_menu_bar.php';
 	?>
-
 	<br /><br />
 
 <div class="container">
@@ -120,28 +118,13 @@
 						echo "</br>";
 						}	
 
-			?>            
-            
-            </div>
-            
-             <!-- Displays subtopics -->
-            <div class="span4">
-                <ul class="nav nav-list">
-                    <li class="nav-header">Quick Access</li>
-                    <li><a href="#">Account details</a></li>
-                    <!--<li><a href="../account/my_account.php">My account</a></li>-->
-                    <li class="divider"></li>
-                    <!--<li><a href="#">About Us</a></li>-->
-                </ul>
+			?>
             </div>
         </div>
     </div>
-    
-		
     <!-- Footer -->
 		<?php
 			include '../footer.php';
-		?>
-    	                        
+		?>                       
 </body>
 </html> 
