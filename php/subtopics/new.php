@@ -5,14 +5,16 @@
 	require '../check_logged_in.php';
 	
 	//not working at the moment, this page does not pass $topic_ID thus making $coordCorrect always false.
-
-	//include '../checkCoordtop.php';
+	
+	$topic_ID = $_GET['ID'];
+	
+	include '../checkCoordtop.php';
 								
-	// if($coordCorrect != true)
-	// {
-	// exit(header('location: ../notCoord.php'));
-	// ob_get_flush();
-	// }
+	if($coordCorrect != true)
+	{
+	exit(header('location: ../notCoord.php'));
+	ob_get_flush();
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

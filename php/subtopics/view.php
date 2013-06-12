@@ -90,7 +90,7 @@
 								
 				if($coordCorrect == true)
 				{
-					echo "<a class='btn' href='new.php?ID=$topic_ID'>Add Subtopic</a>";
+					echo "<a class='btn' href='new.php?ID=".$topic_ID."'>Add Subtopic</a>";
 				}
 				
 				while($row = $result->fetch(PDO::FETCH_ASSOC)) 

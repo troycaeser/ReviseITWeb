@@ -3,6 +3,8 @@
 
 	include '../getConnection.php';
 	
+	$subject_ID = $_GET['ID'];
+	
 	include '../checkCoord.php';
 								
 	if($coordCorrect != true)

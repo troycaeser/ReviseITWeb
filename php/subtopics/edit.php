@@ -1,21 +1,21 @@
 <?php
-	//ob_start();
+	ob_start();
 	include '../getConnection.php';
 	require "../../DAL/Subtopic.php"; 
 	require "../../DAL/Verification.php"; 
 	require '../check_logged_in.php';
 
-	$TopicID = $_GET["ID"];
+	//$TopicID = $_GET["ID"];
 	
-	//not working at the moment.
+	$subtopic_ID = $_GET['ID'];
 
-	//include '../checkCoord.php';
+	include '../checkCoord.php';
 								
-	// if($coordCorrect != true)
-	// {
-	// exit(header('location: ../notCoord.php'));
-	// ob_get_flush();
-	// }
+	 if($coordCorrect != true)
+	 {
+	 exit(header('location: ../notCoord.php'));
+	 ob_get_flush();
+	 }
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

@@ -3,7 +3,9 @@
 	include '../getConnection.php';
 	include '../check_logged_in.php';
 	
-	include '../checkCoord.php';
+	$subject_ID = $_GET['ID'];
+	
+	include '../checkCoord2.php';
 								
 	if($coordCorrect != true)
 	{

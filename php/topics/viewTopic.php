@@ -101,7 +101,7 @@
 								}
 									if($coordCorrect == true)
 										{
-								echo "<a class='btn bootstro' data-bootstro-placement='bottom' data-bootstro-title='Create New Topic' data-bootstro-content='Create a new topic for this subject!' href='newTopic.php'>Add New Topic</a>";
+								echo "<a class='btn bootstro' data-bootstro-placement='bottom' data-bootstro-title='Create New Topic' data-bootstro-content='Create a new topic for this subject!' href='newTopic.php?ID=".$subject_ID."'>Add New Topic</a>";
 								echo "</div>";
 										}
 							}
@@ -110,7 +110,7 @@
 								echo "<h2>Sorry, there are no topics available!</h2>";
 									if($coordCorrect == true)
 										{
-								echo '<a href="newtopic.php">Add New Topic</a>';
+								echo '<a href="newtopic.php?ID='.$subject_ID.'">Add New Topic</a>';
 										}
 							}
 						}
