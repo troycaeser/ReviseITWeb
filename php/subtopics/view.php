@@ -3,8 +3,7 @@
 	require '../check_logged_in.php';
 
 	$topic_ID = $_GET['ID'];
-	$SubtopicID = $_GET['ID'];
-	$subtopic_ID = $SubtopicID;
+	
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -87,7 +86,7 @@
 			
 			else{
 				//checks co-ord matches subject
-				include '../checkCoord.php';
+				include '../checkCoordtop.php';
 								
 				if($coordCorrect == true)
 				{
