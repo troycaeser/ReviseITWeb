@@ -5,7 +5,7 @@
 	
 	$topic_ID = $_GET['ID'];
 	
-	include '../checkCoord.php';
+	include '../checkCoordtop.php';
 								
 	if($coordCorrect != true)
 	{

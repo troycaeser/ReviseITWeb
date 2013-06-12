@@ -29,11 +29,11 @@ step6 - add your updated files
 	git add -A
 	(If you check your status again, the red text files should turn green)
 
-Step7 - commit your changes
+Step6a - commit your changes
 
 	git commit -m "changes name"
 
-Step8 - push your updated files up to github
+Step7 - push your updated files up to github
 	
 	git push origin master
 	type username
