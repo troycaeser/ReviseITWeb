@@ -4,7 +4,7 @@
 --
 -- Host: 127.0.0.1:3306
 
--- Generation Time: Jun 10, 2013 at 11:53 PM
+-- Generation Time: Jun 12, 2013 at 02:15 PM
 -- Server version: 5.5.29
 -- PHP Version: 5.4.11
 
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `image`
 --
 
-CREATE TABLE `image` (
+CREATE TABLE IF NOT EXISTS `image` (
   `ImageID` int(11) NOT NULL AUTO_INCREMENT,
   `ImageName` int(11) NOT NULL,
   `ImageLink` mediumblob NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE `image` (
 -- Table structure for table `multichoice`
 --
 
-CREATE TABLE `multichoice` (
+CREATE TABLE IF NOT EXISTS `multichoice` (
   `MultiChoiceID` int(11) NOT NULL AUTO_INCREMENT,
   `Question` text NOT NULL,
   `Answer1` text NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE `multichoice` (
   `correctAns` varchar(10) NOT NULL,
   PRIMARY KEY (`MultiChoiceID`),
   KEY `FK_multichoice` (`TestID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `multichoice`
@@ -63,7 +63,24 @@ INSERT INTO `multichoice` (`MultiChoiceID`, `Question`, `Answer1`, `Answer2`, `A
 (1, 'How do you use an insert query in SQL', 'INSERT INTO ', 'INSERT NEW', 'ADD NEW', 'ADD RECORD', 2, '1'),
 (2, 'How would you select all the columns from a table named "Persons"', 'SELECT [all] FROM Persons', 'SELECT *. Persons', 'SELECT * FROM Persons', 'SELECT Persons', 2, '3'),
 (3, 'How do you select all the records from a table named "Persons" where the value of the column "FirstName" is "Peter"?', 'SELECT [all] FROM Persons WHERE Firstname = ''Peter''', 'SELECT * FROM Persons WHERE Firstname = ''Peter''', 'SELECT * FROM PERSONS WHERE FIRSTNAME<>''Peter''', 'SELECT [all] FROM PERSONS WHERE FIRSTNAME LIKE ''Peter''', 2, '2'),
-(4, 'What does SQL stand for?', 'Strong Question Language', 'Structured Query Language', 'Structured Question Language', 'Strong query Language', 18, '2');
+(4, 'What does SQL stand for?', 'Strong Question Language', 'Structured Query Language', 'Structured Question Language', 'Strong query Language', 18, '2'),
+(5, 'What are HTTP Post Requests usually mapped to', 'INSERT QUERIES', 'UPDATE QUERIES', 'SELECT QUERIES', 'DELETE QUERIES', 13, '1'),
+(6, 'HTTP Post Requests are available...', 'In a browser', 'To a cURL command', 'Both of the above', 'None of the above', 13, '2'),
+(7, 'Which of the Following could be get requests...', 'A link to another web-page', 'a web-page form submitted', 'A cURL command ', 'All of the above', 34, '4'),
+(8, 'Which of the following is the beginning of a valid HTTP Put Request', 'curl -i -X PUT -H ', 'curl -i -X PUT -H -d ', 'curl -i -X PUT -H ', 'curl -i -X PUT', 35, '2'),
+(9, 'An INSERT Query has the following purpose', 'Editing data in a field', 'Add an extra column to a table', 'Placing new data between existing cells', 'Adding a new row of data to a table', 1, '4'),
+(10, 'Which CRUD Operation is mapped to the INSERT Query', 'Create', 'Read', 'Update', 'Delete', 1, '1'),
+(11, 'Which of the following is a valid UPDATE Query', 'UPDATE * FROM table_name', 'UPDATE table_name (data = value, date = 2013-06-11)', 'UPDATE table_name (data, date) VALUES (value, 2013-06-11)', 'UPDATE table_name WHERE id = 4;', 3, '3'),
+(12, 'An UPDATE Query...', 'Creates new data in a database', 'adds columns to a table', 'edits columns in a table', 'edits data in a table', 3, '4'),
+(13, 'SELECT Queries are used to', 'SELECT Data to be edited', 'SELECT column names to be listed', 'SELECT data to be output', 'SELECT ids of records to be deleted', 37, '3'),
+(14, 'Which of the following is a valid SELECT Query', 'SELECT * FROM column_name', 'SELECT example% FROM id_value', 'SELECT FROM table_name', 'SELECT * FROM *;', 37, ''),
+(15, 'DELETE Queries DELETE ', 'Databases', 'Tables', 'Data', 'All of the Above', 38, '3'),
+(16, 'Ajax Stands for', 'Asynchronous Javascript And XML', 'Absolute Java And XML', 'Absolute JQuery And XHTML', 'Absolute Javascript and XML', 2, '1'),
+(17, 'Ajax calls are made using the programming language', 'Java', 'Javascript', 'Objective C', 'HTML5 and CSS3', 2, '2'),
+(18, 'The Android Emulator contains', 'All Android Operating Systems', 'All Android Operating Systems since v1.5 Donut', 'All Android Operating Systems since v2.2 Froyo', 'All Android Operating Systems since v3.0 Gingerbread', 4, ''),
+(19, 'Logcat Displays', 'All Errors in the app', 'System.out.println() statements output', 'Warnings about XML usage', 'All of the Above', 39, '2'),
+(20, 'The Slim Framework allows the following requests to be made', 'GET', 'POST/PUT', 'DELETE', 'All of the Above', 6, '4'),
+(21, 'Test Question with \\"QUOTE MARKS\\"', 'WRONG ANSWER \\"MATE\\"', 'RIGHT ANSWER \\"MATE\\"', 'WRONG AGAIN \\"MATE\\"', 'WRONG FOREVER \\"MATE\\"', 7, '2');
 
 -- --------------------------------------------------------
 
@@ -71,7 +88,7 @@ INSERT INTO `multichoice` (`MultiChoiceID`, `Question`, `Answer1`, `Answer2`, `A
 -- Table structure for table `results`
 --
 
-CREATE TABLE `results` (
+CREATE TABLE IF NOT EXISTS `results` (
   `ResultID` int(11) NOT NULL AUTO_INCREMENT,
   `UserID` int(11) NOT NULL,
   `TestID` int(11) DEFAULT NULL,
@@ -100,7 +117,7 @@ INSERT INTO `results` (`ResultID`, `UserID`, `TestID`, `Result`) VALUES
 -- Table structure for table `subject`
 --
 
-CREATE TABLE `subject` (
+CREATE TABLE IF NOT EXISTS `subject` (
   `SubjectID` int(11) NOT NULL AUTO_INCREMENT,
   `SubjectCode` varchar(50) NOT NULL,
   `SubjectName` text NOT NULL,
@@ -115,11 +132,11 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`SubjectID`, `SubjectCode`, `SubjectName`, `UserID`, `Dateupdated`) VALUES
-(1, 'ICA50711', 'Diploma Of Software Development', 14, '2013-02-11'),
-(2, 'ICA40511', 'Certificate IV in IT Programming', 12, '2013-04-09'),
-(3, 'ICA50712', 'Introduction to Programming', 2, '2013-05-13'),
-(4, 'CPC40110', 'Cert IV in Building & Constructions', 11, '2013-05-03'),
-(5, 'CUV40303', 'Certificate IV in Design', 8, '2013-05-05'),
+(1, 'ICT31A', 'Mobile Apps with Android', 14, '2013-02-11'),
+(2, 'ICT32A', 'Mobile Apps with IOS', 12, '2013-04-09'),
+(3, 'ICT33A', 'Programming for the Cloud', 2, '2013-05-13'),
+(4, 'CIT27B', 'Software Project', 11, '2013-06-11'),
+(5, 'ICT22A', 'Mobile Applications 2', 8, '2013-05-05'),
 (6, 'CPC50210', 'Diploma of Building & Constructions', 9, '2013-05-03'),
 (7, 'SIT40307', 'Certificate IV in Hospitality', 13, '2013-05-10'),
 (8, 'CLMF40408', 'Certificate IV in Interior Decoration', 18, '2013-06-03'),
@@ -154,7 +171,7 @@ INSERT INTO `subject` (`SubjectID`, `SubjectCode`, `SubjectName`, `UserID`, `Dat
 -- Table structure for table `subtopic`
 --
 
-CREATE TABLE `subtopic` (
+CREATE TABLE IF NOT EXISTS `subtopic` (
   `SubtopicID` int(11) NOT NULL AUTO_INCREMENT,
   `SubtopicName` varchar(50) NOT NULL,
   `TopicID` int(11) NOT NULL,
@@ -171,13 +188,13 @@ CREATE TABLE `subtopic` (
 --
 
 INSERT INTO `subtopic` (`SubtopicID`, `SubtopicName`, `TopicID`, `SubtopicBriefDescription`, `Content`, `Downloads`, `DateUpdated`) VALUES
-(1, 'Insert Query', 2, 'Learn about the insert SQL query and how they are set up.', 'This unit will be covering the SQL insert query and how it is used.<br><br>The insert query is used to insert data into a database using the following syntax:\r\n<br>INSERT INTO table_name VALUES(value1, value2, value3).\r\n<br><br>For e.g.<br>INSERT INTO Customers VALUES (\\''Cardinal\\'',\\''Tom B. Erichsen\\'',\\''Skagen 21\\'',\\''Stavanger\\'',\\''4006\\'',\\''Norway\\'');<br><br>If you wish to specify which columns will have values entered into, then the syntax would be:&nbsp;<br>INSERT INTO(column_name1, column_name2, column_name3)VALUES(value1, value2, value3);<br><br>For e.g. INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)<br>VALUES (\\''Cardinal\\'',\\''Tom B. Erichsen\\'',\\''Skagen 21\\'',\\''Stavanger\\'',\\''4006\\'',\\''Norway\\'');<br>', 5, '2013-06-09'),
+(1, 'Insert Query', 2, 'Learn about the insert SQL query and how they are set up.', 'This unit will be covering the SQL insert query and how it is used.<br><br>The insert query is used to insert data into a database using the following syntax:\n<br>INSERT INTO table_name VALUES(value1, value2, value3).\n<br><br>For e.g.<br>INSERT INTO Customers VALUES (\\''Cardinal\\'',\\''Tom B. Erichsen\\'',\\''Skagen 21\\'',\\''Stavanger\\'',\\''4006\\'',\\''Norway\\'');<br><br>If you wish to specify which columns will have values entered into, then the syntax would be:&nbsp;<br>INSERT INTO(column_name1, column_name2, column_name3)VALUES(value1, value2, value3);<br><br>For e.g. INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)<br>VALUES (\\''Cardinal\\'',\\''Tom B. Erichsen\\'',\\''Skagen 21\\'',\\''Stavanger\\'',\\''4006\\'',\\''Norway\\'');<br>', 5, '2013-06-09'),
 (2, 'Connect To WebService', 3, 'Learn how to connect to the web service and how to receive the data as a JSON string', 'To connect to a webservice, the data entered can either be JSON or XML. This subtopic, will be specialising in using JSON strings.<br><br>When using XML the syntax to display the data uses:<br>\n  <span>&lt;Product&gt;\n  <br>&lt;ProductID&gt;1&lt;/ProductID&gt;\n  <br>&lt;ProductCode&gt;p_1&lt;/ProductCode&gt;\n  <br>&lt;ProductName&gt;a Product 1&lt;/ProductName&gt;\n<br>&lt;/Product&gt;</span><br><br>XML also lets you invent your own tags. Say for example that you wanted to create a note, to store it as XML it would go as follows:<br><br>&lt;note&gt;<br>\n&lt;to&gt;Tove&lt;/to&gt;<br>\n&lt;from&gt;Jani&lt;/from&gt;<br>\n&lt;heading&gt;Reminder&lt;/heading&gt;<br>\n&lt;body&gt;Don''t forget me this weekend!&lt;/body&gt;<br>\n&lt;/note&gt;<br><br>But while JSON, the syntax is entirely different; which uses:<br>{\\"ProductID\\":1,\\"ProductName\\":\\"a Product 1\\"}.<br><br>You are also able to call either the web service using what is known as jquery. To retrieve the data from the web service, you must use the ajax method; the syntax to use it goes as follows:<br><span>$.ajax({\n<br>        type: "\\POST\\",\n        <br>data: \\"{\\''prefix\\'':\\''''}\\",\n<br>        url: \\"/YourWebService.asmx/MethodName\\",<br>&nbsp;contentType: \\"application/json; charset=utf-8\\",\n<br>        dataType: \\"json\\",\n        <br>success: functionToCallWhenSucceed,\n        <br>failure: </span><br>functionToCallWhenSucceed&nbsp; });<br><br>In the data parameter within the ajax function, you are able to call the web service 2 ways.<br>Without any parameters:<br>\\"{}\\"<br><br>With parameters:<br>data: \\”{\\‘SiteName\\’:\\’CodeProject\\’,\\’PostedDate\\’:\\’1 jan 2009\\’}\\”.<br><br>Both the success and failure items contain functions titled, functionToCallWhenSucceed and functionToCallWhenFailed. If the web service was successful, it would call the functionToCallWhenSucceed method and if it failed it would call the functionToCallWhenSucceed method instead.<br><br><br><br>', 5, '2013-06-08'),
-(3, 'UPDATE query', 2, 'Learn what the syntax is to update records within a database', 'This unit covers how to update records within a database.<br>In order to update any record(s) int the table, you would use the UPDATE keyword, so the syntax would be:<br>UPDATE table_name SET column1=value1,column2=value2 WHERE some_column=some_value;<br><br>It''s important when updating records to use the WHERE clause, if you don''t an sql query like UPDATE Customers<br>\r\nSET ContactName=\\''Alfred Schmidt\\'', City=\\''Hamburg\\''; would update every ContactName to Alfred Schmidt and City to Hamburg. But, if you use the WHERE clause, then it would only update that specific record WHERE CustomerName=\\''Alfreds Futterkiste\\'';<br>', 1, '2013-06-09'),
+(3, 'UPDATE query', 2, 'Learn what the syntax is to update records within a database', 'This unit covers how to update records within a database.<br>In order to update any record(s) int the table, you would use the UPDATE keyword, so the syntax would be:<br>UPDATE table_name SET column1=value1,column2=value2 WHERE some_column=some_value;<br><br>It''s important when updating records to use the WHERE clause, if you don''t an sql query like UPDATE Customers<br>\nSET ContactName=\\''Alfred Schmidt\\'', City=\\''Hamburg\\''; would update every ContactName to Alfred Schmidt and City to Hamburg. But, if you use the WHERE clause, then it would only update that specific record WHERE CustomerName=\\''Alfreds Futterkiste\\'';<br>', 1, '2013-06-09'),
 (4, 'Android Emulator', 4, 'Learn how to receive and display the received JSON data within an android emulator', 'This unit covers how to use an android emulator in the program Eclipse.<br><br>The program used for developing Android applications is Eclipse.<br><br>To use Eclipse, you will need to download:<br><ul><li>an Android-sdk folder - that is used to store the emulators used within Eclipse</li></ul><br>Some useful commands to know when using the emulator is as follows:<br><ul><li>Press Home on the keyboard to go home on the android device</li><li>Press F2 or PgUp&nbsp;on the keyboard to access the Menu (Left softKey) on the android device</li><li>Press&nbsp;Shift-F2&nbsp;or&nbsp;PgDn on the keyboard to access the&nbsp;Star (right softkey)</li><li>Press Esc on keyboard to go back on the device</li><li>Press F3 to access the Call/dial button</li><li>Press F4 to hangup</li><li>Press F5 to&nbsp;Search</li><li>Press F7 to access the Power button</li><li>Press&nbsp;Ctrl-F11, to switch to previous layout orientation (e.g. portrait or landscape)</li><li>Press Ctrl-F12, to switch to next layout orientation (for example, portrait, landscape)</li></ul>To start an application, you first must right click on the application that you wish to run and then select \\''Run as\\'' and select \\''Android Application\\''. After that, the emulator should start running and the application will begin.<br>', 10, '2013-06-08'),
 (5, 'While loops', 7, 'Learn how a while loop is used, what to use them for and what the syntax is when using a while loop', 'This unit covers how to use the while loop function in Java.\n\nThe syntax for it is:\nwhile (expression) \n{\n  statement(s)\n}', 5, '2013-02-11'),
 (6, 'SLIM Framework Installation', 5, 'Learn how to successfully install the SLIM Framework', 'This unit covers how to install the SLIM Framework.<br><br>The <b>SLIM Framework</b> is used to write web applications and APIs. <br>To use this, you need to have basic a understanding of PHP because that is what will be used when coding with SLIM.<br><br>All you would need to do to download the SLIM framework is to go to the website,&nbsp;<a target="_blank" rel="nofollow" href="http://www.slimframework.com/">http://www.slimframework.com/</a>&nbsp;and click the \\''Install Now\\'' button, which will then ask whether you want to download the \\''Latest Release\\'' or the \\''Stable Release\\'', after you''ve chosen which you want you will then be&nbsp;prompted(depending on web browser used) where you want to save the .zip file to a location. After you have saved, you would extract the file.&nbsp;<br><br>When the folder has been extracted, then you are done.<br><br>To do the coding, you would do all that in the index.php file.<br><br><br>', 0, '2013-06-08'),
-(7, 'If Statement', 6, 'Learn the syntax for an IF statement and how to successfully use it.', 'The syntax for using an if statement in java, or any programming goes as follows:;<br>If(condition)<br>execute statement.<br><br>For e.g.<br>if (isMoving)<br>{&nbsp;&nbsp;<br>&nbsp;// the \\"then\\" clause: decrease current speed&nbsp;<br>&nbsp;currentSpeed--;&nbsp;<br>}<br><br>There are many ways that an if statement can be used, in addition to that there is also the if-else command; which follows the same syntax as before, but instead it goes:<br>if(condition)<br>execute statement<br>else<br>execute other statement.<br><br>For e.g.&nbsp;<br><span>if (isMoving) <br>{\r\n<br>&nbsp;currentSpeed--;\r\n<br>} <br>else <br>{\r\n<br>&nbsp;System.err.println(\\"The bicycle has already stopped!\\");\r\n<br>}</span>', 0, '2013-06-08'),
+(7, 'If Statement', 6, 'Learn the syntax for an IF statement and how to successfully use it.', 'The syntax for using an if statement in java, or any programming goes as follows:;<br>If(condition)<br>execute statement.<br><br>For e.g.<br>if (isMoving)<br>{&nbsp;&nbsp;<br>&nbsp;// the \\"then\\" clause: decrease current speed&nbsp;<br>&nbsp;currentSpeed--;&nbsp;<br>}<br><br>There are many ways that an if statement can be used, in addition to that there is also the if-else command; which follows the same syntax as before, but instead it goes:<br>if(condition)<br>execute statement<br>else<br>execute other statement.<br><br>For e.g.&nbsp;<br><span>if (isMoving) <br>{\n<br>&nbsp;currentSpeed--;\n<br>} <br>else <br>{\n<br>&nbsp;System.err.println(\\"The bicycle has already stopped!\\");\n<br>}</span>', 0, '2013-06-08'),
 (8, 'Dimension', 8, 'Learn about how dimension affects the perspective of houses', 'This unit covers how to do architectural drawings using the aspect of dimension, i.e. 2D, 3D etc.', 0, '2013-06-09'),
 (9, 'Switch Statement', 9, 'Learn how to use a switch statement, and what syntax is used', 'This unit covers what a switch statement is used for and how the syntax goes.<br><br>switch (<i>n</i>)<br>{<br>case&nbsp;<i>label1:</i><br>&nbsp;&nbsp;<i>code to be executed if n=label1;</i><br>&nbsp;&nbsp;break;<br>case&nbsp;<i>label2:</i><br>&nbsp;&nbsp;<i>code to be executed if n=label2;</i><br>&nbsp;&nbsp;break;<br>default:<br>&nbsp;&nbsp;<i>code to be executed if n is different from both label1 and label2;</i><br><span>}<br></span><br>For e.g.<br>&lt;?php<br>$favcolor="red";<br>switch ($favcolor)<br>{<br>case "red":<br>&nbsp; echo "Your favorite color is red!";<br>&nbsp; break;<br>case "blue":<br>&nbsp; echo "Your favorite color is blue!";<br>&nbsp; break;<br>case "green":<br>&nbsp; echo "Your favorite color is green!";<br>&nbsp; break;<br>default:<br>&nbsp; echo "Your favorite color is neither red, blue, or green!";<br>}<br>?&gt;<br>', 0, '2013-06-10'),
 (10, 'Input Types', 10, 'Learn about the different input types that are used within HTML5', 'There are some new HTML tags used in HTML5 that were not in previous versions of HTML.<br><br>These new tags include:<br><ul><li>autocomplete</li><li>autofocus</li><li>form</li><li>formaction</li><li>formenctype</li><li>formmethod</li><li>formnovalidate</li><li>formtarget</li><li>height</li><li>list</li><li>max</li><li>min</li><li>multiple</li><li>name</li><li>pattern</li><li>placeholder</li><li>required</li><li>step, and</li><li>width</li></ul>The autocomplete attribute is used when specifying whether or not a field has autocomplete enabled.<br>For e.g.<br><br>The autofocus attribute is used to specify which field gets automatically focused when the page loads.<br><span>For e.g.&nbsp;<br></span><br>The form attribute specifies which form(s) the input element belongs to.<br>For e.g.&nbsp;<br><br>The formaction attribute overrides the <b>action&nbsp;</b>attribute of the form element.<br>For e.g.&nbsp;<br><br>The&nbsp;formenctype tag is only used when the form method=\\"post\\" and it specifies how the form-data should be encoded when submitting to the server.<br>For e.g.&nbsp;<br><br>The formaction attribute is used to define what HTTP method for sending data to the URL.<br>For e.g.&nbsp;<span><br><br>The formnovalidate attribute specifies which input element should not be validated when the form is submitted.&nbsp;<br>For e.g.&nbsp;</span><span><br><br>The formtarget attribute specifies where to display the response after submitting the form.<br></span>For e.g.&nbsp;<br><br>The height attribute is only used with with the <br>For e.g.&nbsp;pixels\\<span>"&gt; where \\"pixels\\" could be 100 for example.<br><br>The list attribute refers to the <span> element that contains pre-defined values for an  element<br>For e.g. list = \\"value\\"&gt;</span></span><br><br>The max attribute specifies the maximum value for an , while the min attribute specifies the minimum value for an  element.<br>For e.g.&nbsp;<span> <span>min="1" max="5"&gt;<br><br>The multiple attribute element allows you to enter multiple values within an input element.<br>For e.g. multiple&gt;<span><br><br>The pattern attribute specifies a regular expression&nbsp;</span><span>that the  element''s value is checked against.<br>For e.g&nbsp;</span>pattern=\\"[A-Za-z]{3}\\"&gt;<br><br><span>The placeholder attribute specifies a short hint that describes the expected value of an input field<br></span>For e.g. <span>placeholder="Last name"&gt;<br><br>The required attribute specifies that a specific  field is required to be filled in before &nbsp;being submitted.<br>For e.g. required&gt;<br><br>The step attribute</span></span></span>&nbsp;specifies the legal number intervals for an  element. An example of that could be&nbsp;if step=\\"3\\", legal numbers could be -3, 0, 3, 6, etc.<span><br>For e.g. step=\\"3\\"&gt;<br><br>The width attribute specifies the width of the  element<br></span>width=\\"48\\"&gt;<br>', 0, '2013-06-08'),
@@ -321,7 +338,7 @@ INSERT INTO `subtopic` (`SubtopicID`, `SubtopicName`, `TopicID`, `SubtopicBriefD
 -- Table structure for table `token`
 --
 
-CREATE TABLE `token` (
+CREATE TABLE IF NOT EXISTS `token` (
   `TokenID` int(11) NOT NULL AUTO_INCREMENT,
   `TokenCode` varchar(20) NOT NULL,
   `TokenDate` date NOT NULL,
@@ -341,7 +358,7 @@ INSERT INTO `token` (`TokenID`, `TokenCode`, `TokenDate`) VALUES
 -- Table structure for table `topic`
 --
 
-CREATE TABLE `topic` (
+CREATE TABLE IF NOT EXISTS `topic` (
   `TopicID` int(5) NOT NULL AUTO_INCREMENT,
   `TopicName` text NOT NULL,
   `SubjectID` int(11) NOT NULL,
@@ -350,27 +367,27 @@ CREATE TABLE `topic` (
   `dateupdated` date NOT NULL,
   PRIMARY KEY (`TopicID`),
   KEY `FK_topicsub` (`SubjectID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=106 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=107 ;
 
 --
 -- Dumping data for table `topic`
 --
 
 INSERT INTO `topic` (`TopicID`, `TopicName`, `SubjectID`, `SubjectCode`, `deletionStatus`, `dateupdated`) VALUES
-(1, 'cURL Commands', 1, 'ICT33A', 0, '2013-05-27'),
+(1, 'cURL Commands', 1, 'ICT33A', 0, '2013-06-11'),
 (2, 'SQL Query', 1, 'ICA50711', 0, '2013-05-17'),
-(3, 'Restful WebService', 1, 'ICT31A', 0, '2013-05-17'),
+(3, 'Restful Web Service', 3, 'ICT33A', 0, '2013-06-12'),
 (4, 'Eclipse', 1, 'ICT33A', 0, '2013-06-09'),
-(5, 'SLIM Framework', 1, 'ICT31A', 0, '2013-05-28'),
-(6, 'Java', 3, 'ICA50712', 0, '2013-05-13'),
-(7, 'Eclipse', 1, 'ICA50711', 1, '2013-05-31'),
+(5, 'SLIM Framework', 3, 'ICT33A', 0, '2013-05-28'),
+(6, 'Java', 1, 'ICT31A', 0, '2013-05-13'),
+(7, 'Eclipse', 1, 'ICA50711', 0, '2013-06-11'),
 (8, 'Architecture in Housing', 6, 'CPC50210', 0, '2013-05-05'),
 (9, 'PHP', 3, 'ICA50712', 0, '2013-05-16'),
 (10, 'HTML5', 2, 'ICT33A', 0, '2013-05-17'),
 (11, 'jQuery Mobile', 2, 'ICA40511', 0, '2013-05-17'),
 (12, 'Ajax', 2, 'ICA40511', 0, '2013-05-12'),
 (13, 'Visual Basic', 3, 'ICA50712', 0, '2013-05-17'),
-(14, 'Web Programming', 3, 'ICA50712', 0, '2013-05-17'),
+(14, 'Web Programming', 3, 'ICA50712', 0, '2013-06-12'),
 (15, 'SQL Databases', 2, 'ICA40511', 0, '2013-05-17'),
 (16, 'Games Programming', 2, 'ICA40511', 1, '2013-06-04'),
 (17, 'Games 2', 2, 'ICA40511', 1, '2013-06-04'),
@@ -461,7 +478,8 @@ INSERT INTO `topic` (`TopicID`, `TopicName`, `SubjectID`, `SubjectCode`, `deleti
 (102, 'Supplementary Restraint Systems', 31, 'AUR30805', 0, '2013-06-02'),
 (103, 'On-site management services', 32, 'SIT50207', 0, '2013-04-16'),
 (104, 'Event concepts', 32, 'SIT50207', 0, '2013-05-19'),
-(105, 'Finance management', 32, 'SIT50207', 0, '2013-06-03');
+(105, 'Finance management', 32, 'SIT50207', 0, '2013-06-03'),
+(106, 'Objective C', 2, 'ICT32A', 0, '2013-06-11');
 
 -- --------------------------------------------------------
 
@@ -469,14 +487,14 @@ INSERT INTO `topic` (`TopicID`, `TopicName`, `SubjectID`, `SubjectCode`, `deleti
 -- Table structure for table `truefalse`
 --
 
-CREATE TABLE `truefalse` (
+CREATE TABLE IF NOT EXISTS `truefalse` (
   `TrueFalseID` int(11) NOT NULL AUTO_INCREMENT,
   `Question` text NOT NULL,
   `correctAns` varchar(10) NOT NULL,
   `TestID` int(11) NOT NULL,
   PRIMARY KEY (`TrueFalseID`),
   KEY `FK_truefalse` (`TestID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `truefalse`
@@ -487,7 +505,28 @@ INSERT INTO `truefalse` (`TrueFalseID`, `Question`, `correctAns`, `TestID`) VALU
 (2, 'PHP is server side programming?', 'true', 2),
 (3, 'Ajax stands for Asynchronous Javascript and XML?', 'true', 4),
 (4, 'SQLyog can be used to establish referential integrity between tables?', 'true', 18),
-(5, 'Photoshop is the only software application used to edit images?', 'false', 21);
+(5, 'Photoshop is the only software application used to edit images?', 'false', 21),
+(6, 'HTTP Post requests allow a request body to be uploaded', 'true', 13),
+(7, 'HTTP Post requests are more secure in a web-application than Get Requests', 'true', 13),
+(8, 'A get Request is the default type of web-request', 'true', 34),
+(9, 'A PUT Request is more complex than a POST Request', 'false', 35),
+(10, 'A DELETE Request will delete data from a database automatically', 'false', 36),
+(11, 'A DELETE Request doesnt allow a request body to be uploaded', 'false', 36),
+(12, 'An INSERT QUERY adds new data to a table', 'true', 1),
+(13, 'An INSERT QUERY returns a list of columns and rows affected by the query', 'false', 1),
+(14, 'AN UPDATE Query requires values to be specified', 'true', 3),
+(15, 'An UPDATE Query does not require columns to be specified', 'false', 3),
+(16, 'SELECT Queries are required to READ data', 'true', 37),
+(17, 'SELECT Queries allow attributes to be specified and renamed', 'true', 37),
+(18, 'Deleted data from a database can be easily recovered', 'false', 38),
+(19, 'A mobile app that uses Ajax calls is written in JQuery Mobile', 'true', 2),
+(20, 'Ajax always returns XML data', 'false', 2),
+(21, 'The AVD allows Android Operating Systems to be booted up', 'true', 4),
+(22, 'The Android Virtual Manager allows the SDK parts to be downloaded', 'true', 4),
+(23, 'Logcat displays errors in red', 'true', 39),
+(24, 'Logcat displays warnings in green', 'false', 39),
+(25, 'Slim must be installed on a remote server for a mobile app to work', 'false', 6),
+(26, 'Slim contains a lot of large and bulky files and requires several hours to install', 'false', 6);
 
 -- --------------------------------------------------------
 
@@ -495,7 +534,7 @@ INSERT INTO `truefalse` (`TrueFalseID`, `Question`, `correctAns`, `TestID`) VALU
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `fName` varchar(50) NOT NULL,
   `lName` varchar(50) NOT NULL,
@@ -504,7 +543,7 @@ CREATE TABLE `users` (
   `role` int(1) NOT NULL COMMENT '1 = Admin, 2 = Coordinator, 3 = Teacher, 4 = Student',
   `locked` tinyint(1) NOT NULL COMMENT '0 = unlocked, 1 = locked',
   PRIMARY KEY (`UserID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=92 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=93 ;
 
 --
 -- Dumping data for table `users`
@@ -601,7 +640,8 @@ INSERT INTO `users` (`UserID`, `fName`, `lName`, `username`, `password`, `role`,
 (88, 'Maureen', 'Barrett', 'bar03647952', 'fbc2db3589db1c940aab88d247aace72', 4, 0),
 (89, 'Jacki', 'Morrison', 'mor06135748', 'fbc2db3589db1c940aab88d247aace72', 4, 0),
 (90, 'Helena', 'Walker', 'wal09134287', 'fbc2db3589db1c940aab88d247aace72', 4, 0),
-(91, 'Cathy', 'Bell', 'bel08294367', 'fbc2db3589db1c940aab88d247aace72', 4, 0);
+(91, 'Cathy', 'Bell', 'bel08294367', 'fbc2db3589db1c940aab88d247aace72', 4, 0),
+(92, 'Jared', 'Clarkson', 'cla05248761', 'fbc2db3589db1c940aab88d247aace72', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -609,7 +649,7 @@ INSERT INTO `users` (`UserID`, `fName`, `lName`, `username`, `password`, `role`,
 -- Table structure for table `usersubject`
 --
 
-CREATE TABLE `usersubject` (
+CREATE TABLE IF NOT EXISTS `usersubject` (
   `userID` int(11) NOT NULL,
   `SubjectID` int(11) NOT NULL,
   KEY `FK_usersubject` (`userID`),
@@ -621,7 +661,246 @@ CREATE TABLE `usersubject` (
 --
 
 INSERT INTO `usersubject` (`userID`, `SubjectID`) VALUES
-(10, 1);
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4),
+(10, 1),
+(10, 3),
+(10, 5),
+(10, 2),
+(10, 7),
+(15, 7),
+(15, 1),
+(15, 2),
+(15, 10),
+(15, 9),
+(15, 3),
+(16, 1),
+(16, 2),
+(16, 32),
+(16, 31),
+(16, 30),
+(16, 29),
+(17, 30),
+(17, 31),
+(17, 32),
+(17, 29),
+(17, 20),
+(19, 1),
+(19, 3),
+(19, 6),
+(19, 12),
+(19, 17),
+(19, 19),
+(29, 1),
+(29, 29),
+(29, 30),
+(29, 15),
+(29, 14),
+(29, 13),
+(44, 24),
+(44, 22),
+(45, 3),
+(45, 11),
+(45, 17),
+(45, 18),
+(45, 19),
+(45, 20),
+(46, 32),
+(46, 1),
+(46, 19),
+(46, 10),
+(46, 18),
+(57, 31),
+(57, 1),
+(57, 2),
+(57, 13),
+(57, 12),
+(57, 11),
+(58, 11),
+(58, 12),
+(58, 13),
+(58, 14),
+(59, 15),
+(59, 16),
+(59, 17),
+(59, 18),
+(59, 29),
+(60, 19),
+(60, 20),
+(60, 21),
+(60, 22),
+(60, 23),
+(61, 1),
+(61, 24),
+(61, 25),
+(61, 26),
+(62, 26),
+(62, 27),
+(62, 28),
+(62, 29),
+(62, 3),
+(63, 1),
+(63, 2),
+(63, 3),
+(63, 4),
+(63, 5),
+(63, 6),
+(64, 6),
+(64, 7),
+(64, 8),
+(64, 9),
+(64, 10),
+(64, 11),
+(64, 12),
+(65, 13),
+(65, 12),
+(65, 14),
+(65, 15),
+(65, 16),
+(66, 17),
+(66, 18),
+(66, 19),
+(66, 20),
+(66, 21),
+(67, 21),
+(67, 22),
+(67, 23),
+(67, 24),
+(67, 25),
+(67, 26),
+(68, 26),
+(68, 27),
+(68, 28),
+(68, 29),
+(68, 30),
+(69, 1),
+(69, 2),
+(69, 31),
+(69, 32),
+(69, 3),
+(69, 11),
+(70, 1),
+(70, 2),
+(70, 3),
+(70, 4),
+(70, 5),
+(71, 6),
+(71, 7),
+(71, 8),
+(71, 9),
+(71, 10),
+(72, 11),
+(72, 12),
+(72, 13),
+(72, 14),
+(72, 15),
+(73, 16),
+(73, 17),
+(73, 18),
+(73, 19),
+(73, 20),
+(74, 21),
+(74, 22),
+(74, 23),
+(74, 24),
+(74, 25),
+(75, 26),
+(75, 27),
+(75, 28),
+(75, 29),
+(75, 30),
+(76, 31),
+(76, 32),
+(76, 1),
+(76, 2),
+(76, 3),
+(77, 4),
+(77, 5),
+(77, 6),
+(77, 7),
+(77, 8),
+(78, 9),
+(78, 10),
+(78, 11),
+(78, 12),
+(78, 13),
+(78, 14),
+(78, 15),
+(79, 16),
+(79, 17),
+(79, 18),
+(79, 19),
+(79, 20),
+(80, 21),
+(80, 22),
+(80, 23),
+(80, 24),
+(80, 25),
+(81, 26),
+(81, 27),
+(81, 28),
+(81, 29),
+(81, 30),
+(82, 31),
+(82, 32),
+(82, 1),
+(82, 2),
+(82, 3),
+(83, 4),
+(83, 5),
+(83, 6),
+(83, 7),
+(83, 8),
+(83, 9),
+(83, 10),
+(84, 11),
+(84, 12),
+(84, 13),
+(84, 14),
+(84, 15),
+(84, 16),
+(84, 17),
+(84, 18),
+(84, 19),
+(84, 20),
+(85, 21),
+(85, 22),
+(85, 23),
+(85, 24),
+(85, 25),
+(86, 26),
+(86, 27),
+(86, 28),
+(86, 29),
+(86, 30),
+(87, 31),
+(87, 32),
+(87, 1),
+(87, 2),
+(87, 3),
+(88, 4),
+(88, 5),
+(88, 5),
+(88, 6),
+(88, 7),
+(88, 8),
+(89, 9),
+(89, 10),
+(89, 11),
+(89, 12),
+(89, 13),
+(89, 14),
+(89, 15),
+(90, 16),
+(90, 17),
+(90, 18),
+(90, 19),
+(90, 20),
+(91, 21),
+(91, 22),
+(91, 1);
 
 --
 -- Constraints for dumped tables
