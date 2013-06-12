@@ -23,7 +23,7 @@
 <p align="right"><strong>Date: </strong><?php echo date("d/m/y") ?></p>
 <?php
 
-	$query = $db->prepare("SELECT * FROM subject");
+	$query = $db->prepare("SELECT * FROM subject WHERE SubjectID = ".$subject_ID);
 	$query->execute();
 
 ?>
