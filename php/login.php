@@ -11,12 +11,12 @@ try
 	
 	$_SESSION['oldusername'] = null;
 	
-	
 	if($_SESSION['oldusername'] != $username)
 	{
 		$_SESSION['oldusername'] == $username;
 	}
-	else{
+	else
+	{
 		$_SESSION['oldusername'] = null;
 	}
 			
@@ -77,8 +77,7 @@ try
 						
 					if($role != 1)
 					{
-						$_SESSION['oldusername'] = null;
-						if($_SESSION['oldUsername'] == $username)
+						if(isset($_SESSION['oldUsername']) == $username)
 						{
 							$_SESSION['loginCount']++;
 							if($_SESSION['loginCount'] < 3)
@@ -112,7 +111,7 @@ try
 								exit;
 							}
 						}
-						else if($_SESSION['oldUsername'] != $username)
+						else if(isset($_SESSION['oldUsername']) != $username)
 						{
 							$_SESSION['oldUsername'] = $_POST['username'];
 							$_SESSION['loginCount'] = 1;
