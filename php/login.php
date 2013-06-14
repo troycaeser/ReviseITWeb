@@ -131,7 +131,7 @@ try
 									<link rel='stylesheet' href='../assets/css/version1.css'>
 									<link rel='stylesheet' href='../assets/css/bootstrap-responsive.css'>
 									<div class='container'>
-										<p class='text-center alert alert-error'>You have entered incorrect details</p>
+										<p class='text-center alert alert-error'>You have entered an incorrect username and/or password.\n Try again</p>
 										<p class='text-center alert alert-error'>Directing back to log in page in 3 seconds...</p>
 									</div>";
 									ob_get_flush();
