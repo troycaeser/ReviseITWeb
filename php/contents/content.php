@@ -145,10 +145,7 @@ echo "	<div class='span4 bootstro' data-bootstro-placement='bottom' data-bootstr
 			{
 				$('#help').click(function()
 				{
-					bootstro.start(".bootstro", 
-					{
-						finishButton: ''
-					});
+					bootstro.start(".bootstro");
 				});
 			});
 		</script>
