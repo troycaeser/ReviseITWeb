@@ -50,7 +50,7 @@
 				{
 					echo "<div class='alert alert-error' align='center'>Topic name must be alphabetic</div>";
 				}
-				elseif(!preg_match("/[A-Za-z0-9]/", $subCode))
+				elseif(!preg_match("[^a-Z0-9_ %\[\]\ ]", $subCode))
 				{
 					echo "<div class='alert alert-error' align='center'>Subject code must be alphanumeric</div>";
 				}
