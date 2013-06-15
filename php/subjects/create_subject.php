@@ -36,7 +36,7 @@
 							}
 					}else{
 						//echo out the select table (this is for the user id.)
-					    echo "<select name='subject_coordinator' id='subject_coordinator' multiple='multiple'>";
+					    echo "<select name='subject_coordinator' id='subject_coordinator' multiple='multiple' size='15'>";
 						    while($row = $query_teachers->fetch(PDO::FETCH_ASSOC)){
 								echo("<option value = '" . $row['UserID'] . "'>". $row['fName'] ." ". $row['lName'] ."</option>");
 							}

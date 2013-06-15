@@ -31,7 +31,7 @@
     <p>See subjects</p>
     <a href="../subjects/all_Subjects.php" class="btn btn-primary" data-original-title="All Subjects">All Subjects</a> </div>
   
-  <div class="span4 bootstro" data-bootstro-placement="bottom" data-bootstro-title="View test results" data-bootstro-content="Click on the link to take the test and answer questions for this subtopic's test.">
+  <div class="span4 bootstro" data-bootstro-placement="bottom" data-bootstro-title="View test results" data-bootstro-content="Click on the link to view your test results">
     <h3>View test results</h3>
     <p>View all student test results!</p>
     <a href="TestResults.php?ID=<?php echo $_SESSION['UserID'];?>">View</a></div>
@@ -49,9 +49,7 @@
 <script>
 			$(document).ready(function(){
 				$('#help').click(function(){
-					bootstro.start(".bootstro", {
-						finishButton: ''
-					});
+					bootstro.start(".bootstro");
 				});
 			});
 		</script>
